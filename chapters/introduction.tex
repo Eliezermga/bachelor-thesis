@@ -1,0 +1,93 @@
+\chapter{Introduction générale}
+
+Ce chapitre présente le contexte général de l'étude, la problématique, les objectifs du mémoire, les hypothèses de recherche, les contributions du travail ainsi que l'organisation générale du mémoire.
+
+\section{Contexte de l'étude}
+
+La traduction automatique constitue aujourd'hui un domaine majeur du \ac{TAL}. Les progrès récents de l'intelligence artificielle, notamment ceux liés à l'apprentissage profond et aux architectures Transformer \cite{vaswani2017attention}, ont permis le développement de systèmes de traduction automatique neuronale capables de produire des traductions de haute qualité pour plusieurs langues disposant d'importantes ressources numériques \cite{ranathunga2023neural}.
+
+Cependant, ces avancées concernent principalement les langues dites \textbf{à fortes ressources}, telles que l'anglais, le français ou le chinois, pour lesquelles de très grands volumes de données parallèles sont disponibles. À l'inverse, plusieurs langues africaines demeurent faiblement représentées dans les technologies linguistiques modernes en raison du manque de ressources numériques exploitables \cite{agyei2024low, ranathunga2023neural}. Ces langues sont généralement qualifiées de \textbf{\ac{LFR}}.
+
+Parmi ces langues figure le \textbf{ruund}, une langue bantoue parlée principalement en République Démocratique du Congo et en Angola. Malgré son importance culturelle et sociale, cette langue reste très peu exploitée dans le domaine du traitement automatique des langues. Les ressources numériques disponibles sont rares, peu structurées et souvent non numérisées, ce qui limite fortement le développement d'outils intelligents tels que les systèmes de traduction automatique \cite{haulai2023construction, jindal2017building}.
+
+Dans ce contexte, les approches modernes basées sur les modèles neuronaux multilingues pré-entraînés offrent de nouvelles perspectives pour le développement de systèmes de traduction adaptés aux langues à faibles ressources \cite{rakhimov2024enhancing, lalrempuii2023investigating}. Ces modèles permettent de transférer des connaissances acquises sur plusieurs langues afin d'améliorer les performances de traduction même lorsque les données disponibles sont limitées \cite{nguyen2017transfer, ma2025dongba}.
+
+Le présent mémoire s'inscrit dans cette dynamique et porte sur les \textbf{approches de traduction automatique pour les langues à faibles ressources}, avec une application particulière au couple \textbf{ruund--français}.
+
+\section{Problématique}
+
+Le développement des systèmes modernes de traduction automatique repose principalement sur la disponibilité de grands volumes de données parallèles permettant l'apprentissage des correspondances linguistiques entre les langues source et cible \cite{ranathunga2023neural}. Toutefois, dans le cas des langues à faibles ressources telles que le ruund, ces données sont extrêmement limitées, ce qui constitue un obstacle majeur à l'entraînement des modèles neuronaux performants \cite{haulai2023construction, agyei2024low}.
+
+L'absence de datasets parallèles structurés, le manque de ressources linguistiques numériques ainsi que la faible disponibilité des travaux de recherche dédiés au ruund rendent difficile le développement d'un système de traduction automatique fiable \cite{jindal2017building, haulai2023construction}. De plus, les spécificités morphologiques et syntaxiques des langues bantoues augmentent davantage la complexité du problème \cite{chen-fazio-2021-morphologically, toraman2022impact, aci2025morphological}.
+
+Face à cette situation, plusieurs interrogations scientifiques se posent :
+
+\begin{itemize}
+    \item Comment construire un dataset parallèle ruund--français exploitable pour l'apprentissage automatique ?
+    
+    \item Quelles techniques de prétraitement et d'alignement peuvent être utilisées pour améliorer la qualité des données  ?
+    
+    \item Dans quelle mesure les modèles multilingues pré-entraînés peuvent-ils améliorer les performances de traduction dans un contexte à faibles ressources ?
+    
+    \item Quelles performances peuvent être obtenues avec une quantité limitée de données parallèles ?
+\end{itemize}
+
+La problématique principale de ce mémoire consiste donc à étudier comment développer un système de traduction automatique neuronale capable de produire des traductions exploitables entre le ruund et le français malgré la rareté des ressources linguistiques disponibles.
+
+\section{Objectifs du mémoire}
+
+\subsection{Objectif général}
+
+L'objectif général de ce mémoire est de concevoir et d'évaluer un système de traduction automatique du ruund vers le français adapté au contexte des langues à faibles ressources.
+
+\subsection{Objectifs spécifiques}
+
+Plus spécifiquement, il s'agit de :
+
+\begin{itemize}
+    \item Étudier les approches modernes de traduction automatique adaptées aux langues à faibles ressources ;
+    
+    \item Construire un dataset parallèle ruund--français à partir de ressources textuelles disponibles ;
+    
+    \item Effectuer le prétraitement, le nettoyage et l'alignement des données collectées ;
+    
+    \item Expérimenter différents modèles de traduction automatique neuronale, notamment les modèles multilingues pré-entraînés ;
+    
+    \item Évaluer les performances des modèles entraînés à l'aide de métriques adaptées ;
+    
+    \item Développer une application intégrant le modèle de traduction ainsi qu'un système de collecte de données textuelles et vocales.
+\end{itemize}
+
+\section{Hypothèses de recherche}
+
+Ce travail repose sur les hypothèses suivantes :
+
+\begin{itemize}
+    \item La construction d'un dataset parallèle ruund--français de qualité peut améliorer significativement les performances de traduction automatique ;
+    
+    \item Les modèles multilingues pré-entraînés permettent de compenser partiellement le manque de ressources linguistiques disponibles ;
+    
+    \item L'utilisation des techniques modernes de traduction automatique neuronale peut produire des résultats exploitables même dans un contexte de faible disponibilité des données .
+\end{itemize}
+
+\section{Contributions du mémoire}
+
+Les principales contributions de ce travail sont les suivantes :
+
+\begin{itemize}
+    \item La construction d'un dataset parallèle ruund--français ;
+    
+    \item L'expérimentation des approches modernes de traduction automatique neuronale pour une langue à faibles ressources ;
+    
+    \item L'évaluation des performances de plusieurs modèles de traduction ;
+    
+    \item Le développement d'une application de collecte de données linguistiques intégrant un système de traduction automatique.
+\end{itemize}
+
+\section{Organisation du mémoire}
+
+Le présent mémoire est structuré en deux grandes parties.
+
+La première partie est consacrée à la construction du dataset parallèle ruund--français. Elle présente l'état de l'art, les concepts théoriques, les caractéristiques linguistiques du ruund ainsi que les différentes étapes de collecte, de préparation et de prétraitement des données.
+
+La seconde partie porte sur l'entraînement du modèle de traduction automatique neuronale. Elle décrit les approches méthodologiques adoptées, les architectures utilisées, les expérimentations réalisées, les résultats obtenus ainsi que les perspectives d'amélioration du système proposé.

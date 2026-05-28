@@ -1,0 +1,99 @@
+\chapter{État de l'art}
+L'\textbf{intelligence artificielle} connaît une évolution rapide et transforme profondément plusieurs domaines technologiques, notamment le \textbf{traitement automatique des langues naturelles}. Grâce aux avancées du \textit{machine learning} et du \textit{deep learning}, les systèmes informatiques sont désormais capables d'analyser, comprendre et générer du langage humain avec une efficacité croissante.
+
+Le \textbf{\ac{TAL}} constitue aujourd'hui un domaine central de l'intelligence artificielle. Parmi ses principales applications figure la \textbf{traduction automatique}, qui a évolué des approches basées sur des règles vers des modèles neuronaux utilisant les architectures \textbf{Transformer} \cite{vaswani2017attention}. Ces modèles offrent des performances élevées, mais nécessitent généralement de grandes quantités de données linguistiques \cite{ranathunga2023neural}.
+
+Cependant, les \textbf{\ac{LFR}} demeurent insuffisamment représentées dans les technologies numériques modernes \cite{ranathunga2023neural}. Cette problématique est particulièrement visible dans le contexte africain, où de nombreuses langues locales disposent de peu de corpus numériques et d'outils linguistiques adaptés \cite{agyei2024low}. Le \textbf{ruund} fait partie de ces langues sous-représentées, ce qui limite son intégration dans les systèmes de traduction automatique \cite{haulai2023construction}.
+
+Dans ce contexte, ce chapitre présente les fondements théoriques liés à l'intelligence artificielle, au \ac{TAL} et à la \textbf{\ac{TAN}}. Il aborde également les problématiques des \ac{LFR}, le contexte linguistique africain ainsi que les travaux existants afin de justifier l'intérêt scientifique de cette recherche sur la traduction automatique ruund--français.
+
+
+%------------------------------------------------------------
+\section{Fondements théoriques}
+%------------------------------------------------------------
+
+\subsection{Intelligence artificielle}
+
+\subsubsection{Définition et évolution de l'intelligence artificielle}
+
+L'\textbf{\ac{IA}} désigne un ensemble de méthodes et de techniques permettant à une machine de reproduire certaines capacités cognitives humaines telles que l'apprentissage, le raisonnement, la résolution de problèmes ou la prise de décision. Ce domaine de recherche vise principalement à concevoir des systèmes capables d'exécuter automatiquement des tâches nécessitant normalement l'intelligence humaine \cite{Goodfellow-et-al-2016}.
+
+L'évolution des capacités de calcul, la disponibilité massive des données numériques ainsi que les progrès des réseaux de neurones ont favorisé l'émergence du \textit{machine learning} puis du \textit{deep learning} \cite{Goodfellow-et-al-2016}. Ces approches permettent aux systèmes informatiques d'apprendre automatiquement des représentations complexes à partir des données, améliorant considérablement les performances dans plusieurs domaines tels que la vision par ordinateur, la reconnaissance vocale et le traitement automatique des langues \cite{ranathunga2023neural}.
+
+\subsubsection{Domaines d'application de l'\ac{IA}}
+
+L'\textbf{intelligence artificielle} est aujourd'hui utilisée dans de nombreux secteurs scientifiques, industriels et sociaux. L'\ac{IA} joue également un rôle majeur dans les technologies linguistiques modernes. Les avancées récentes des modèles neuronaux ont permis le développement d'applications capables de traiter automatiquement les langues humaines avec un niveau de précision élevé \cite{vaswani2017attention, ranathunga2023neural}.
+
+\subsubsection{\ac{IA} et traitement automatique des langues}
+
+Le \textbf{traitement automatique des langues naturelles} (\textit{\ac{NLP}}) constitue une branche de l'\ac{IA} consacrée à l'analyse, à la compréhension et à la génération du langage humain par les machines. Ce domaine combine des connaissances issues de l'informatique, de la linguistique et de l'apprentissage automatique \cite{ranathunga2023neural}.
+
+Les applications du \ac{TAL} sont nombreuses, notamment la \textbf{traduction automatique}, la reconnaissance vocale, l'analyse de sentiments, le résumé automatique de textes et les agents conversationnels. Les progrès récents du \textit{deep learning} et des architectures \textbf{Transformer} ont considérablement amélioré les performances des systèmes \ac{NLP}, en particulier dans les tâches de \textbf{traduction automatique neuronale} \cite{vaswani2017attention, ranathunga2023neural, agyei2025dynamic}.
+
+%------------------------------------------------------------
+\subsection{Machine Learning}
+%------------------------------------------------------------
+
+\subsubsection{Définition du Machine Learning}
+
+Le \textbf{\ac{ML}} constitue une branche de l'intelligence artificielle permettant aux systèmes informatiques d'apprendre automatiquement à partir des données sans être explicitement programmés pour chaque tâche \cite{Goodfellow-et-al-2016}. Son objectif principal est de construire des modèles capables d'identifier des relations, des régularités ou des représentations à partir des données afin d'effectuer des prédictions ou des décisions automatiques \cite{Goodfellow-et-al-2016}.
+
+\subsubsection{Types d'apprentissage}
+
+Le \ac{ML} regroupe principalement trois grandes catégories d'apprentissage : l'apprentissage supervisé, l'apprentissage non supervisé et l'apprentissage par renforcement \cite{Goodfellow-et-al-2016}.
+
+\paragraph{L'Apprentissage supervisé :}
+
+ repose sur l'utilisation de données annotées contenant des exemples d'entrée et de sortie. Le modèle apprend alors à établir une relation entre les données d'entrée et les résultats attendus afin de prédire correctement de nouvelles données \cite{Goodfellow-et-al-2016}. Cette approche est largement utilisée dans les tâches de classification, de régression et de traduction automatique \cite{ranathunga2023neural}.
+
+\paragraph{L'Apprentissage non supervisé :}
+
+utilise des données non annotées. Dans ce cas, le système cherche automatiquement à identifier des structures, des regroupements ou des relations cachées dans les données \cite{Goodfellow-et-al-2016}. Cette approche est souvent utilisée pour le \textit{clustering}, la réduction de dimension ou l'analyse exploratoire des données.
+
+\paragraph{L'Apprentissage par renforcement :}
+
+repose sur un mécanisme d'interaction entre un agent et son environnement. Le système apprend progressivement en recevant des récompenses ou des pénalités selon les actions réalisées \cite{Goodfellow-et-al-2016}. Cette approche est principalement utilisée dans les systèmes de décision autonome, la robotique et certains domaines d'optimisation.
+
+\subsubsection{Apprentissage supervisé dans la traduction automatique}
+
+La \textbf{traduction automatique neuronale} (\ac{TAN}) repose principalement sur l'apprentissage supervisé. Dans cette approche, le modèle est entraîné à partir de \textbf{corpus parallèles} contenant des phrases dans une langue source et leurs traductions correspondantes dans une langue cible \cite{ranathunga2023neural, haulai2023construction, jindal2017building}.
+
+%------------------------------------------------------------
+\subsection{Deep Learning}
+%------------------------------------------------------------
+
+\subsubsection{Réseaux de neurones artificiels}
+
+Les \textbf{\ac{RNA}} sont des modèles informatiques inspirés du fonctionnement biologique du cerveau humain \cite{Goodfellow-et-al-2016}. Ils sont composés d'unités appelées \textbf{neurones artificiels}, organisées en différentes couches interconnectées. Chaque neurone reçoit des données en entrée, effectue des calculs mathématiques puis transmet un résultat à la couche suivante \cite{Goodfellow-et-al-2016}.
+
+\subsubsection{Réseaux neuronaux profonds}
+
+Le \textbf{\textit{\ac{DL}}} correspond à une évolution des réseaux de neurones artificiels utilisant plusieurs couches cachées. Ces architectures profondes permettent d'apprendre des représentations hiérarchiques et complexes des données, améliorant considérablement les performances des modèles d'intelligence artificielle \cite{Goodfellow-et-al-2016}.
+
+Les réseaux neuronaux profonds ont connu un développement important grâce à l'augmentation de la puissance de calcul, à la disponibilité des données massives et aux progrès des processeurs graphiques \cite{Goodfellow-et-al-2016}. Ils sont aujourd'hui utilisés dans plusieurs domaines tels que la vision par ordinateur, la reconnaissance vocale et le traitement automatique des langues \cite{ranathunga2023neural}.
+
+\subsubsection{Importance du Deep Learning dans le \ac{NLP}}
+
+Le \ac{DL} a profondément transformé le traitement automatique des langues naturelles. Contrairement aux approches traditionnelles basées sur des règles linguistiques ou des caractéristiques manuellement définies, les modèles profonds apprennent automatiquement les représentations linguistiques à partir des données \cite{Goodfellow-et-al-2016, ranathunga2023neural}.
+
+Cette évolution a permis l'apparition de modèles neuronaux performants capables de traiter des tâches complexes telles que la \textbf{\ac{TA}}, la génération de texte, les agents conversationnels et l'analyse sémantique \cite{ranathunga2023neural, agyei2025dynamic}. Les architectures modernes comme les \textbf{Transformers} ont particulièrement amélioré la qualité des systèmes \ac{NLP} en facilitant la prise en compte du contexte linguistique \cite{vaswani2017attention}.
+
+%------------------------------------------------------------
+\subsection{Traitement automatique des langues naturelles}
+%------------------------------------------------------------
+
+\subsubsection{Définition du \ac{TAL}}
+
+Le \textbf{traitement automatique des langues naturelles} (\textit{Natural Language Processing}--- \ac{NLP}) est une branche de l'intelligence artificielle consacrée à l'analyse, à la compréhension et à la génération automatique du langage humain par les machines. Ce domaine combine des connaissances issues de l'informatique, de la linguistique et du \ac{ML} afin de permettre aux systèmes informatiques de manipuler les langues naturelles de manière automatisée \cite{ranathunga2023neural}.
+
+Le \ac{TAL} vise principalement à faciliter l'interaction entre l'homme et la machine à travers le traitement des données textuelles et vocales. Les avancées récentes du \ac{DL} ont fortement amélioré les capacités des systèmes \ac{NLP} dans plusieurs tâches linguistiques complexes \cite{vaswani2017attention}.
+
+\subsubsection{Principales applications du \ac{TAL}}
+
+Le \ac{TAL} possède de nombreuses applications dans les technologies numériques modernes. Parmi les principales figurent la \textbf{traduction automatique}, la reconnaissance vocale, les assistants conversationnels, l'analyse de sentiments ainsi que les systèmes de recherche d'information \cite{ranathunga2023neural}.
+
+\subsubsection{\ac{TAL} et langues africaines}
+
+Malgré les progrès importants du \ac{TAL}, plusieurs langues africaines demeurent faiblement représentées dans les ressources numériques et les systèmes \ac{NLP} modernes. Cette situation s'explique notamment par le manque de corpus numériques, l'absence de standardisation linguistique et la rareté des outils de traitement adaptés \cite{agyei2024low}.
+
+Les \textbf{langues africaines à faibles ressources} rencontrent ainsi des difficultés importantes dans le développement d'applications telles que la \textbf{traduction automatique neuronale}. Le manque de données parallèles limite l'entraînement efficace des modèles de \ac{DL}, ce qui réduit les performances des systèmes développés pour ces langues \cite{mandiya2026lingala}.
