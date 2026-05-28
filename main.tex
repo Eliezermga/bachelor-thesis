@@ -1,385 +1,74 @@
-\documentclass[13pt]{report}
-\usepackage[utf8]{inputenc}
-\usepackage{float, graphicx}
-\usepackage[T1]{fontenc}
-\usepackage{enumitem}
-\usepackage{url}
-\usepackage{booktabs}
-\usepackage{enumerate}
-\usepackage [french]{babel}
-\usepackage[nonumberlist, acronym]{glossaries}
-\usepackage{apptools}
-\usepackage{xcolor}
-\usepackage{appendix}
-\usepackage{babel} 
+\documentclass[		%headinclude=true,
+		%twoside,
+		openright,
+		titlepage,
+		numbers=noenddot,
+		headinclude,
+		%1headlines, 
+	 	%footinclude=true,
+	 	cleardoublepage=empty,
+		dottedtoc, % Make page numbers in the table of contents flushed right with dots leading to them
+		%BCOR=5mm,
+		paper=a4,
+		fontsize=11pt, % Binding correction, paper type and font size
+		french,
+		american, % Languages, change this to your language(s)
+		]{scrreprt}
+                
+% Includes the file which contains all the document configurations and packages - make sure to edit this file
+\input{classicthesis-config}
+\bibliography{bibliography/references}
+\bibliographystyle{plain}  % ou IEEEtran, apalike, etc.
+\addbibresource{Bibliography.bib} % The file housing your bibliography
+%\addbibresource[label=ownpubs]{Self_Publications.bib} % Uncomment for optional self-publications
+
+%\hyphenation{Put special hyphenation here}
+\numberwithin{figure}{chapter}
+\newtheorem{definition}{Définition}[section]
+\newcommand{\italic}[1]{\textit{#1}}
+\newcommand{\n}{\\}
+\renewcommand\thesubsubsection{\alph{subsubsection}.}
+
+
+\usepackage{eso-pic}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \usepackage{geometry}
-\usepackage{booktabs}
-\usepackage{multicol}
-\usepackage{verbatim}
-\usepackage{enumitem}
-\usepackage{tabularx}
-\usepackage{booktabs}
-\usepackage{titlesec}
-\usepackage{hyperref} % Pour les liens hypertexte
-\usepackage{glossaries}
-\usepackage{cellspace}
-\setlength\cellspacetoplimit{9pt}
-\setlength\cellspacebottomlimit{9pt}
-\graphicspath{ {images/} }
-\usepackage{geometry}
-\geometry{top=1.5cm, bottom=2cm, left=2.5cm, right=2.5cm}
-\usepackage{array}
-\usepackage{adjustbox}
-\usepackage{longtable}
-\usepackage{csquotes}
-\usepackage{comment}
-\usepackage{setspace}
-% \usepackage{multirow}
-% \usepackage{times}
-% \usepackage{mathptmx}%Font type times Newromane
-\usepackage{times} 
-% \usepackage{amsmath}
-% \usepackage{tikz}
-% \usetikzlibrary{shapes.geometric, arrows}
-% \usepackage{fontspec} 
-% \setmainfont{Times New Roman}
-\usepackage{colortbl}
-\usepackage{enumitem}
-\usepackage{color}
-\definecolor{darkblue}{rgb}{0.0, 0.0, 0.5}
-\definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
-
-% Define a custom itemize environment
-\setlist[itemize]{
-  label=$\bullet$,  % Change bullet style to a filled circle
-  left=0pt,          % No extra indentation on the left
-  itemsep=5pt,       % Space between items
-  parsep=0pt,        % Space between paragraphs within items
-}
-\usepackage{ragged2e} 
-\usepackage[backend=biber,style=authoryear,sorting=nyt]{biblatex}
-\addbibresource{Bibliography.bib}
-
-\usepackage{tocloft}
-\setlength{\cftbeforesecskip}{0.2cm}
-\setlength{\cftbeforesubsecskip}{0.1cm}
-\setlength{\cftbeforesubsubsecskip}{0.1cm}
-
-% Redefine the bibliography environment to add numbering
-\defbibenvironment{bibliography}
-  {\enumerate
-     \setlength{\itemsep}{\bibitemsep}
-     \setlength{\parsep}{\bibparsep}}
-  {\endenumerate}
-  {\item}
-
-
-\defbibenvironment{bibliography}
-  {\enumerate
-     \setlength{\itemsep}{\bibitemsep}
-     \setlength{\parsep}{\bibparsep}}
-  {\endenumerate}
-  {\item}
-
-% Ensure lowercase references in the bibliography
-\AtBeginBibliography{\small}
-\DeclareFieldFormat*{title}{\MakeLowercase{#1}}
-\DeclareFieldFormat*{booktitle}{\MakeLowercase{#1}}
-\DeclareFieldFormat*{journaltitle}{\MakeLowercase{#1}}
-\DeclareFieldFormat*{author}{\MakeLowercase{#1}}
-
-
-% Devide the bibliography into different document types
-% Declare categories
-\DeclareBibliographyCategory{article}
-\DeclareBibliographyCategory{book}
-\DeclareBibliographyCategory{incollection}
-\DeclareBibliographyCategory{inproceedings}
-\DeclareBibliographyCategory{misc}
-\DeclareBibliographyCategory{online}
-\DeclareBibliographyCategory{phdthesis}
-\DeclareBibliographyCategory{report}
-\DeclareBibliographyCategory{techreport}
-
-% Add specific entries to categories (replace 'key1', 'key2', etc. with your actual keys)
-\addtocategory{article}{boudon2002theorie, genevois2014incidences, }
-\addtocategory{book}{mbimbi2018méthodes, }
-\addtocategory{incollection}{key5,key6,...}
-\addtocategory{inproceedings}{key7,key8,...}
-\addtocategory{misc}{key9,key10,...}
-\addtocategory{online}{key11,key12,...}
-\addtocategory{phdthesis}{key13,key14,...}
-\addtocategory{report}{key15,key16,...}
-\addtocategory{techreport}{key17,key18,...}
-
-
-
-
-
-% Customizing the chapter format
-\titleformat{\chapter}[hang] % Use hang format to align on one line
-  {\normalfont\huge\bfseries} % Formatting for the chapter title
-  {Chapitre \thechapter:} % Prefix for the chapter number
-  {1em} % Space between the prefix and the chapter title
-  {} % This is for the chapter title formatting
-
-
-
-
-
-
-
-
-
-
-
-%endacronym
-% \makeglossaries
-
-
-\AtBeginEnvironment{appendices}{\appendixtrue}
-
-\setlength{\parskip}{1\baselineskip}
-
-
-% Définir la numérotation pour \subsubsubsubsection
-\setcounter{secnumdepth}{5}
-
-\renewcommand{\normalsize}{\fontsize{12}{20}\selectfont}
-
-% Adjust the spacing before and after chapter titles
-\titlespacing*{\chapter}{0pt}{-5pt}{5pt}
-
-%%%%%Gestion des sections et subsections
-\setcounter{secnumdepth}{5}
-\setcounter{tocdepth}{5}
-
-\makeatletter
-\newcommand\subsubsubsection{\@startsection{paragraph}{4}{\z@}{-2.5ex\@plus -1ex \@minus -.25ex}{1.25ex \@plus .25ex}{\normalfont\normalsize\bfseries}}
-\newcommand\subsubsubsubsection{\@startsection{subparagraph}{5}{\z@}{-2.5ex\@plus -1ex \@minus -.25ex}{1.25ex \@plus .25ex}{\normalfont\normalsize\bfseries}}
-\makeatother
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%End
-
+\geometry{margin=2.5cm}
 \begin{document}
-%page de garde------------------------------------------
-\begin{titlepage}
-\begin{center}
-\textsc{ \textbf{}}\\
-\includegraphics[width=0.8\textwidth]{Images/Logo-UNH-scaled.jpg}\\ [1cm]
- 
-\textsc{\large FACULTE DES SCIENCES INFORMATIQUES}\\[2cm]
 
- 
- 
-{ \huge \bfseries{Approches de traduction automatique pour les langues à faibles ressources : application au ruwund–français }}\\[0.9cm]
+\pagenumbering{roman}
 
-\begin{flushright}
-Travail de fin d'études présenté en vue de l'obtention \\de Bachelier en Sciences Informatiques
- \\[0.5cm]
+\input{frontmatter/cover}
+\input{frontmatter/cover2}
+\input{frontmatter/declaration}
+\input{frontmatter/resume_fr}
+\input{frontmatter/abstract_en}
+\input{frontmatter/epigraphe}
+\input{frontmatter/Dedication}
+\input{frontmatter/Acknowledgments}
 
- 
-\textsc{\textbf{Option: Intelligence Artificielle}}\\[1cm]
-\end{flushright}
-
-\textsc{Présenté par:\textbf{MUNUNGA KAYINDA Eliezer} }\\[1.5cm]
-
-% Bottom of the page
-\vfill
-{\large Année Académique 2025-2026}
- 
-\end{center}
- 
-\end{titlepage}
-%page de garde------------------------------
-
-%deuxième page de garde------------------------------
-\begin{titlepage}
-\begin{center}
-\textsc{ \textbf{}}\\
-\includegraphics[width=0.8\textwidth]{Images/Logo-UNH-scaled.jpg}\\ 
- 
-\textsc{}\\[1cm]
- 
-\textsc{\large FACULTE DES SCIENCES INFORMATIQUES}\\[2cm]
-
- 
- 
-{ \huge \bfseries{Titre du travail }}\\[0.4cm]
-
-\begin{flushright}
-Travail de fin d'études présenté en vue de l'obtention \\de Bachelier en Sciences Informatiques
- \\[0.5cm]
-
- 
-\textsc{\textbf{Option: Intelligence Artificielle}}\\[1cm]
-\end{flushright}
-
-\textsc{Présenté par:\textbf{MUNUNGA KAYINDA Eliezer} }\\[1.5cm]
-
-\begin{minipage}[b]{\linewidth}
-
-\textbf{Directeur : Prof. Selain KASEREKA} 
-
-\vspace{1cm}
-
-
-\end{minipage}
-
-\begin{minipage}[b]{\linewidth}
-
-\textbf{Co-Directeur : CT Godwill} 
-
-\vspace{1cm}
-
-
-\end{minipage}
-
-% Bottom of the page
-\vfill
-{\large Année Académique 2025-2026}
- 
-\end{center}
- 
-\end{titlepage}
-
-%deuxième page de garde-------------------------------------
 
 \tableofcontents
- 
- \cleardoublepage
- %Résumé------------------------------------------------------
-\addcontentsline{toc}{chapter}{Résumé}
-\chapter*{Résumé}
-\input{Chapters/resume}
-
-
- %Fin Résumé----------------------------------------------------
-\addcontentsline{toc}{chapter}{Abstract}
-\chapter*{Abstract}
-\input{Chapters/Abstract}
-
- %Epigrapheé----------------------------------------------------
-\cleardoublepage
-\addcontentsline{toc}{chapter}{Epigraphe}
-\chapter*{Epigraphe}
-\begin{center}
-
-\vfill
-    
-   \textit{
-    \og "L'amélioration des conditions d'habitat et d'assainissement est une condition incontournable pour garantir le bien-être des populations urbaines et la durabilité des espaces de vie."
-    \fg}
-    
-    
-\begin{flushright}
-    \textbf{ONU-HABITATS 2020}
-\end{flushright}
-
-
- \textit{
-    \og"Les défis liés à l'habitat et à l'assainissement dans les zones urbaines ne peuvent être relevés qu'à travers une gestion participative et durable des ressources locales."
-    \fg}
-
-\begin{flushright}
-    \textbf{Mazrui, A. A., \& Suleiman, R. (2018).}
-\end{flushright}
-
-    \vfill
-\end{center}
-%Fin Epigrapheé-------------------------------------------------
-
-%In memorium
-\cleardoublepage
-\addcontentsline{toc}{chapter}{In Memorium}
-\chapter*{In Memorium}
-\input{Chapters/InMemorium}
-
-%Dédicace------------------------------------------------------
-\cleardoublepage
-\addcontentsline{toc}{chapter}{Dédicace}
-\chapter*{Dédicace}
-\input{Chapters/Dedicace}
-%Fin Dédicace-------------------------------------------------
-
-%Remerciements-------------------------------------------------
-\cleardoublepage
-\addcontentsline{toc}{chapter}{Remerciements}
-\chapter*{Remerciements}
-\input{Chapters/remerciements}
-%Fin Remerciements----------------------------------------------
-
-\cleardoublepage
-\addcontentsline{toc}{chapter}{Table des figures}
 \listoffigures
-
-\cleardoublepage
-\addcontentsline{toc}{chapter}{Liste des tableaux}
 \listoftables
+\input{frontmatter/abreviation}
 
-%acronym print
+\clearpage
+\pagenumbering{arabic}
+\setcounter{chapter}{-1}
 
-\glsaddall
+\input{chapters/introduction}
+\input{chapters/etat_art}
+\input{chapters/methodologie}
+\input{chapters/resultats}
+\input{chapters/conclusion}
 
-\addcontentsline{toc}{chapter}{Liste des acronymes}
-\chapter*{Liste des acronymes}
-\input{Chapters/acronymes}
+\printbibliography
 
-\addcontentsline{toc}{chapter}{Glossaire}
-\chapter*{Glossaire}
-\input{Chapters/glossaires}
-
-
-% \cleardoublepage
-% \addcontentsline{toc}{chapter}{Liste des acronymes}
-% \printglossary[type=\acronymtype ,title= Liste des acronymes, toctitle=List of terms]
-
-
-% \cleardoublepage
-% \addcontentsline{toc}{chapter}{Glossaire}
-% \printglossary
-% %\printglossaries
-
-%fin acronym
-\chapter*{Introduction Générale}
-\addcontentsline{toc}{chapter}{INTRODUCTION GENERALE}
-\input{Chapters/IntroductionGenerale} 
-
-\chapter{Revue de la littérature}
-\input{Chapters/Chapter1}
-
-\chapter{Milieu, Matériels \& Méthodes}
-\input{Chapters/Chapter2}
-
-\chapter{PRESENTATION DES RESULTATS}
-\input{Chapters/Chapter3}
-
-\chapter{DISCUSSION DES RESULTATS}
-\input{Chapters/Chapter4}
-
-\chapter*{Conclusion Générale}
-\input{Chapters/Conclusion}
-
-\newpage
-% Bibliography here
-\nocite{*}
-\printbibliography[title={Références bibliographiques}]
-
-% \addcontentsline{toc}{chapter}{Thèses}
-% \chapter*{Thèses}
-% \input{Chapters/theses}
-
-% \addcontentsline{toc}{chapter}{Domentaire et documents officiels}
-% \chapter*{Domentaire et documents officiels}
-% \input{Chapters/DocumentOfficiel}
-
-% \addcontentsline{toc}{chapter}{Revues}
-% \chapter*{Revues}
-% \input{Chapters/Revues}
-
-
-% \addcontentsline{toc}{chapter}{Webographie}
-% \chapter*{Webographie}
-% \input{Chapters/Webographie}
+\appendix
+\input{annexes/annexeA}
 
 \end{document}
