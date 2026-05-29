@@ -32,7 +32,7 @@
 %----------------------------------------------------------------------------------------
 
 % Remove drafting to get rid of the '[ Date - classicthesis version 4.0 ]' text at the bottom of every page
-\PassOptionsToPackage{eulerchapternumbers,listings, pdfspacing, subfig,beramono,eulermath,parts}{classicthesis}
+\PassOptionsToPackage{eulerchapternumbers,listings, pdfspacing, subfig,parts}{classicthesis}
 
 \newcommand{\myTitle}{Approches de traduction automatique pour les
 langues à faibles ressources : application au
@@ -72,7 +72,7 @@ ruund–French\xspace}
 %----------------------------------------------------------------------------------------
 
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
-\usepackage{minted}
+%\usepackage{minted}
 \usepackage{longtable}
 %------------------------------------------------
 
@@ -250,7 +250,8 @@ natbib=true % natbib compatibility mode (\citep and \citet still work)
 %	CHANGING TEXT AREA 
 %----------------------------------------------------------------------------------------
 
-%\linespread{1.05} % a bit more for Palatino
+% \linespread{1.2} % a bit more for Palatino
+\setlength{\parskip}{6pt}
 %\areaset[current]{312pt}{761pt} % 686 (factor 2.2) + 33 head + 42 head \the\footskip
 %\setlength{\marginparwidth}{7em}%
 %\setlength{\marginparsep}{2em}%
