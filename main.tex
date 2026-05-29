@@ -11,14 +11,15 @@
 		%BCOR=5mm,
 		paper=a4,
 		fontsize=11pt, % Binding correction, paper type and font size
-		french,
-		american, % Languages, change this to your language(s)
+		american,
+		french, % Languages, change this to your language(s)
 		]{scrreprt}
                 
 % Includes the file which contains all the document configurations and packages - make sure to edit this file
 \input{classicthesis-config}
 \bibliography{bibliography/references}
 \bibliographystyle{plain}  % ou IEEEtran, apalike, etc.
+\addbibresource{Bibliography.bib} % The file housing your bibliography
 %\addbibresource[label=ownpubs]{Self_Publications.bib} % Uncomment for optional self-publications
 
 %\hyphenation{Put special hyphenation here}
