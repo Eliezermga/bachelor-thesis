@@ -1,4 +1,4 @@
-\chapter{État de l'art}
+\chapter{Revue de littérature}
 L'\textbf{intelligence artificielle} connaît une évolution rapide et transforme profondément plusieurs domaines technologiques, notamment le \textbf{traitement automatique des langues naturelles}. Grâce aux avancées du \textit{machine learning} et du \textit{deep learning}, les systèmes informatiques sont désormais capables d'analyser, comprendre et générer du langage humain avec une efficacité croissante.
 
 Le \textbf{\ac{TAL}} constitue aujourd'hui un domaine central de l'intelligence artificielle. Parmi ses principales applications figure la \textbf{traduction automatique}, qui a évolué des approches basées sur des règles vers des modèles neuronaux utilisant les architectures \textbf{Transformer} \cite{vaswani2017attention}. Ces modèles offrent des performances élevées, mais nécessitent généralement de grandes quantités de données linguistiques \cite{ranathunga2023neural}.
@@ -28,7 +28,7 @@ L'\textbf{intelligence artificielle} est aujourd'hui utilisée dans de nombreux 
 
 Le \textbf{traitement automatique des langues naturelles} (\textit{\ac{NLP}}) constitue une branche de l'\ac{IA} consacrée à l'analyse, à la compréhension et à la génération du langage humain par les machines. Ce domaine combine des connaissances issues de l'informatique, de la linguistique et de l'apprentissage automatique \cite{ranathunga2023neural}.
 
-Les applications du \ac{TAL} sont nombreuses, notamment la \textbf{traduction automatique}, la reconnaissance vocale, l'analyse de sentiments, le résumé automatique de textes et les agents conversationnels. Les progrès récents du \textit{deep learning} et des architectures \textbf{Transformer} ont considérablement amélioré les performances des systèmes \ac{NLP}, en particulier dans les tâches de \textbf{traduction automatique neuronale} \cite{vaswani2017attention, ranathunga2023neural, agyei2025dynamic}.
+Les applications du \ac{TAL} sont nombreuses, notamment la \textbf{traduction automatique}, la reconnaissance vocale, l'analyse de sentiments, le résumé automatique de textes et les agents conversationnels. Les progrès récents du \textit{deep learning} et des architectures \textbf{Transformer} ont considérablement amélioré les performances des systèmes \ac{NLP}, en particulier dans les tâches de \textbf{TAN (\ac{NMT})} \cite{vaswani2017attention, ranathunga2023neural, agyei2025dynamic}.
 
 %------------------------------------------------------------
 \subsection{Machine Learning}
@@ -97,3 +97,392 @@ Le \ac{TAL} possède de nombreuses applications dans les technologies numérique
 Malgré les progrès importants du \ac{TAL}, plusieurs langues africaines demeurent faiblement représentées dans les ressources numériques et les systèmes \ac{NLP} modernes. Cette situation s'explique notamment par le manque de corpus numériques, l'absence de standardisation linguistique et la rareté des outils de traitement adaptés \cite{agyei2024low}.
 
 Les \textbf{langues africaines à faibles ressources} rencontrent ainsi des difficultés importantes dans le développement d'applications telles que la \textbf{traduction automatique neuronale}. Le manque de données parallèles limite l'entraînement efficace des modèles de \ac{DL}, ce qui réduit les performances des systèmes développés pour ces langues \cite{mandiya2026lingala}.
+
+%------------------------------------------------------------
+\subsection{Traduction automatique}
+%------------------------------------------------------------
+
+\subsubsection{Définition de la traduction automatique}
+
+La \textbf{traduction automatique} (\ac{TA}) désigne l'utilisation de systèmes informatiques capables de traduire automatiquement un texte d'une langue source vers une langue cible sans intervention humaine directe. Elle constitue l'une des principales applications du traitement automatique des langues naturelles \cite{ranathunga2023neural}.
+
+L'objectif de la \ac{TA} est de produire des traductions grammaticalement correctes et sémantiquement cohérentes tout en conservant le sens du texte original. Les performances des systèmes de traduction ont considérablement évolué grâce aux progrès du \ac{ML} et du \ac{DL} \cite{vaswani2017attention}.
+
+\subsubsection{\ac{TAB}}
+
+Les premiers systèmes de traduction automatique reposaient principalement sur des approches basées sur des règles linguistiques (\textit{\ac{RBMT}}). Ces systèmes utilisaient des dictionnaires bilingues ainsi que des règles grammaticales définies manuellement par des experts linguistes \cite{ranathunga2023neural}.
+
+Cette approche nécessitait une importante expertise linguistique et un travail manuel considérable pour chaque paire de langues. Bien qu'elle permette un certain contrôle linguistique, elle présentait des difficultés importantes face aux ambiguïtés lexicales et aux variations contextuelles des langues naturelles \cite{dundjer2020automatic}.
+
+\subsubsection{\ac{TAS}}
+
+La \textbf{\ac{TAS}} (\textit{\ac{SMT}}) a ensuite remplacé progressivement les approches basées sur des règles. Cette méthode repose sur l'apprentissage de relations statistiques à partir de grands corpus parallèles contenant des phrases alignées dans plusieurs langues.
+
+Les systèmes statistiques analysent les probabilités de correspondance entre les mots et les segments linguistiques afin de générer des traductions automatiques. Cette approche a permis d'améliorer significativement la qualité des traductions par rapport aux systèmes basés uniquement sur des règles linguistiques \cite{ahmadnia2018neural}.
+
+\subsubsection{Limites des approches classiques}
+
+Malgré leurs contributions importantes, les approches classiques de traduction automatique présentent plusieurs limites. Les systèmes basés sur des règles nécessitent un important travail manuel et restent difficiles à adapter à de nouvelles langues. Les approches statistiques, quant à elles, dépendent fortement de la disponibilité de grands corpus parallèles et rencontrent des difficultés dans la gestion du contexte global des phrases \cite{ranathunga2023neural}.
+
+Ces limitations ont favorisé l'émergence de la \textbf{traduction automatique neuronale} (\ac{TAN}), capable d'apprendre automatiquement des représentations linguistiques plus complexes et de produire des traductions plus naturelles et plus cohérentes \cite{vaswani2017attention}.
+
+\begin{table}[H]
+\centering
+\caption{Comparaison des approches de traduction automatique}
+\label{tab:comparaison_ta}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{3.2cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+\hline
+\textbf{Critère} & \textbf{\ac{RBMT}} & \textbf{\ac{SMT}} & \textbf{\ac{NMT}} \\
+\hline
+\textbf{Période} & Années 1950--1990 & Années 1990--2015 & Depuis 2015 \\
+\hline
+\textbf{Principe} & Règles linguistiques et dictionnaires bilingues définis manuellement & Modèles probabilistes appris à partir de corpus parallèles & Réseaux de neurones profonds entraînés sur corpus parallèles \\
+\hline
+\textbf{Données requises} & Règles et lexiques manuels & Grands corpus parallèles & Grands corpus parallèles \\
+\hline
+\textbf{Apprentissage} & Non automatique & Automatique (statistique) & Automatique (neuronal) \\
+\hline
+\textbf{Gestion du contexte} & Limitée & Partielle (n-grammes) & Globale (mécanisme d'attention) \\
+\hline
+\textbf{Qualité des traductions} & Contrôlée mais rigide & Meilleure que \ac{RBMT} & Meilleure qualité globale \\
+\hline
+\textbf{Langues à faibles ressources} & Difficile (expertise manuelle) & Difficile (manque de corpus) & Difficile (manque de données) \\
+\hline
+\textbf{Exemples de systèmes} & Systran, Apertium & Moses, Pharaoh & mBART, NLLB... \\
+\hline
+\end{tabular}
+\end{table}
+
+%------------------------------------------------------------
+\subsection{Traduction automatique neuronale (\ac{TAN})}
+%------------------------------------------------------------
+
+\subsubsection{Principe de la traduction neuronale}
+
+La \textbf{traduction automatique neuronale} (\textit{\ac{NMT}}) constitue une approche moderne de traduction automatique fondée sur les réseaux de neurones profonds. Contrairement aux approches classiques basées sur des règles ou des probabilités statistiques, la traduction neuronale apprend automatiquement les relations linguistiques entre les langues à partir de corpus parallèles \cite{ranathunga2023neural}.
+
+Le modèle reçoit une phrase dans une langue source et génère directement sa traduction dans une langue cible. Cette approche permet de produire des traductions plus fluides, plus cohérentes et mieux adaptées au contexte linguistique \cite{vaswani2017attention}.
+
+\subsubsection{Architectures encodeur-décodeur}
+
+Les premiers systèmes de traduction neuronale reposaient principalement sur l'architecture \textbf{encodeur-décodeur} (\textit{Encoder--Decoder}). Dans cette architecture, l'encodeur transforme la phrase source en une représentation numérique appelée \textbf{vecteur de contexte}, tandis que le décodeur utilise cette représentation pour générer progressivement la phrase traduite \cite{ranathunga2023neural}.
+
+Cette architecture a permis d'améliorer considérablement les performances de la traduction automatique en facilitant l'apprentissage des relations sémantiques entre les langues \cite{lalrempuii2021improved}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.50\textwidth]{Images/encode_decoder.png}
+    \caption{L’Encodeur-Décodeur \cite{keldenich2021encoder}}
+    \label{fig:encoder_decoder}
+\end{figure}
+
+\subsubsection{Mécanisme d'attention}
+
+Le \textbf{mécanisme d'attention} (\textit{Attention Mechanism}) a été introduit afin de résoudre certaines limites des architectures encodeur-décodeur classiques, notamment les difficultés liées aux longues phrases \cite{vaswani2017attention}.
+
+L'attention permet au modèle de se concentrer sur les parties les plus pertinentes de la phrase source lors de la génération de chaque mot traduit. Cette approche améliore la prise en compte du contexte linguistique et augmente la qualité des traductions produites \cite{gangar2021hindi}.
+
+Le mécanisme d'attention constitue également la base des architectures \textbf{Transformer} utilisées dans les modèles modernes de traduction automatique neuronale \cite{vaswani2017attention}.
+
+\subsubsection{Avantages des approches neuronales}
+
+Les approches neuronales présentent plusieurs avantages par rapport aux méthodes classiques de traduction automatique. Elles permettent de produire des traductions plus naturelles, plus cohérentes et mieux contextualisées. Elles réduisent également la nécessité de définir manuellement des règles linguistiques complexes \cite{ranathunga2023neural}.
+
+Les modèles neuronaux sont capables d'apprendre automatiquement des représentations linguistiques riches et de mieux gérer les relations contextuelles entre les mots. Cependant, leurs performances dépendent fortement de la disponibilité des données d'entraînement et des ressources de calcul, ce qui représente un défi important pour les \textbf{langues à faibles ressources (\ac{LFR})} telles que le ruund \cite{haulai2023construction}.
+
+%------------------------------------------------------------
+\subsection{Architectures Transformer}
+%------------------------------------------------------------
+
+\subsubsection{Origine des Transformers}
+
+Les architectures \textbf{Transformer} ont été introduites en 2017 afin d'améliorer les performances des modèles de traitement automatique des langues. Contrairement aux réseaux récurrents traditionnels (\ac{RNN}), les Transformers reposent principalement sur le mécanisme d'attention, permettant un traitement parallèle des données textuelles \cite{vaswani2017attention}.
+
+Cette architecture a marqué une évolution majeure dans le domaine du \ac{NLP} en améliorant la qualité des tâches linguistiques telles que la traduction automatique, la génération de texte et la compréhension du langage naturel \cite{ranathunga2023neural}.
+
+\subsubsection{Fonctionnement du mécanisme d'attention}
+
+Le \textbf{mécanisme d'attention} permet au modèle d'identifier les éléments les plus importants d'une phrase lors du traitement linguistique. Pour chaque mot, le système évalue les relations avec les autres mots de la séquence afin de mieux comprendre le contexte global \cite{vaswani2017attention}.
+
+Cette approche améliore la gestion des dépendances linguistiques longues et réduit certaines limitations des architectures récurrentes classiques. Les Transformers utilisent principalement une variante appelée \textbf{\textit{Self-Attention}}, dans laquelle chaque mot peut interagir directement avec les autres mots de la phrase \cite{vaswani2017attention}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.50\textwidth]{Images/Archi-transformers.png}
+    \caption{Architecture Transformer \cite{vaswani2017attention}}
+    \label{fig: Architecture Transformer}
+\end{figure}
+
+\subsubsection{Représentation contextuelle des mots}
+
+Les architectures Transformer permettent de générer des \textbf{représentations contextuelles} des mots. Contrairement aux représentations statiques traditionnelles, le sens d'un mot est interprété selon son contexte dans la phrase \cite{vaswani2017attention}.
+
+Cette capacité améliore considérablement la compréhension sémantique et réduit les ambiguïtés linguistiques. Les modèles modernes peuvent ainsi produire des traductions plus cohérentes et mieux adaptées au contexte du texte source \cite{rakhimov2024enhancing}.
+
+\subsubsection{Transformers et traduction multilingue}
+
+Les Transformers constituent aujourd'hui la base des principaux modèles de traduction automatique multilingue tels que \textbf{mBART}, \textbf{MarianMT} ou \textbf{NLLB}. Ces modèles sont capables d'apprendre simultanément plusieurs langues à partir de grands corpus multilingues \cite{rakhimov2024enhancing}.
+
+Cette approche facilite le transfert de connaissances entre les langues à fortes ressources et les \textbf{langues à faibles ressources}. Elle représente ainsi une solution importante pour le développement de systèmes de traduction automatique adaptés aux langues africaines peu représentées numériquement, notamment le ruund \cite{mandiya2026lingala}.
+
+%------------------------------------------------------------
+\subsection{Modèles multilingues de traduction}
+%------------------------------------------------------------
+
+\subsubsection{Modèles pré-entraînés multilingues}
+
+Les \textbf{modèles pré-entraînés multilingues} sont des modèles neuronaux entraînés sur de grandes quantités de données provenant de plusieurs langues simultanément. Leur objectif est d'apprendre des représentations linguistiques générales capables d'être réutilisées dans différentes tâches de traitement automatique des langues, notamment la traduction automatique \cite{ranathunga2023neural}.
+
+Ces modèles reposent principalement sur les architectures \textbf{Transformer} et exploitent le transfert de connaissances entre langues. Cette approche est particulièrement importante pour les \textbf{langues à faibles ressources}, car elle permet d'améliorer les performances même lorsque les données disponibles sont limitées \cite{nguyen2017transfer}.
+
+\subsubsection{Présentation de \ac{mBART}}
+
+\textbf{mBART-50} est un modèle multilingue de traduction automatique fondé sur l'architecture Transformer. Il repose sur une stratégie de pré-entraînement séquence-à-séquence permettant au modèle d'apprendre des représentations linguistiques à partir de plusieurs langues \cite{rakhimov2024enhancing}.
+
+Le modèle prend en charge plusieurs dizaines de langues et peut être adapté à des tâches spécifiques grâce au \textit{fine-tuning}. mBART-50 est particulièrement utilisé dans les contextes multilingues et les langues à faibles ressources grâce à sa capacité de transfert linguistique \cite{rakhimov2024enhancing}.
+
+\subsubsection{Présentation de NLLB-200-distilled-600M}
+
+\textbf{NLLB-200-distilled-600M} est un modèle développé dans le cadre du projet \textit{\ac{NLLB}}. Son objectif principal est d'améliorer la traduction automatique pour les langues sous-représentées dans les technologies numériques \cite{ranathunga2023neural}.
+
+Ce modèle prend en charge un très grand nombre de langues, notamment plusieurs langues africaines. Grâce à son entraînement multilingue massif, il offre de bonnes capacités de généralisation et de transfert vers les langues à faibles ressources. La version distillée permet également de réduire les besoins en ressources computationnelles tout en conservant des performances importantes \cite{agyei2025dynamic}.
+
+\subsubsection{Présentation de \ac{MarianMT}}
+
+\textbf{\ac{MarianMT}} est un modèle de traduction automatique neuronale basé sur l'architecture Transformer et développé pour les tâches de traduction multilingue. Il est largement utilisé dans les bibliothèques \ac{NLP} modernes grâce à sa flexibilité et à sa compatibilité avec plusieurs paires de langues \cite{angel2023comparing}.
+
+MarianMT propose des modèles pré-entraînés spécialisés pour différentes combinaisons linguistiques et peut également être adapté à des contextes spécifiques à travers le \textit{fine-tuning} \cite{lalrempuii2023investigating}.
+
+\subsubsection{Comparaison générale des modèles}
+
+Les modèles mBART-50, NLLB-200-distilled-600M et MarianMT reposent tous sur les architectures Transformer et utilisent des approches multilingues de traduction automatique neuronale. Le tableau~\ref{tab:comparaison_modeles} présente une synthèse comparative de ces trois modèles selon plusieurs critères pertinents pour le contexte des langues à faibles ressources \cite{rakhimov2024enhancing, ranathunga2023neural}.
+
+\begin{table}[H]
+\centering
+\caption{Comparaison des modèles multilingues de traduction automatique}
+\label{tab:comparaison_modeles}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{3.2cm}|p{3.4cm}|p{3.4cm}|p{3.4cm}|}
+\hline
+\textbf{Critère} & \textbf{\ac{mBART}-50} & \textbf{\ac{NLLB}-200-distilled-600M} & \textbf{\ac{MarianMT}} \\
+\hline
+\textbf{Architecture} & Transformer seq2seq & Transformer seq2seq & Transformer seq2seq \\
+\hline
+\textbf{Nombre de langues} & 50 langues & 200+ langues & Paires spécifiques \\
+\hline
+\textbf{Stratégie de pré-entraînement} & Débruitage multilingue & Entraînement supervisé massif & Entraînement supervisé par paire \\
+\hline
+\textbf{Langues africaines} & Couverture limitée & Couverture étendue & Très limitée \\
+\hline
+\textbf{Adaptation (fine-tuning)} & Oui & Oui & Oui \\
+\hline
+\textbf{Ressources computationnelles} & Modérées & Réduites (version distillée) & Légères \\
+\hline
+\textbf{Langues à faibles ressources} & Performant après fine-tuning & Orienté LFR & Dépend de la paire \\
+\hline
+\textbf{Disponibilité} & HuggingFace & HuggingFace & HuggingFace \\
+\hline
+\end{tabular}
+\end{table}
+
+Le choix du modèle dépend principalement de plusieurs facteurs tels que la disponibilité des données, les ressources computationnelles et les objectifs de la tâche de traduction \cite{ranathunga2023neural}.
+
+%------------------------------------------------------------
+\subsection{Entraînement et adaptation des modèles neuronaux}
+%------------------------------------------------------------
+
+\subsubsection{Pré-entraînement des modèles}
+
+Le \textbf{pré-entraînement} consiste à entraîner un modèle neuronal sur de très grandes quantités de données textuelles avant son utilisation dans une tâche spécifique. Cette étape permet au modèle d'apprendre des représentations linguistiques générales telles que les relations syntaxiques, sémantiques et contextuelles entre les mots \cite{Goodfellow-et-al-2016, ranathunga2023neural}.
+
+\subsubsection{Fine-tuning des modèles multilingues}
+
+Le \textbf{\textit{fine-tuning}} correspond à l'adaptation d'un modèle pré-entraîné à une tâche particulière à l'aide d'un corpus spécialisé. Dans le contexte de la traduction automatique, cette étape consiste à réentraîner le modèle sur des données parallèles spécifiques à une paire de langues donnée \cite{rakhimov2024enhancing}.
+
+Le \textit{fine-tuning} permet d'améliorer les performances du modèle dans un domaine précis tout en exploitant les connaissances acquises lors du pré-entraînement. Cette méthode est particulièrement utilisée pour les \textbf{langues à faibles ressources}, car elle réduit les besoins en grandes quantités de données d'entraînement \cite{ma2025dongba}.
+
+\subsubsection{Transfer learning dans les langues à faibles ressources}
+
+Le \textbf{\textit{Transfer Learning}} ou \textbf{apprentissage par transfert} consiste à réutiliser les connaissances acquises par un modèle sur des langues ou des tâches disposant de grandes quantités de données afin d'améliorer les performances sur des langues moins représentées \cite{nguyen2017transfer, lalrempuii2023investigating}.
+
+\subsubsection{Paramètres et poids des modèles}
+
+Les modèles neuronaux sont composés de nombreux paramètres appelés \textbf{poids} (\textit{weights}), appris automatiquement pendant l'entraînement. Ces paramètres représentent les relations mathématiques apprises par le modèle à partir des données \cite{Goodfellow-et-al-2016}.
+
+Les grands modèles multilingues possèdent souvent des millions, voire des milliards de paramètres. L'ajustement de ces poids pendant l'entraînement et le \textit{fine-tuning} permet au système d'améliorer progressivement ses performances de traduction \cite{rakhimov2024enhancing}.
+
+Cependant, l'augmentation du nombre de paramètres entraîne également des besoins plus importants en mémoire, en puissance de calcul et en données d'entraînement. Cette contrainte représente un défi majeur dans les contextes de \textbf{langues à faibles ressources (\ac{LFR})} et d'environnements computationnels limités \cite{agyei2025dynamic}.
+%------------------------------------------------------------
+\subsubsection{Hyperparamètres d'entraînement}
+
+Les performances des modèles neuronaux dépendent fortement du choix des \textbf{hyperparamètres d'entraînement}. Contrairement aux paramètres appris automatiquement par le modèle, les hyperparamètres sont définis avant l'entraînement et influencent directement la qualité de l'apprentissage \cite{Goodfellow-et-al-2016}. Les principaux hyperparamètres utilisés dans les systèmes de \ac{TAN} sont les suivants :
+
+\begin{itemize}
+
+    \item Le \textbf{\textit{learning rate}} détermine la vitesse de mise à jour des poids du modèle pendant l'apprentissage. Une valeur trop élevée peut entraîner une instabilité de l'entraînement, tandis qu'une valeur trop faible peut ralentir la convergence du modèle.
+
+    \item Le \textbf{\textit{batch size}} correspond au nombre d'exemples traités simultanément lors d'une étape d'entraînement. Une taille de batch élevée améliore généralement la stabilité des calculs, mais nécessite davantage de mémoire.
+
+    \item Les \textbf{\textit{epochs}} représentent le nombre de passages complets du modèle sur l'ensemble des données d'entraînement. Un nombre insuffisant d'epochs peut produire un sous-apprentissage (\textit{underfitting}), tandis qu'un nombre trop élevé peut provoquer un surapprentissage (\textit{overfitting}).
+
+\end{itemize}
+
+Le choix approprié de ces hyperparamètres est déterminant pour la convergence et les performances finales du modèle, en particulier dans les contextes à faibles ressources où les données d'entraînement sont limitées \cite{rakhimov2024enhancing}.
+
+%------------------------------------------------------------
+\subsubsection{Contraintes computationnelles}
+
+L'entraînement des modèles neuronaux de traduction automatique nécessite des ressources computationnelles importantes. Les contraintes computationnelles concernent principalement l'utilisation des \textbf{\ac{GPU}}, la capacité de stockage des données ainsi que le temps nécessaire pour entraîner et ajuster les modèles. Ces contraintes deviennent encore plus importantes dans les contextes de recherche disposant de ressources matérielles limitées \cite{Goodfellow-et-al-2016}.
+
+Dans le cadre des \textbf{langues à faibles ressources}, les difficultés computationnelles s'ajoutent souvent aux limitations liées aux données linguistiques. Il devient alors nécessaire d'utiliser des approches adaptées telles que le \textit{fine-tuning} de modèles pré-entraînés, les modèles distillés ou les architectures optimisées afin de réduire les coûts computationnels tout en maintenant des performances satisfaisantes \cite{agyei2025dynamic}.
+
+%------------------------------------------------------------
+\subsection{Tokenisation et représentations linguistiques}
+%------------------------------------------------------------
+
+\subsubsection{Tokenisation des textes}
+
+La \textbf{tokenisation} consiste à découper un texte en unités élémentaires appelées \textbf{tokens}. Ces unités peuvent correspondre à des mots, des caractères ou des sous-mots selon l'approche utilisée. Cette étape constitue une phase essentielle du prétraitement des données dans les systèmes de \ac{TAL} \cite{ranathunga2023neural}.
+
+La tokenisation permet de transformer les textes bruts en représentations exploitables par les modèles neuronaux \cite{Goodfellow-et-al-2016}.
+
+\subsubsection{Segmentation en sous-mots}
+
+Les modèles modernes de traduction automatique utilisent généralement une \textbf{segmentation en sous-mots} plutôt qu'une simple segmentation par mots entiers. Cette approche consiste à découper les mots en unités linguistiques plus petites afin de mieux gérer les mots rares ou inconnus \cite{toraman2022impact}.
+
+Cette stratégie est particulièrement adaptée aux langues morphologiquement riches et agglutinantes, pour lesquelles une tokenisation par mots entiers produirait un vocabulaire très large et peu généralisable \cite{chen-fazio-2021-morphologically}.
+
+\subsubsection{\ac{SentencePiece}}
+
+\textbf{\ac{SentencePiece}} est une méthode de tokenisation largement utilisée dans les modèles Transformer modernes. Contrairement aux approches traditionnelles dépendantes des espaces entre les mots, SentencePiece traite directement le texte brut et apprend automatiquement les unités de segmentation les plus pertinentes \cite{meyer2024systematic}.
+
+\subsubsection{Embeddings multilingues}
+
+Les \textbf{embeddings multilingues} sont des représentations vectorielles permettant de projeter les mots de plusieurs langues dans un même espace sémantique. Les mots ayant des significations proches possèdent ainsi des représentations vectorielles similaires \cite{ali2026hybrid, meyer2024systematic}.
+
+\subsubsection{Problème des mots hors vocabulaire (OOV)}
+
+Les \textbf{mots hors vocabulaire} (\textit{\ac{OOV}}) correspondent aux mots absents du vocabulaire appris par le modèle pendant l'entraînement. Ce problème est fréquent dans les langues à faibles ressources en raison du manque de données disponibles \cite{ranathunga2023neural, toraman2022impact}.
+
+%------------------------------------------------------------
+\subsection{Corpus parallèles}
+%------------------------------------------------------------
+
+\subsubsection{Définition d'un corpus parallèle}
+
+Un \textbf{corpus parallèle} est un ensemble de textes alignés dans au moins deux langues différentes. Chaque phrase de la langue source possède une traduction correspondante dans la langue cible. Ces corpus constituent une ressource fondamentale dans les systèmes de traduction automatique neuronale \cite{ranathunga2023neural, haulai2023construction}.
+
+\subsubsection{Importance des corpus dans la traduction automatique}
+
+Les modèles de traduction automatique apprennent les relations linguistiques à partir des corpus parallèles. La qualité, la taille et la diversité des données influencent directement les performances des systèmes neuronaux \cite{ranathunga2023neural, agyei2024low}.
+
+\subsubsection{Méthodes de collecte des données}
+
+La collecte des données peut être réalisée à partir de plusieurs sources telles que les documents bilingues, les textes religieux, les contenus éducatifs, les traductions manuelles ou les ressources communautaires \cite{haulai2023construction, jindal2017building}.
+
+Dans le contexte des \textbf{langues africaines à faibles ressources}, la collecte des données nécessite souvent un travail manuel important en raison du manque de ressources numériques disponibles \cite{agyei2024low, mandiya2026lingala}.
+
+\subsubsection{Nettoyage et normalisation}
+
+Le \textbf{nettoyage} des données consiste à supprimer les erreurs, les doublons et les phrases mal alignées présentes dans le corpus. La \textbf{normalisation} permet quant à elle d'uniformiser les textes afin de faciliter l'apprentissage du modèle \cite{sharma2023fully}.
+
+Cette étape peut inclure la conversion en minuscules, la suppression des caractères inutiles ainsi que la correction de certaines incohérences orthographiques \cite{ali2026hybrid}.
+
+\subsubsection{Alignement des phrases}
+
+L'\textbf{alignement} consiste à associer correctement chaque phrase de la langue source avec sa traduction dans la langue cible. Cette étape est essentielle pour garantir la qualité des données utilisées pendant l'entraînement des modèles neuronaux \cite{ali2026hybrid, haulai2023construction}.
+
+\subsubsection{Corpus religieux et poétiques dans les langues à faibles ressources}
+
+Pour de nombreuses \textbf{langues à faibles ressources}, les textes religieux et poétiques constituent les piliers fondamentaux pour la construction des premiers corpus parallèles en raison de leur disponibilité. La \textbf{Bible} est une ressource privilégiée car sa structure rigoureuse en chapitres et en versets offre un cadre d'alignement naturel et fiable, essentiel pour des langues comme le mizo \cite{chanambam2022, haulai2023construction}, l'araméen \cite{liebeskind2024machine}, le twi \cite{agyei2024low} ou encore une douzaine de langues autochtones de Colombie et du Mexique telles que le mazatèque, le huichol ou le paez \cite{angel2023comparing}.
+
+D'autres ressources structurées, comme le corpus \textbf{JW300}, sont également utilisées pour fournir des données bilingues à des langues comme le quechua ou des langues agglutinantes \cite{chen-fazio-2021-morphologically, kann2022americasnli}. Parallèlement, l'intégration de la \textbf{poésie} et de textes littéraires anciens permet d'enrichir la diversité lexicale et de capturer des nuances culturelles uniques, malgré une complexité stylistique accrue. Cette approche a été appliquée avec succès pour le croate \cite{dundjer2020automatic}, le môn \cite{thu2023monenglishtranslation} et pour la traduction de l'écriture logographique \textbf{Dongba} à partir de textes sacrés \cite{ma2025dongba}. Ces ressources jouent un rôle crucial dans l'amorçage des systèmes de traduction automatique (\ac{NMT} et \ac{SMT}), permettant de réduire la fracture numérique pour les communautés linguistiquement sous-représentées \cite{ranathunga2023neural}.
+
+%------------------------------------------------------------
+\section{Domaine linguistique et langues à faibles ressources}
+%------------------------------------------------------------
+
+\subsection{Langues à faibles ressources}
+
+\subsubsection{Définition}
+
+Les \textbf{langues à faibles ressources} (\ac{LFR}) sont des langues disposant de peu de données numériques exploitables pour le développement des systèmes de traitement automatique des langues. Cette insuffisance concerne notamment les corpus textuels, les dictionnaires numériques, les ressources parallèles ainsi que les outils linguistiques nécessaires à l'entraînement des modèles d'intelligence artificielle \cite{ranathunga2023neural, agyei2024low}.
+
+Ces langues sont généralement sous-représentées dans les technologies numériques modernes, ce qui limite leur intégration dans les applications de traduction automatique, de reconnaissance vocale ou de génération de texte \cite{ranathunga2023neural, haulai2023construction}.
+
+\subsubsection{Causes du faible niveau de ressources numériques}
+
+Le faible niveau de ressources numériques s'explique par plusieurs facteurs. Parmi les principales causes figurent le manque de corpus électroniques, l'absence de standardisation orthographique, la faible numérisation des contenus linguistiques ainsi que le manque d'investissements technologiques et scientifiques \cite{agyei2024low, jindal2017building}.
+
+Dans plusieurs langues africaines, les ressources disponibles existent souvent sous forme papier ou orale, ce qui complique leur exploitation dans les systèmes de \ac{TAL} \cite{agyei2024low, mandiya2026lingala}.
+
+\subsubsection{Inégalités numériques linguistiques}
+
+Les \textbf{inégalités numériques linguistiques} désignent la différence de représentation entre les langues dans les technologies numériques modernes. Certaines langues largement utilisées à l'échelle internationale disposent de grandes quantités de données et de nombreux outils \ac{NLP}, tandis que d'autres restent faiblement représentées \cite{ranathunga2023neural, agyei2025dynamic}.
+
+Cette situation crée une \textbf{exclusion technologique} pour plusieurs communautés linguistiques, notamment africaines, dont les langues ne bénéficient pas pleinement des avancées de l'intelligence artificielle et de la \ac{TAN} \cite{agyei2024low, mandiya2026lingala}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Images/repartition.jpg}
+    \caption{ Répartition des langues selon leur nombre de locuteurs et leurs ressources en NLP \cite{laumann2022challenges}}
+    \label{fig:  Répartition des langues selon leur nombre de locuteurs et leurs ressources en NLP}
+\end{figure}
+
+%------------------------------------------------------------
+\subsection{Défis du \ac{TAL} pour les langues africaines}
+%------------------------------------------------------------
+
+\subsubsection{Manque de données linguistiques}
+
+Le principal défi du \ac{TAL} pour les langues africaines réside dans le \textbf{manque de données linguistiques numériques} disponibles. La majorité des langues africaines disposent de très peu de corpus textuels, de ressources parallèles ou de bases lexicales exploitables pour l'entraînement des modèles neuronaux \cite{ranathunga2023neural, agyei2024low}.
+
+\subsubsection{Diversité dialectale}
+
+Plusieurs langues africaines présentent une forte \textbf{diversité dialectale}. Une même langue peut posséder différentes variantes régionales, phonétiques ou lexicales selon les communautés locutrices \cite{agyei2024low, mandiya2026lingala}.
+
+Cette diversité complique la construction des corpus linguistiques et l'entraînement des modèles de \ac{TAL}, car les variations dialectales peuvent entraîner des incohérences dans les données \cite{haulai2023construction}.
+
+\subsubsection{Absence de standardisation orthographique}
+
+Certaines langues africaines ne disposent pas d'une orthographe totalement standardisée. Les variations d'écriture, les différences de transcription et les pratiques linguistiques locales peuvent produire plusieurs formes écrites pour un même mot \cite{haulai2023construction, jindal2017building}.
+
+\subsubsection{Difficultés de collecte et d'annotation}
+
+La collecte et l'annotation des données linguistiques nécessitent souvent un travail manuel important. Dans les \textbf{langues à faibles ressources}, les textes numériques sont rares et plusieurs contenus existent principalement sous forme orale ou papier \cite{agyei2024low, mandiya2026lingala}.
+
+Ces difficultés rendent la constitution de corpus parallèles de qualité particulièrement laborieuse, et exigent le recours à des méthodes d'augmentation ou d'automatisation partielle de la collecte afin de pallier le manque de données annotées \cite{ranathunga2023neural, sharma2023fully}.
+
+%------------------------------------------------------------
+\subsection{Présentation linguistique du ruund}
+%------------------------------------------------------------
+
+\subsubsection{Classification linguistique du ruund}
+
+Le \textbf{ruund}, aussi appelé \textit{ruwund}, \textit{uruund} ou \textit{lunda du Nord} dans certaines classifications linguistiques, est une langue bantoue parlée par plus de 250 000 personnes principalement en République Démocratique du Congo et en Angola. Il appartient à la famille des langues nigéro-congolaises et au groupe des langues bantoues \cite{frwiki:199251041}.
+
+Cette langue est utilisée par une importante communauté locutrice, notamment dans la région du Katanga, mais demeure faiblement représentée dans les ressources numériques et les technologies linguistiques modernes \cite{frwiki:199251041}.
+
+\subsubsection{Caractéristiques morphologiques}
+
+Sur le plan morphologique, le ruund possède une structure fortement \textbf{agglutinante} caractéristique des langues bantoues. L'organisation grammaticale de la langue repose principalement sur un système complexe de \textbf{classes nominales} dans lequel les substantifs sont regroupés sous forme de classes singulier/pluriel ou de classes uniques. Chaque nom est généralement associé à un \textbf{préfixe nominal} jouant un rôle central dans les mécanismes d'accord grammatical \cite{kawasha2003lunda}.
+
+Le système verbal du ruund présente également une morphologie riche et complexe. Le verbe est construit autour d'une \textbf{racine verbale} combinée à plusieurs affixes flexionnels indiquant notamment l'accord du sujet, le temps, l'aspect, la négation ou encore la pronominalisation de l'objet. À cette structure s'ajoutent des extensions dérivationnelles telles que l'applicatif, le causatif ou le passif, capables de modifier la structure actancielle et la valeur sémantique du verbe \cite{kasombo2016structure, kawasha2003lunda}.
+
+Par ailleurs, la morphotactique du ruund est soumise à des contraintes d'\textbf{harmonie vocalique} entre la racine verbale et certains suffixes grammaticaux \cite{kasombo2016structure}. Cette richesse morphologique représente un défi important dans les tâches de traitement automatique des langues, notamment pour la tokenisation, la segmentation morphologique et la traduction automatique neuronale.
+
+\subsubsection{Particularités syntaxiques et lexicales}
+
+Le fonctionnement syntaxique du ruund repose sur un système de \textbf{concordance grammaticale} fortement développé. Les différents éléments associés au substantif --- notamment les adjectifs, les démonstratifs, les possessifs ainsi que le verbe --- s'accordent systématiquement avec le nom selon la classe nominale, le nombre et parfois la personne grammaticale \cite{kawasha2003lunda}.
+
+L'identification des relations grammaticales telles que le sujet, l'objet direct ou l'objet indirect s'effectue à travers une combinaison de mécanismes incluant l'ordre des mots, la pronominalisation et certains marquages morphosyntaxiques \cite{kawasha2003lunda}.
+
+Le ruund présente également des évolutions syntaxiques particulières, notamment l'apparition de constructions \textbf{passives impersonnelles} venant concurrencer certaines formes passives bantoues traditionnelles construites à l'aide de suffixes verbaux. La langue se caractérise aussi par une diversité typologique importante des propositions relatives ainsi que par différents mécanismes de détransitivation \cite{kawasha2003lunda}.
+
+Sur le plan morphosyntaxique, plusieurs études soulignent également l'existence d'un certain \textbf{syncrétisme} entre les formes réflexives et réciproques, ainsi qu'une convergence fonctionnelle entre les constructions passives et neutre-passives malgré leurs différences structurelles \cite{kasombo2016structure, kawasha2003lunda}.
+
+\subsubsection{Défis du ruund dans le NLP}
+
+Le développement des applications \ac{NLP} pour le ruund fait face à plusieurs défis majeurs. La langue dispose de peu de corpus numériques, de ressources parallèles et d'outils linguistiques spécialisés. Les variations orthographiques et la rareté des données annotées compliquent également l'entraînement des modèles neuronaux.
+
+Ces limitations réduisent les performances des systèmes de traduction automatique et justifient la nécessité de développer des approches adaptées aux langues à faibles ressources dans le contexte du ruund.
