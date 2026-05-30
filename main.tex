@@ -14,7 +14,16 @@
 		american,
 		french, % Languages, change this to your language(s)
 		]{scrreprt}
-                
+\usepackage{silence}
+\WarningFilter{scrreprt}{Redefinition of}
+\WarningFilter{scrreprt}{Usage of package}
+\WarningFilter{titlesec}{Non standard sectioning}
+\WarningFilter{biblatex}{Using fall-back bibtex backend}
+\WarningFilter{font}{Some font shapes}
+
+\hbadness=10000
+\hfuzz=50pt
+
 % Includes the file which contains all the document configurations and packages - make sure to edit this file
 \input{classicthesis-config}
 \bibliography{bibliography/references}

@@ -126,11 +126,11 @@ natbib=true % natbib compatibility mode (\citep and \citet still work)
 
 %------------------------------------------------
 
-\usepackage{fixltx2e} % Fixes some LaTeX stuff 
+% \usepackage{fixltx2e} % Fixes some LaTeX stuff 
 
 %------------------------------------------------
 
-\PassOptionsToPackage{smaller}{acronym} % Include printonlyused in the first bracket to only show acronyms used in the text
+\PassOptionsToPackage{smaller,nohyperlinks}{acronym} % Include printonlyused in the first bracket to only show acronyms used in the text
 \usepackage{acronym} % Nice macros for handling all acronyms in the thesis
 
 %\renewcommand*{\acsfont}[1]{\textssc{#1}} % For MinionPro
