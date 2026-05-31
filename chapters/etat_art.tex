@@ -131,26 +131,20 @@ Ces limitations ont favorisé l'émergence de la \textbf{traduction automatique 
 \caption{Comparaison des approches de traduction automatique}
 \label{tab:comparaison_ta}
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|p{3.2cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
-\hline
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{3.2cm}p{3.5cm}p{3.5cm}p{3.5cm}}
+\toprule
 \textbf{Critère} & \textbf{\ac{RBMT}} & \textbf{\ac{SMT}} & \textbf{\ac{NMT}} \\
-\hline
+\midrule
 \textbf{Période} & Années 1950--1990 & Années 1990--2015 & Depuis 2015 \\
-\hline
 \textbf{Principe} & Règles linguistiques et dictionnaires bilingues définis manuellement & Modèles probabilistes appris à partir de corpus parallèles & Réseaux de neurones profonds entraînés sur corpus parallèles \\
-\hline
 \textbf{Données requises} & Règles et lexiques manuels & Grands corpus parallèles & Grands corpus parallèles \\
-\hline
 \textbf{Apprentissage} & Non automatique & Automatique (statistique) & Automatique (neuronal) \\
-\hline
 \textbf{Gestion du contexte} & Limitée & Partielle (n-grammes) & Globale (mécanisme d'attention) \\
-\hline
 \textbf{Qualité des traductions} & Contrôlée mais rigide & Meilleure que \ac{RBMT} & Meilleure qualité globale \\
-\hline
 \textbf{Langues à faibles ressources} & Difficile (expertise manuelle) & Difficile (manque de corpus) & Difficile (manque de données) \\
-\hline
 \textbf{Exemples de systèmes} & Systran, Apertium & Moses, Pharaoh & mBART, NLLB... \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -263,26 +257,20 @@ Les modèles mBART-50, NLLB-200-distilled-600M et MarianMT reposent tous sur les
 \caption{Comparaison des modèles multilingues de traduction automatique}
 \label{tab:comparaison_modeles}
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|p{3.2cm}|p{3.4cm}|p{3.4cm}|p{3.4cm}|}
-\hline
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{3.2cm}p{3.4cm}p{3.4cm}p{3.4cm}}
+\toprule
 \textbf{Critère} & \textbf{\ac{mBART}-50} & \textbf{\ac{NLLB}-200-distilled-600M} & \textbf{\ac{MarianMT}} \\
-\hline
+\midrule
 \textbf{Architecture} & Transformer seq2seq & Transformer seq2seq & Transformer seq2seq \\
-\hline
 \textbf{Nombre de langues} & 50 langues & 200+ langues & Paires spécifiques \\
-\hline
 \textbf{Stratégie de pré-entraînement} & Débruitage multilingue & Entraînement supervisé massif & Entraînement supervisé par paire \\
-\hline
 \textbf{Langues africaines} & Couverture limitée & Couverture étendue & Très limitée \\
-\hline
 \textbf{Adaptation (fine-tuning)} & Oui & Oui & Oui \\
-\hline
 \textbf{Ressources computationnelles} & Modérées & Réduites (version distillée) & Légères \\
-\hline
 \textbf{Langues à faibles ressources} & Performant après fine-tuning & Orienté LFR & Dépend de la paire \\
-\hline
 \textbf{Disponibilité} & HuggingFace & HuggingFace & HuggingFace \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -531,19 +519,19 @@ Le tableau~\ref{tab:synthese_travaux} présente une analyse comparative de seize
 \renewcommand{\arraystretch}{1.4}
 \small
 \rowcolors{2}{gray!10}{white}
-\begin{longtable}{|p{2.8cm}|p{2.8cm}|p{2.0cm}|p{1.6cm}|p{1.6cm}|p{3.2cm}|}
+\begin{longtable}{p{2.8cm}p{2.8cm}p{2.0cm}p{1.6cm}p{1.6cm}p{3.2cm}}
 \caption{Synthèse comparative des travaux existants sur la TAN pour les langues à faibles ressources}
 \label{tab:synthese_travaux} \\
-\hline
+\toprule
 \textbf{Auteur(s)} & \textbf{Approche} & \textbf{Performance} & \textbf{Complexité} & \textbf{Robustesse} & \textbf{Limites principales} \\
-\hline
+\midrule
 \endfirsthead
 \endhead
 
-\hline
+\bottomrule
 \endfoot
 
-\hline
+\bottomrule
 \endlastfoot
 \citeauthor{ali2026hybrid} \cite{ali2026hybrid} &
 \ac{MNMT} non supervisée (XLM-R + ACL) &
@@ -551,112 +539,96 @@ Le tableau~\ref{tab:synthese_travaux} présente une analyse comparative de seize
 Élevée &
 Haute &
 Qualité médiocre sur phrases longues ; dépendance aux dictionnaires bilingues \\
-\hline
 \citeauthor{lalrempuii2021improved} \cite{lalrempuii2021improved} &
 Comparaison SMT vs NMT (mizo) &
 Transformer $\gg$ LSTM et SMT &
 Modérée &
 Moyenne &
 Baisse radicale sur phrases longues ; manque de ressources pour le mizo \\
-\hline
 \citeauthor{rakhimov2024enhancing} \cite{rakhimov2024enhancing} &
 Fine-tuning mBART-50 &
 +11.95 \ac{BLEU} (kazakh--russe) &
 Moyenne &
 Haute &
 Sensibilité à la qualité des données de fine-tuning et aux hyperparamètres \\
-\hline
 \citeauthor{ahmadnia2021impact} \cite{ahmadnia2021impact} &
 Filtrage de données pseudo-parallèles &
 BLEU $>$ baselines non filtrées &
 Modérée &
 Améliorée &
 Corpus filtré très réduit ; généralisation limitée \\
-\hline
 \citeauthor{dai2025tfttl} \cite{dai2025tfttl} &
 Transfert TFT-TL (niveau token) &
 19.88 \ac{BLEU} (Tr--En) &
 Élevée &
 Excellente &
 Instabilité possible à certaines étapes d'apprentissage \\
-\hline
 \citeauthor{brahma2023selectnoise} \cite{brahma2023selectnoise} &
 SELECTNOISE (injection de bruit) &
 Surpasse les baselines zero-shot &
 Élevée &
 Robuste &
 Efficacité réduite si les scripts des langues sont trop différents \\
-\hline
 \citeauthor{chen-fazio-2021-morphologically} \cite{chen-fazio-2021-morphologically} &
 Segmentation morphologique (PRPE) &
 23.4 \ac{BLEU} (quechua) &
 Modérée &
 Bonne &
 Nécessite une liste d'affixes préalable (connaissances linguistiques) \\
-\hline
 \citeauthor{bala2024multilingual} \cite{bala2024multilingual} &
 MNMT + translittération (Indic--Indic) &
 +6.74 \ac{BLEU} (malayalam) &
 Modérée &
 Bonne &
 Interférence négative sur certains groupes linguistiques rares \\
-\hline
 \citeauthor{tun2025exploring} \cite{tun2025exploring} &
 Hybride SMT, NMT, BART fine-tuné &
 BART + SentencePiece = meilleurs résultats &
 Élevée &
 Bonne &
 Complexité morphologique du môn non résolue par le seul transfert \\
-\hline
 \citeauthor{ahmed2023guit} \cite{ahmed2023guit} &
 Rétro-traduction itérative (mizo) &
 +3.65 \ac{BLEU} par itération &
 Modérée &
 Moyenne &
 Inefficace sur phrases très longues \\
-\hline
 \citeauthor{gronroos2020transfer} \cite{gronroos2020transfer} &
 Multi-task learning programmé &
 +12.7 \ac{BLEU} via MNMT + rétro-traduction &
 Élevée &
 Haute &
 Rendements décroissants au-delà de 10~000 phrases \\
-\hline
 \citeauthor{aci2025morphological} \cite{aci2025morphological} &
 Analyse de profondeur (anglais--turc) &
 47.85 \ac{BLEU} (Transformer 3 couches) &
 Élevée &
 Excellente &
 Chute de performance si la profondeur dépasse le seuil optimal \\
-\hline
 \citeauthor{kann2022americasnli} \cite{kann2022americasnli} &
 AmericasNLI (langues indigènes) &
 +24.53\% pour le quechua &
 Haute &
 Moyenne &
 Répétition de sous-mots dans les sorties ; sensibilité au domaine \\
-\hline
 \citeauthor{goyal2020efficient} \cite{goyal2020efficient} &
 Translittération unifiée (indo-aryen) &
 +5 points \ac{BLEU} en moyenne &
 Modérée &
 Bonne &
 Ambiguïtés à l'inférence entre langues proches \\
-\hline
 \citeauthor{hong2024cantonmt} \cite{hong2024cantonmt} &
 CANTONMT (rétro-traduction + commutation) &
 SacreBLEU 16.8 &
 Haute &
 Moyenne &
 Corpus très réduit (60k) par rapport à la population cible (80M locuteurs) \\
-\hline
 \citeauthor{rani2023filtering} \cite{rani2023filtering} &
 Filtrage cross-validation (sanskrit--hindi) &
 +1.85 \ac{BLEU} (token-level) &
 Modérée &
 Bonne &
 Corpus filtré final très réduit (300 paires test) ; portée statistique limitée \\
-\hline
 \end{longtable}
 \endgroup
 
