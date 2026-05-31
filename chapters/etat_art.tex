@@ -527,16 +527,23 @@ Le score \ac{BLEU}, bien que standard, ne corrèle pas toujours parfaitement ave
 
 Le tableau~\ref{tab:synthese_travaux} présente une analyse comparative de seize études représentatives portant sur la traduction automatique pour les langues à faibles ressources. Il synthétise les approches méthodologiques, les performances obtenues, la complexité des systèmes, leur robustesse ainsi que leurs limites principales.
 
-\begin{table}[H]
-\centering
-\caption{Synthèse comparative des travaux existants sur la TAN pour les langues à faibles ressources}
-\label{tab:synthese_travaux}
+\begingroup
 \renewcommand{\arraystretch}{1.4}
 \small
-\begin{tabular}{|p{2.8cm}|p{2.8cm}|p{2.0cm}|p{1.6cm}|p{1.6cm}|p{3.2cm}|}
+\begin{longtable}{|p{2.8cm}|p{2.8cm}|p{2.0cm}|p{1.6cm}|p{1.6cm}|p{3.2cm}|}
+\caption{Synthèse comparative des travaux existants sur la TAN pour les langues à faibles ressources}
+\label{tab:synthese_travaux} \\
 \hline
 \textbf{Auteur(s)} & \textbf{Approche} & \textbf{Performance} & \textbf{Complexité} & \textbf{Robustesse} & \textbf{Limites principales} \\
 \hline
+\endfirsthead
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
 \citeauthor{ali2026hybrid} \cite{ali2026hybrid} &
 \ac{MNMT} non supervisée (XLM-R + ACL) &
 +1.2 \ac{BLEU} (bilingue) &
@@ -649,8 +656,8 @@ Modérée &
 Bonne &
 Corpus filtré final très réduit (300 paires test) ; portée statistique limitée \\
 \hline
-\end{tabular}
-\end{table}
+\end{longtable}
+\endgroup
 
 %------------------------------------------------------------
 \subsection{Gap scientifique et positionnement du mémoire}
