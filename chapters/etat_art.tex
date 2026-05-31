@@ -128,8 +128,6 @@ Ces limitations ont favorisé l'émergence de la \textbf{traduction automatique 
 
 \begin{table}[H]
 \centering
-\caption{Comparaison des approches de traduction automatique}
-\label{tab:comparaison_ta}
 \renewcommand{\arraystretch}{1.5}
 \rowcolors{2}{gray!10}{white}
 \begin{tabular}{p{3.2cm}p{3.5cm}p{3.5cm}p{3.5cm}}
@@ -146,6 +144,8 @@ Ces limitations ont favorisé l'émergence de la \textbf{traduction automatique 
 \textbf{Exemples de systèmes} & Systran, Apertium & Moses, Pharaoh & mBART, NLLB... \\
 \bottomrule
 \end{tabular}
+\caption{Comparaison des approches de traduction automatique}
+\label{tab:comparaison_ta}
 \end{table}
 
 %------------------------------------------------------------
@@ -255,8 +255,7 @@ Les modèles mBART-50, NLLB-200-distilled-600M et MarianMT reposent tous sur les
 
 \begin{table}[H]
 \centering
-\caption{Comparaison des modèles multilingues de traduction automatique}
-\label{tab:comparaison_modeles}
+
 \renewcommand{\arraystretch}{1.5}
 \rowcolors{2}{gray!10}{white}
 \begin{tabular}{p{3.2cm}p{3.4cm}p{3.4cm}p{3.4cm}}
@@ -273,6 +272,8 @@ Les modèles mBART-50, NLLB-200-distilled-600M et MarianMT reposent tous sur les
 \textbf{Disponibilité} & HuggingFace & HuggingFace & HuggingFace \\
 \bottomrule
 \end{tabular}
+\caption{Comparaison des modèles multilingues de traduction automatique}
+\label{tab:comparaison_modeles}
 \end{table}
 
 Le choix du modèle dépend principalement de plusieurs facteurs tels que la disponibilité des données, les ressources computationnelles et les objectifs de la tâche de traduction \cite{ranathunga2023neural}.
@@ -566,8 +567,6 @@ Le tableau~\ref{tab:synthese_travaux} présente une analyse comparative de seize
 \small
 \rowcolors{2}{gray!10}{white}
 \begin{longtable}{p{2.8cm}p{2.8cm}p{2.2cm}p{1.9cm}p{1.9cm}p{3.2cm}}
-\caption{Synthèse comparative des travaux existants sur la TAN pour les langues à faibles ressources}
-\label{tab:synthese_travaux} \\
 \toprule
 \textbf{Auteur(s)} & \textbf{Approche} & \textbf{Performance} & \textbf{Complexité} & \textbf{Robustesse} & \textbf{Limites principales} \\
 \midrule
@@ -676,6 +675,8 @@ Modérée &
 Bonne &
 Corpus filtré final très réduit (300 paires test) ; portée statistique limitée \\
 \end{longtable}
+\captionof{table}{Synthèse comparative des travaux existants sur la TAN pour les langues à faibles ressources}
+\label{tab:synthese_travaux}
 \endgroup
 
 %------------------------------------------------------------
