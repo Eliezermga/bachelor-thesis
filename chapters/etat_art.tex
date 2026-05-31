@@ -149,7 +149,7 @@ Ces limitations ont favorisé l'émergence de la \textbf{traduction automatique 
 \end{table}
 
 %------------------------------------------------------------
-\subsection{Traduction automatique neuronale}
+\subsection{Traduction automatique neuronale (\texorpdfstring{\ac{TAN}}{TAN})}
 %------------------------------------------------------------
 
 \subsubsection{Principe de la traduction neuronale}
@@ -251,6 +251,7 @@ MarianMT propose des modèles pré-entraînés spécialisés pour différentes c
 \subsubsection{Comparaison générale des modèles}
 
 Les modèles mBART-50, NLLB-200-distilled-600M et MarianMT reposent tous sur les architectures Transformer et utilisent des approches multilingues de traduction automatique neuronale. Le tableau~\ref{tab:comparaison_modeles} présente une synthèse comparative de ces trois modèles selon plusieurs critères pertinents pour le contexte des langues à faibles ressources \cite{rakhimov2024enhancing, ranathunga2023neural}.
+
 
 \begin{table}[H]
 \centering
@@ -491,6 +492,51 @@ Le développement de ressources numériques locales représente un enjeu vital p
 
 En s'appuyant sur les efforts de documentation menés pour le \textbf{quechua} \cite{sullatores2024desarrollo} ou l'\textbf{araméen} \cite{liebeskind2024machine}, la constitution de ressources pour le ruund s'inscrit dans une quête de \textbf{justice numérique} visant à réduire la fracture technologique \cite{ranathunga2023neural, agyei2024low}. Cette production de données locales dépasse le simple cadre du progrès technique : elle est essentielle pour \textbf{préserver et valoriser un patrimoine linguistique et culturel} unique face aux défis de la mondialisation. En permettant l'intégration du ruund dans les technologies du langage, ces travaux garantissent que ses locuteurs ne soient pas exclus des services essentiels et puissent participer pleinement à l'écosystème numérique mondial
 
+
+%------------------------------------------------------------
+\section{Analyse des travaux existants}
+%------------------------------------------------------------
+
+\subsection{Évolution des approches de traduction automatique}
+
+\subsubsection{Approches symboliques}
+
+Les premières tentatives de traduction automatique, dites \textbf{\ac{RBMT}}, reposaient sur des règles linguistiques et des dictionnaires bilingues élaborés manuellement par des experts. Bien que précises pour des domaines restreints, elles s'avéraient coûteuses, difficiles à généraliser et incapables de gérer l'ambiguïté naturelle des langues complexes \cite{ranathunga2023neural, gangar2021hindi}.
+
+\subsubsection{Approches statistiques}
+
+La \textbf{traduction automatique statistique} (\ac{SMT}) a marqué un tournant en apprenant des probabilités de traduction à partir de grands corpus parallèles. Cependant, les modèles de type \ac{PBSMT} peinent à capturer les dépendances à longue distance et les structures syntaxiques divergentes, particulièrement dans les langues morphologiquement riches \cite{lalrempuii2021improved, chanambam2022}.
+
+\subsubsection{Approches neuronales modernes}
+
+L'émergence de la \ac{TAN}, et spécifiquement de l'architecture \textbf{Transformer}, a révolutionné le domaine en traitant les phrases de manière globale via des mécanismes d'auto-attention. Ces modèles surpassent désormais les approches statistiques en termes de fluidité et de cohérence contextuelle \cite{vaswani2017attention, ranathunga2023neural}.
+
+%------------------------------------------------------------
+\subsection{Travaux sur les langues à faibles ressources}
+%------------------------------------------------------------
+
+\subsubsection{Traduction neuronale multilingue}
+
+La traduction multilingue (\ac{MNMT}) permet de mutualiser les connaissances entre plusieurs langues au sein d'un modèle unique. Cette approche est cruciale pour les langues peu dotées car elle facilite le transfert de connaissances depuis des langues à fortes ressources vers des langues cibles \cite{ali2026hybrid, baladaspanda2023improving}. La qualité du transfert dépend également du choix de la stratégie de segmentation en sous-mots et de la nature du transfert cross-lingual entre les langues concernées \cite{meyer2024systematic, toraman2022impact}.
+
+\subsubsection{Fine-tuning pour les langues sous-représentées}
+
+L'adaptation de modèles pré-entraînés comme \textbf{mBART-50} ou \textbf{NLLB-200} via le \textit{fine-tuning} est la stratégie la plus efficace pour les petits jeux de données. Un modèle pré-entraîné fournit une excellente initialisation grammaticale, même avec un corpus restreint \cite{rakhimov2024enhancing, hong2024cantonmt}. Cette approche a également démontré son efficacité dans des contextes de traduction entre langues asiatiques à faibles ressources \cite{tran2024improving}.
+
+\subsubsection{Traduction basée sur des corpus bibliques et textes poétiques}
+
+La Bible est souvent l'une des seules ressources parallèles disponibles pour de nombreuses langues à faibles ressources (mizo, twi, quechua), offrant un alignement précis par versets. Cependant, son domaine restreint limite souvent la capacité de généralisation du modèle final \cite{chanambam2022, angel2023comparing}.
+
+La poésie présente des défis uniques en \ac{TAN}, notamment la préservation des patterns de rimes et de la structure métrique. Les travaux existants indiquent que les modèles neuronaux, bien que performants, peinent encore à restituer la créativité littéraire sans un ajustement spécifique \cite{dundjer2020automatic, liebeskind2024machine}.
+
+\subsubsection{Travaux sur les langues africaines et bantoues}
+
+% [REFORMULATION SIGNALÉE] : La mention de Masakhane a été supprimée car aucune source disponible
+% dans references.bib ne la soutient. Le paragraphe a été reformulé en s'appuyant
+% uniquement sur meyer2024systematic et ranathunga2023neural.
+
+Les langues bantoues, comme le ruund, font face à des défis majeurs en matière de traitement de l'information et de développement informatique.  Ces difficultés structurelles, combinées au manque de ressources numériques, soulignent l'importance de construire des ressources locales pour les langues africaines souvent exclues des technologies numériques \cite{ranathunga2023neural}.
+
 %------------------------------------------------------------
 \subsection{Analyse critique des travaux existants}
 %------------------------------------------------------------
@@ -583,7 +629,7 @@ Bonne &
 Interférence négative sur certains groupes linguistiques rares \\
 \citeauthor{tun2025exploring} \cite{tun2025exploring} &
 Hybride SMT, NMT, BART fine-tuné &
-BART + SentencePiece = meilleurs résultats &
+BART + \ac{SentencePiece} = meilleurs résultats &
 Élevée &
 Bonne &
 Complexité morphologique du môn non résolue par le seul transfert \\
@@ -595,7 +641,7 @@ Moyenne &
 Inefficace sur phrases très longues \\
 \citeauthor{gronroos2020transfer} \cite{gronroos2020transfer} &
 Multi-task learning programmé &
-+12.7 \ac{BLEU} via MNMT + rétro-traduction &
++12.7 \ac{BLEU} via \ac{MNMT} + rétro-traduction &
 Élevée &
 Haute &
 Rendements décroissants au-delà de 10~000 phrases \\
