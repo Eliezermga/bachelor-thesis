@@ -155,7 +155,7 @@ Ces limitations ont favorisé l'émergence de la \textbf{traduction automatique 
 \end{table}
 
 %------------------------------------------------------------
-\subsection{Traduction automatique neuronale (\ac{TAN})}
+\subsection{Traduction automatique neuronale (\texorpdfstring{\ac{TAN}}{TAN})}
 %------------------------------------------------------------
 
 \subsubsection{Principe de la traduction neuronale}
@@ -430,7 +430,7 @@ Cette situation crée une \textbf{exclusion technologique} pour plusieurs commun
 \end{figure}
 
 %------------------------------------------------------------
-\subsection{Défis du \ac{TAL} pour les langues africaines}
+\subsection{Défis du \texorpdfstring{\ac{TAL}}{TAL} pour les langues africaines}
 %------------------------------------------------------------
 
 \subsubsection{Manque de données linguistiques}
@@ -502,3 +502,93 @@ L'intelligence artificielle joue un rôle important dans la préservation du pat
 Le développement de ressources numériques locales représente un enjeu vital pour les langues africaines afin de surmonter la \textbf{« pénurie de données »} (\textit{data scarcity}) qui marginalise la majorité des langues mondiales \cite{ranathunga2023neural}. Pour le \textbf{ruund}, cette démarche s'appuie sur les avancées méthodologiques observées pour d'autres langues à faibles ressources telles que le \textbf{mizo} \cite{haulai2023construction, lalrempuii2021improved}, le \textbf{pendjabi} \cite{jindal2017building} ou le \textbf{twi} \cite{agyei2024low}, qui souffrent également d'un manque initial de présence numérique native. À l'instar du \textbf{mon} \cite{thu2023monenglishtranslation}, l'absence de corpus parallèles structurés constitue un frein majeur au développement d'applications performantes, rendant indispensable la création d'outils linguistiques et de données annotées pour renforcer les capacités des modèles neuronaux.
 
 En s'appuyant sur les efforts de documentation menés pour le \textbf{quechua} \cite{sullatores2024desarrollo} ou l'\textbf{araméen} \cite{liebeskind2024machine}, la constitution de ressources pour le ruund s'inscrit dans une quête de \textbf{justice numérique} visant à réduire la fracture technologique \cite{ranathunga2023neural, agyei2024low}. Cette production de données locales dépasse le simple cadre du progrès technique : elle est essentielle pour \textbf{préserver et valoriser un patrimoine linguistique et culturel} unique face aux défis de la mondialisation. En permettant l'intégration du ruund dans les technologies du langage, ces travaux garantissent que ses locuteurs ne soient pas exclus des services essentiels et puissent participer pleinement à l'écosystème numérique mondial
+
+
+%------------------------------------------------------------
+\section{Analyse des travaux existants}
+%------------------------------------------------------------
+
+\subsection{Évolution des approches de traduction automatique}
+
+\subsubsection{Approches symboliques}
+
+Les premières tentatives de traduction automatique, dites \textbf{\ac{RBMT}}, reposaient sur des règles linguistiques et des dictionnaires bilingues élaborés manuellement par des experts. Bien que précises pour des domaines restreints, elles s'avéraient coûteuses, difficiles à généraliser et incapables de gérer l'ambiguïté naturelle des langues complexes \cite{ranathunga2023neural, gangar2021hindi}.
+
+\subsubsection{Approches statistiques}
+
+La \textbf{traduction automatique statistique} (\ac{SMT}) a marqué un tournant en apprenant des probabilités de traduction à partir de grands corpus parallèles. Cependant, les modèles de type \ac{PBSMT} peinent à capturer les dépendances à longue distance et les structures syntaxiques divergentes, particulièrement dans les langues morphologiquement riches \cite{lalrempuii2021improved, chanambam2022}.
+
+\subsubsection{Approches neuronales modernes}
+
+L'émergence de la \ac{TAN}, et spécifiquement de l'architecture \textbf{Transformer}, a révolutionné le domaine en traitant les phrases de manière globale via des mécanismes d'auto-attention. Ces modèles surpassent désormais les approches statistiques en termes de fluidité et de cohérence contextuelle \cite{vaswani2017attention, ranathunga2023neural}.
+
+%------------------------------------------------------------
+\subsection{Travaux sur les langues à faibles ressources}
+%------------------------------------------------------------
+
+\subsubsection{Traduction neuronale multilingue}
+
+La traduction multilingue (\ac{MNMT}) permet de mutualiser les connaissances entre plusieurs langues au sein d'un modèle unique. Cette approche est cruciale pour les langues peu dotées car elle facilite le transfert de connaissances depuis des langues à fortes ressources vers des langues cibles \cite{ali2026hybrid, baladaspanda2023improving}. La qualité du transfert dépend également du choix de la stratégie de segmentation en sous-mots et de la nature du transfert cross-lingual entre les langues concernées \cite{meyer2024systematic, toraman2022impact}.
+
+\subsubsection{Fine-tuning pour les langues sous-représentées}
+
+L'adaptation de modèles pré-entraînés comme \textbf{mBART-50} ou \textbf{NLLB-200} via le \textit{fine-tuning} est la stratégie la plus efficace pour les petits jeux de données. Un modèle pré-entraîné fournit une excellente initialisation grammaticale, même avec un corpus restreint \cite{rakhimov2024enhancing, hong2024cantonmt}. Cette approche a également démontré son efficacité dans des contextes de traduction entre langues asiatiques à faibles ressources \cite{tran2024improving}.
+
+\subsubsection{Traduction basée sur des corpus bibliques et textes poétiques}
+
+La Bible est souvent l'une des seules ressources parallèles disponibles pour de nombreuses langues à faibles ressources (mizo, twi, quechua), offrant un alignement précis par versets. Cependant, son domaine restreint limite souvent la capacité de généralisation du modèle final \cite{chanambam2022, angel2023comparing}.
+
+La poésie présente des défis uniques en \ac{TAN}, notamment la préservation des patterns de rimes et de la structure métrique. Les travaux existants indiquent que les modèles neuronaux, bien que performants, peinent encore à restituer la créativité littéraire sans un ajustement spécifique \cite{dundjer2020automatic, liebeskind2024machine}.
+
+\subsubsection{Travaux sur les langues africaines et bantoues}
+
+% [REFORMULATION SIGNALÉE] : La mention de Masakhane a été supprimée car aucune source disponible
+% dans references.bib ne la soutient. Le paragraphe a été reformulé en s'appuyant
+% uniquement sur meyer2024systematic et ranathunga2023neural.
+
+Les langues bantoues, comme le ruund, font face à des défis majeurs en matière de traitement de l'information et de développement informatique.  Ces difficultés structurelles, combinées au manque de ressources numériques, soulignent l'importance de construire des ressources locales pour les langues africaines souvent exclues des technologies numériques \cite{ranathunga2023neural}.
+
+%------------------------------------------------------------
+\subsection{Analyse critique des travaux existants}
+%------------------------------------------------------------
+
+\subsubsection{Forces des approches actuelles}
+
+Les modèles basés sur les \textbf{Transformers} et l'apprentissage par transfert permettent d'obtenir des résultats exploitables là où les méthodes traditionnelles échouaient. Cette supériorité empirique a été démontrée pour plusieurs paires de langues à faibles ressources, notamment le mizo--anglais \cite{lalrempuii2021improved} et le môn--anglais \cite{thu2023monenglishtranslation}.
+
+\subsubsection{Limites liées aux données}
+
+La \ac{TAN} est extrêmement gourmande en données ; les performances chutent drastiquement en dessous de 10~000 paires de phrases \cite{ranathunga2023neural}. Notre corpus de 8~431 paires se situe précisément dans cette zone critique, rendant l'usage du transfert d'apprentissage indispensable \cite{ma2025dongba}.
+
+\subsubsection{Difficultés liées aux langues bantoues}
+
+Le manque de standardisation orthographique et la richesse des affixes verbaux compliquent la tâche de tokenisation. Les modèles généralistes peinent souvent à capturer l'harmonie vocalique et les spécificités tonales sans données massives.
+
+\subsubsection{Limites des métriques d'évaluation}
+
+Le score \ac{BLEU}, bien que standard, ne corrèle pas toujours parfaitement avec le jugement humain pour les langues à faibles ressources \cite{lankford2022human, lalrempuii2021improved}. Notre choix d'inclure une évaluation humaine est donc scientifiquement justifié pour valider l'adéquation sémantique \cite{thu2023monenglishtranslation}.
+
+%------------------------------------------------------------
+\subsection{Gap scientifique et positionnement du mémoire}
+%------------------------------------------------------------
+
+\subsubsection{Absence de travaux sur le ruund}
+
+Il n'existe actuellement aucun système de traduction automatique robuste documenté pour le ruund. Ce travail comble un vide numérique pour cette communauté linguistique.
+
+\subsubsection{Insuffisance des ressources numériques ruund--français}
+
+Les sources disponibles pour le ruund sont fragmentaires et non structurées pour le \ac{ML}. L'effort de \textit{Data Engineering} (nettoyage, normalisation, alignement de 8~431 paires) réalisé dans ce travail constitue une contribution majeure à la documentation numérique de cette langue. \cite{Mununga2026ruunddataset}
+
+\subsubsection{Justification scientifique du mémoire}
+
+Ce mémoire se positionne à la pointe de la recherche actuelle en utilisant le \textit{fine-tuning} de modèles étatiques (NLLB-200, mBART-50) pour compenser la rareté des données, selon une démarche validée pour d'autres langues à faibles ressources telles que le môn \cite{thu2023monenglishtranslation}.
+
+\subsubsection{Contribution attendue de la recherche}
+
+Outre le système de traduction, ce travail propose une méthodologie pour construire des jeux de données exploitables à partir de sources religieuses et poétiques, ouvrant la voie à une future généralisation vers des domaines variés.
+
+
+L'analyse du contexte des \textbf{langues à faibles ressources} a montré que le manque de données linguistiques, l'insuffisance des ressources numériques et les défis de standardisation constituent des obstacles majeurs au développement d'outils \ac{NLP} performants \cite{ranathunga2023neural, agyei2024low}. Ces contraintes sont particulièrement marquées dans le cas du \textbf{ruund}, une langue encore faiblement représentée dans les technologies du langage \cite{haulai2023construction, jindal2017building}.
+
+Ainsi, la littérature existante souligne la nécessité de développer des approches adaptées aux langues à faibles ressources, notamment par la constitution de \textbf{corpus parallèles} et l'adaptation de \textbf{modèles multilingues pré-entraînés} \cite{ranathunga2023neural, haulai2023construction}. Ces constats justifient la présente recherche consacrée à la traduction automatique ruund--français.
