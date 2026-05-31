@@ -503,51 +503,6 @@ Le développement de ressources numériques locales représente un enjeu vital p
 
 En s'appuyant sur les efforts de documentation menés pour le \textbf{quechua} \cite{sullatores2024desarrollo} ou l'\textbf{araméen} \cite{liebeskind2024machine}, la constitution de ressources pour le ruund s'inscrit dans une quête de \textbf{justice numérique} visant à réduire la fracture technologique \cite{ranathunga2023neural, agyei2024low}. Cette production de données locales dépasse le simple cadre du progrès technique : elle est essentielle pour \textbf{préserver et valoriser un patrimoine linguistique et culturel} unique face aux défis de la mondialisation. En permettant l'intégration du ruund dans les technologies du langage, ces travaux garantissent que ses locuteurs ne soient pas exclus des services essentiels et puissent participer pleinement à l'écosystème numérique mondial
 
-
-%------------------------------------------------------------
-\section{Analyse des travaux existants}
-%------------------------------------------------------------
-
-\subsection{Évolution des approches de traduction automatique}
-
-\subsubsection{Approches symboliques}
-
-Les premières tentatives de traduction automatique, dites \textbf{\ac{RBMT}}, reposaient sur des règles linguistiques et des dictionnaires bilingues élaborés manuellement par des experts. Bien que précises pour des domaines restreints, elles s'avéraient coûteuses, difficiles à généraliser et incapables de gérer l'ambiguïté naturelle des langues complexes \cite{ranathunga2023neural, gangar2021hindi}.
-
-\subsubsection{Approches statistiques}
-
-La \textbf{traduction automatique statistique} (\ac{SMT}) a marqué un tournant en apprenant des probabilités de traduction à partir de grands corpus parallèles. Cependant, les modèles de type \ac{PBSMT} peinent à capturer les dépendances à longue distance et les structures syntaxiques divergentes, particulièrement dans les langues morphologiquement riches \cite{lalrempuii2021improved, chanambam2022}.
-
-\subsubsection{Approches neuronales modernes}
-
-L'émergence de la \ac{TAN}, et spécifiquement de l'architecture \textbf{Transformer}, a révolutionné le domaine en traitant les phrases de manière globale via des mécanismes d'auto-attention. Ces modèles surpassent désormais les approches statistiques en termes de fluidité et de cohérence contextuelle \cite{vaswani2017attention, ranathunga2023neural}.
-
-%------------------------------------------------------------
-\subsection{Travaux sur les langues à faibles ressources}
-%------------------------------------------------------------
-
-\subsubsection{Traduction neuronale multilingue}
-
-La traduction multilingue (\ac{MNMT}) permet de mutualiser les connaissances entre plusieurs langues au sein d'un modèle unique. Cette approche est cruciale pour les langues peu dotées car elle facilite le transfert de connaissances depuis des langues à fortes ressources vers des langues cibles \cite{ali2026hybrid, baladaspanda2023improving}. La qualité du transfert dépend également du choix de la stratégie de segmentation en sous-mots et de la nature du transfert cross-lingual entre les langues concernées \cite{meyer2024systematic, toraman2022impact}.
-
-\subsubsection{Fine-tuning pour les langues sous-représentées}
-
-L'adaptation de modèles pré-entraînés comme \textbf{mBART-50} ou \textbf{NLLB-200} via le \textit{fine-tuning} est la stratégie la plus efficace pour les petits jeux de données. Un modèle pré-entraîné fournit une excellente initialisation grammaticale, même avec un corpus restreint \cite{rakhimov2024enhancing, hong2024cantonmt}. Cette approche a également démontré son efficacité dans des contextes de traduction entre langues asiatiques à faibles ressources \cite{tran2024improving}.
-
-\subsubsection{Traduction basée sur des corpus bibliques et textes poétiques}
-
-La Bible est souvent l'une des seules ressources parallèles disponibles pour de nombreuses langues à faibles ressources (mizo, twi, quechua), offrant un alignement précis par versets. Cependant, son domaine restreint limite souvent la capacité de généralisation du modèle final \cite{chanambam2022, angel2023comparing}.
-
-La poésie présente des défis uniques en \ac{TAN}, notamment la préservation des patterns de rimes et de la structure métrique. Les travaux existants indiquent que les modèles neuronaux, bien que performants, peinent encore à restituer la créativité littéraire sans un ajustement spécifique \cite{dundjer2020automatic, liebeskind2024machine}.
-
-\subsubsection{Travaux sur les langues africaines et bantoues}
-
-% [REFORMULATION SIGNALÉE] : La mention de Masakhane a été supprimée car aucune source disponible
-% dans references.bib ne la soutient. Le paragraphe a été reformulé en s'appuyant
-% uniquement sur meyer2024systematic et ranathunga2023neural.
-
-Les langues bantoues, comme le ruund, font face à des défis majeurs en matière de traitement de l'information et de développement informatique.  Ces difficultés structurelles, combinées au manque de ressources numériques, soulignent l'importance de construire des ressources locales pour les langues africaines souvent exclues des technologies numériques \cite{ranathunga2023neural}.
-
 %------------------------------------------------------------
 \subsection{Analyse critique des travaux existants}
 %------------------------------------------------------------
@@ -568,6 +523,135 @@ Le manque de standardisation orthographique et la richesse des affixes verbaux c
 
 Le score \ac{BLEU}, bien que standard, ne corrèle pas toujours parfaitement avec le jugement humain pour les langues à faibles ressources \cite{lankford2022human, lalrempuii2021improved}. Notre choix d'inclure une évaluation humaine est donc scientifiquement justifié pour valider l'adéquation sémantique \cite{tun2025exploring}.
 
+\subsubsection{Synthèse comparative des travaux}
+
+Le tableau~\ref{tab:synthese_travaux} présente une analyse comparative de seize études représentatives portant sur la traduction automatique pour les langues à faibles ressources. Il synthétise les approches méthodologiques, les performances obtenues, la complexité des systèmes, leur robustesse ainsi que leurs limites principales.
+
+\begin{table}[H]
+\centering
+\caption{Synthèse comparative des travaux existants sur la TAN pour les langues à faibles ressources}
+\label{tab:synthese_travaux}
+\renewcommand{\arraystretch}{1.4}
+\small
+\begin{tabular}{|p{2.8cm}|p{2.8cm}|p{2.0cm}|p{1.6cm}|p{1.6cm}|p{3.2cm}|}
+\hline
+\textbf{Auteur(s)} & \textbf{Approche} & \textbf{Performance} & \textbf{Complexité} & \textbf{Robustesse} & \textbf{Limites principales} \\
+\hline
+\citeauthor{ali2026hybrid} \cite{ali2026hybrid} &
+\ac{MNMT} non supervisée (XLM-R + ACL) &
++1.2 \ac{BLEU} (bilingue) &
+Élevée &
+Haute &
+Qualité médiocre sur phrases longues ; dépendance aux dictionnaires bilingues \\
+\hline
+\citeauthor{lalrempuii2021improved} \cite{lalrempuii2021improved} &
+Comparaison SMT vs NMT (mizo) &
+Transformer $\gg$ LSTM et SMT &
+Modérée &
+Moyenne &
+Baisse radicale sur phrases longues ; manque de ressources pour le mizo \\
+\hline
+\citeauthor{rakhimov2024enhancing} \cite{rakhimov2024enhancing} &
+Fine-tuning mBART-50 &
++11.95 \ac{BLEU} (kazakh--russe) &
+Moyenne &
+Haute &
+Sensibilité à la qualité des données de fine-tuning et aux hyperparamètres \\
+\hline
+\citeauthor{ahmadnia2021impact} \cite{ahmadnia2021impact} &
+Filtrage de données pseudo-parallèles &
+BLEU $>$ baselines non filtrées &
+Modérée &
+Améliorée &
+Corpus filtré très réduit ; généralisation limitée \\
+\hline
+\citeauthor{dai2025tfttl} \cite{dai2025tfttl} &
+Transfert TFT-TL (niveau token) &
+19.88 \ac{BLEU} (Tr--En) &
+Élevée &
+Excellente &
+Instabilité possible à certaines étapes d'apprentissage \\
+\hline
+\citeauthor{brahma2023selectnoise} \cite{brahma2023selectnoise} &
+SELECTNOISE (injection de bruit) &
+Surpasse les baselines zero-shot &
+Élevée &
+Robuste &
+Efficacité réduite si les scripts des langues sont trop différents \\
+\hline
+\citeauthor{chen-fazio-2021-morphologically} \cite{chen-fazio-2021-morphologically} &
+Segmentation morphologique (PRPE) &
+23.4 \ac{BLEU} (quechua) &
+Modérée &
+Bonne &
+Nécessite une liste d'affixes préalable (connaissances linguistiques) \\
+\hline
+\citeauthor{bala2024multilingual} \cite{bala2024multilingual} &
+MNMT + translittération (Indic--Indic) &
++6.74 \ac{BLEU} (malayalam) &
+Modérée &
+Bonne &
+Interférence négative sur certains groupes linguistiques rares \\
+\hline
+\citeauthor{tun2025exploring} \cite{tun2025exploring} &
+Hybride SMT, NMT, BART fine-tuné &
+BART + SentencePiece = meilleurs résultats &
+Élevée &
+Bonne &
+Complexité morphologique du môn non résolue par le seul transfert \\
+\hline
+\citeauthor{ahmed2023guit} \cite{ahmed2023guit} &
+Rétro-traduction itérative (mizo) &
++3.65 \ac{BLEU} par itération &
+Modérée &
+Moyenne &
+Inefficace sur phrases très longues \\
+\hline
+\citeauthor{gronroos2020transfer} \cite{gronroos2020transfer} &
+Multi-task learning programmé &
++12.7 \ac{BLEU} via MNMT + rétro-traduction &
+Élevée &
+Haute &
+Rendements décroissants au-delà de 10~000 phrases \\
+\hline
+\citeauthor{aci2025morphological} \cite{aci2025morphological} &
+Analyse de profondeur (anglais--turc) &
+47.85 \ac{BLEU} (Transformer 3 couches) &
+Élevée &
+Excellente &
+Chute de performance si la profondeur dépasse le seuil optimal \\
+\hline
+\citeauthor{kann2022americasnli} \cite{kann2022americasnli} &
+AmericasNLI (langues indigènes) &
++24.53\% pour le quechua &
+Haute &
+Moyenne &
+Répétition de sous-mots dans les sorties ; sensibilité au domaine \\
+\hline
+\citeauthor{goyal2020efficient} \cite{goyal2020efficient} &
+Translittération unifiée (indo-aryen) &
++5 points \ac{BLEU} en moyenne &
+Modérée &
+Bonne &
+Ambiguïtés à l'inférence entre langues proches \\
+\hline
+\citeauthor{hong2024cantonmt} \cite{hong2024cantonmt} &
+CANTONMT (rétro-traduction + commutation) &
+SacreBLEU 16.8 &
+Haute &
+Moyenne &
+Corpus très réduit (60k) par rapport à la population cible (80M locuteurs) \\
+\hline
+\citeauthor{rani2023filtering} \cite{rani2023filtering} &
+Filtrage cross-validation (sanskrit--hindi) &
++1.85 \ac{BLEU} (token-level) &
+Modérée &
+Bonne &
+Corpus filtré final très réduit (300 paires test) ; portée statistique limitée \\
+\hline
+\end{tabular}
+\end{table}
+
 %------------------------------------------------------------
 \subsection{Gap scientifique et positionnement du mémoire}
 %------------------------------------------------------------
@@ -578,7 +662,7 @@ Il n'existe actuellement aucun système de traduction automatique robuste docume
 
 \subsubsection{Insuffisance des ressources numériques ruund--français}
 
-Les sources disponibles pour le ruund sont fragmentaires et non structurées pour le \ac{ML}. L'effort de \textit{Data Engineering} (nettoyage, normalisation, alignement de 8~431 paires) réalisé dans ce travail constitue une contribution majeure à la documentation numérique de cette langue. \cite{Mununga2026ruunddataset}
+Les sources disponibles pour le ruund sont fragmentaires et non structurées pour le \ac{ML}. L'effort de \textit{Data Engineering} (nettoyage, normalisation, alignement de 8~431 paires) réalisé dans ce travail constitue une contribution majeure à la documentation numérique de cette langue \cite{Mununga2026ruunddataset}.
 
 \subsubsection{Justification scientifique du mémoire}
 
@@ -588,7 +672,6 @@ Ce mémoire se positionne à la pointe de la recherche actuelle en utilisant le 
 
 Outre le système de traduction, ce travail propose une méthodologie pour construire des jeux de données exploitables à partir de sources religieuses et poétiques, ouvrant la voie à une future généralisation vers des domaines variés.
 
-
 L'analyse du contexte des \textbf{langues à faibles ressources} a montré que le manque de données linguistiques, l'insuffisance des ressources numériques et les défis de standardisation constituent des obstacles majeurs au développement d'outils \ac{NLP} performants \cite{ranathunga2023neural, agyei2024low}. Ces contraintes sont particulièrement marquées dans le cas du \textbf{ruund}, une langue encore faiblement représentée dans les technologies du langage \cite{haulai2023construction, jindal2017building}.
 
-Ainsi, la littérature existante souligne la nécessité de développer des approches adaptées aux langues à faibles ressources, notamment par la constitution de \textbf{corpus parallèles} et l'adaptation de \textbf{modèles multilingues pré-entraînés} \cite{ranathunga2023neural, haulai2023construction}. Ces constats justifient la présente recherche consacrée à la traduction automatique ruund--français.
+Ainsi, la littérature existante souligne la nécessité de développer des approches adaptées aux langues à faibles ressources, notamment par la constitution de \textbf{corpus parallèles} et l'adaptation de \textbf{modèles multilingues pré-entraînés} \cite{ranathunga2023neural, haulai2023construction}. Ces constats justifient la présente recherche consacrée à la traduction automatique ruund--français \cite{rakhimov2024enhancing, nguyen2017transfer}.
