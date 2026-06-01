@@ -1,1 +1,58 @@
 \chapter{Construction du corpus parallèle ruund–français}
+
+Ce chapitre présente le processus de constitution du corpus utilisé pour l'entraînement et l'évaluation des modèles de traduction automatique étudiés. Il décrit les objectifs poursuivis, les sources de données exploitées ainsi que l'organisation générale du corpus obtenu.
+
+
+La figure~\ref{fig:pipeline_corpus} illustre les grandes étapes de ce processus, 
+détaillées dans les sections suivantes.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Images/pipelinecorpus.png}
+    \caption[Pipeline de construction du corpus]{Pipeline de construction du corpus parallèle ruund–français}
+    \label{fig:pipeline_corpus}
+\end{figure}
+
+
+
+%------------------------------------------------------------
+\section{Présentation générale du corpus}
+%------------------------------------------------------------
+
+\subsection{Objectif de la construction du corpus}
+
+L'objectif principal de la construction du corpus est de disposer d'un ensemble de données parallèles ruund–français permettant l'entraînement, l'adaptation et l'évaluation de modèles de \textbf{\ac{TAN}}. En raison du manque de ressources linguistiques numériques disponibles pour le ruund, il a été nécessaire de constituer un corpus spécifique à partir de données existantes dans les deux langues.
+
+Au-delà de son utilisation dans ce mémoire, ce corpus contribue également à la mise à disposition de ressources linguistiques pouvant servir à d'autres travaux de recherche et au développement d'applications de \ac{TAL} pour le ruund.
+
+\subsection{Description générale du corpus}
+
+Le corpus utilisé dans cette étude est un \textbf{corpus parallèle texte-à-texte} composé de phrases en ruund et de leurs équivalents en français. Les données proviennent principalement du \textbf{Nouveau Testament} ainsi que d'un ensemble de \textbf{poèmes} disponibles dans les deux langues.
+
+La construction du corpus a impliqué des opérations de collecte, d'extraction et d'alignement des données afin d'établir une correspondance entre les segments textuels des deux langues.
+
+Les données sont organisées sous forme de \textbf{paires de phrases alignées}, où chaque phrase en ruund est associée à sa traduction correspondante en français. Cette structure est adaptée aux exigences des systèmes de \ac{TAN}.
+
+%------------------------------------------------------------
+\section{Collecte des données}
+%------------------------------------------------------------
+
+Le tableau~\ref{tab:sources_donnees} présente une synthèse des sources exploitées ainsi que les méthodes de collecte appliquées pour chacune d'elles.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{3.4cm}p{3cm}p{3.2cm}p{3.2cm}}
+\toprule
+\textbf{Source} & \textbf{Langue} & \textbf{Méthode de collecte} & \textbf{Format de sortie} \\
+\midrule
+Nouveau Testament & Français & \textit{Web scraping}\footnote{Le \textit{web scraping} consiste à extraire automatiquement des données publiquement accessibles depuis des pages web à l'aide de scripts ou d'outils ; il convient de respecter les conditions d'utilisation et la législation applicable.} & Fichier texte (.txt) \\
+Nouveau Testament & Ruund & Numérisation + \textit{OCR}\footnote{ L'\textit{OCR} (reconnaissance optique de caractères) permet de convertir des images ou scans de documents en texte exploitable, mais peut introduire des erreurs nécessitant une post-correction.} & Fichier texte (.txt) \\
+Poèmes bilingues & Ruund–Français & Extraction & Fichier texte (.txt) \\
+\bottomrule
+\end{tabular}
+\caption{Sources et méthodes de collecte des données du corpus}
+\label{tab:sources_donnees}
+\end{table}
