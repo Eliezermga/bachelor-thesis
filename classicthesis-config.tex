@@ -184,6 +184,9 @@ natbib=true % natbib compatibility mode (\citep and \citet still work)
 
 \PassOptionsToPackage{pdftex,hyperfootnotes=false,pdfpagelabels}{hyperref}
 \usepackage{hyperref}  % backref linktocpage pagebackref
+\usepackage{xurl}      % Allows URLs to break at any character (fixes bibliography overflow)
+\usepackage{microtype} % Improves text justification, reduces overfull hboxes in paragraphs
+\emergencystretch=3em  % Last-resort fix: allows extra word spacing before overflowing margin
 \pdfcompresslevel=9
 \pdfadjustspacing=1
 

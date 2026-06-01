@@ -128,30 +128,24 @@ Ces limitations ont favorisé l'émergence de la \textbf{traduction automatique 
 
 \begin{table}[H]
 \centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{3.2cm}p{3.5cm}p{3.5cm}p{3.5cm}}
+\toprule
+\textbf{Critère} & \textbf{\ac{RBMT}} & \textbf{\ac{SMT}} & \textbf{\ac{NMT}} \\
+\midrule
+\textbf{Période} & Années 1950--1990 & Années 1990--2015 & Depuis 2015 \\
+\textbf{Principe} & Règles linguistiques et dictionnaires bilingues définis manuellement & Modèles probabilistes appris à partir de corpus parallèles & Réseaux de neurones profonds entraînés sur corpus parallèles \\
+\textbf{Données requises} & Règles et lexiques manuels & Grands corpus parallèles & Grands corpus parallèles \\
+\textbf{Apprentissage} & Non automatique & Automatique (statistique) & Automatique (neuronal) \\
+\textbf{Gestion du contexte} & Limitée & Partielle (n-grammes) & Globale (mécanisme d'attention) \\
+\textbf{Qualité des traductions} & Contrôlée mais rigide & Meilleure que \ac{RBMT} & Meilleure qualité globale \\
+\textbf{Langues à faibles ressources} & Difficile (expertise manuelle) & Difficile (manque de corpus) & Difficile (manque de données) \\
+\textbf{Exemples de systèmes} & Systran, Apertium & Moses, Pharaoh & mBART, NLLB... \\
+\bottomrule
+\end{tabular}
 \caption{Comparaison des approches de traduction automatique}
 \label{tab:comparaison_ta}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|p{3.2cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
-\hline
-\textbf{Critère} & \textbf{\ac{RBMT}} & \textbf{\ac{SMT}} & \textbf{\ac{NMT}} \\
-\hline
-\textbf{Période} & Années 1950--1990 & Années 1990--2015 & Depuis 2015 \\
-\hline
-\textbf{Principe} & Règles linguistiques et dictionnaires bilingues définis manuellement & Modèles probabilistes appris à partir de corpus parallèles & Réseaux de neurones profonds entraînés sur corpus parallèles \\
-\hline
-\textbf{Données requises} & Règles et lexiques manuels & Grands corpus parallèles & Grands corpus parallèles \\
-\hline
-\textbf{Apprentissage} & Non automatique & Automatique (statistique) & Automatique (neuronal) \\
-\hline
-\textbf{Gestion du contexte} & Limitée & Partielle (n-grammes) & Globale (mécanisme d'attention) \\
-\hline
-\textbf{Qualité des traductions} & Contrôlée mais rigide & Meilleure que \ac{RBMT} & Meilleure qualité globale \\
-\hline
-\textbf{Langues à faibles ressources} & Difficile (expertise manuelle) & Difficile (manque de corpus) & Difficile (manque de données) \\
-\hline
-\textbf{Exemples de systèmes} & Systran, Apertium & Moses, Pharaoh & mBART, NLLB... \\
-\hline
-\end{tabular}
 \end{table}
 
 %------------------------------------------------------------
@@ -258,32 +252,28 @@ MarianMT propose des modèles pré-entraînés spécialisés pour différentes c
 
 Les modèles mBART-50, NLLB-200-distilled-600M et MarianMT reposent tous sur les architectures Transformer et utilisent des approches multilingues de traduction automatique neuronale. Le tableau~\ref{tab:comparaison_modeles} présente une synthèse comparative de ces trois modèles selon plusieurs critères pertinents pour le contexte des langues à faibles ressources \cite{rakhimov2024enhancing, ranathunga2023neural}.
 
+
 \begin{table}[H]
 \centering
+
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{3.2cm}p{3.4cm}p{3.4cm}p{3.4cm}}
+\toprule
+\textbf{Critère} & \textbf{\ac{mBART}-50} & \textbf{\ac{NLLB}-200-distilled-600M} & \textbf{\ac{MarianMT}} \\
+\midrule
+\textbf{Architecture} & Transformer seq2seq & Transformer seq2seq & Transformer seq2seq \\
+\textbf{Nombre de langues} & 50 langues & 200+ langues & Paires spécifiques \\
+\textbf{Stratégie de pré-entraînement} & Débruitage multilingue & Entraînement supervisé massif & Entraînement supervisé par paire \\
+\textbf{Langues africaines} & Couverture limitée & Couverture étendue & Très limitée \\
+\textbf{Adaptation (fine-tuning)} & Oui & Oui & Oui \\
+\textbf{Ressources computationnelles} & Modérées & Réduites (version distillée) & Légères \\
+\textbf{Langues à faibles ressources} & Performant après fine-tuning & Orienté LFR & Dépend de la paire \\
+\textbf{Disponibilité} & HuggingFace & HuggingFace & HuggingFace \\
+\bottomrule
+\end{tabular}
 \caption{Comparaison des modèles multilingues de traduction automatique}
 \label{tab:comparaison_modeles}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|p{3.2cm}|p{3.4cm}|p{3.4cm}|p{3.4cm}|}
-\hline
-\textbf{Critère} & \textbf{\ac{mBART}-50} & \textbf{\ac{NLLB}-200-distilled-600M} & \textbf{\ac{MarianMT}} \\
-\hline
-\textbf{Architecture} & Transformer seq2seq & Transformer seq2seq & Transformer seq2seq \\
-\hline
-\textbf{Nombre de langues} & 50 langues & 200+ langues & Paires spécifiques \\
-\hline
-\textbf{Stratégie de pré-entraînement} & Débruitage multilingue & Entraînement supervisé massif & Entraînement supervisé par paire \\
-\hline
-\textbf{Langues africaines} & Couverture limitée & Couverture étendue & Très limitée \\
-\hline
-\textbf{Adaptation (fine-tuning)} & Oui & Oui & Oui \\
-\hline
-\textbf{Ressources computationnelles} & Modérées & Réduites (version distillée) & Légères \\
-\hline
-\textbf{Langues à faibles ressources} & Performant après fine-tuning & Orienté LFR & Dépend de la paire \\
-\hline
-\textbf{Disponibilité} & HuggingFace & HuggingFace & HuggingFace \\
-\hline
-\end{tabular}
 \end{table}
 
 Le choix du modèle dépend principalement de plusieurs facteurs tels que la disponibilité des données, les ressources computationnelles et les objectifs de la tâche de traduction \cite{ranathunga2023neural}.
@@ -397,7 +387,7 @@ L'\textbf{alignement} consiste à associer correctement chaque phrase de la lang
 
 Pour de nombreuses \textbf{langues à faibles ressources}, les textes religieux et poétiques constituent les piliers fondamentaux pour la construction des premiers corpus parallèles en raison de leur disponibilité. La \textbf{Bible} est une ressource privilégiée car sa structure rigoureuse en chapitres et en versets offre un cadre d'alignement naturel et fiable, essentiel pour des langues comme le mizo \cite{chanambam2022, haulai2023construction}, l'araméen \cite{liebeskind2024machine}, le twi \cite{agyei2024low} ou encore une douzaine de langues autochtones de Colombie et du Mexique telles que le mazatèque, le huichol ou le paez \cite{angel2023comparing}.
 
-D'autres ressources structurées, comme le corpus \textbf{JW300}, sont également utilisées pour fournir des données bilingues à des langues comme le quechua ou des langues agglutinantes \cite{chen-fazio-2021-morphologically, kann2022americasnli}. Parallèlement, l'intégration de la \textbf{poésie} et de textes littéraires anciens permet d'enrichir la diversité lexicale et de capturer des nuances culturelles uniques, malgré une complexité stylistique accrue. Cette approche a été appliquée avec succès pour le croate \cite{dundjer2020automatic}, le môn \cite{thu2023monenglishtranslation} et pour la traduction de l'écriture logographique \textbf{Dongba} à partir de textes sacrés \cite{ma2025dongba}. Ces ressources jouent un rôle crucial dans l'amorçage des systèmes de traduction automatique (\ac{NMT} et \ac{SMT}), permettant de réduire la fracture numérique pour les communautés linguistiquement sous-représentées \cite{ranathunga2023neural}.
+D'autres ressources structurées, comme le corpus \textbf{JW300}, sont également utilisées pour fournir des données bilingues à des langues comme le quechua ou des langues agglutinantes \cite{chen-fazio-2021-morphologically, kann2022americasnli}. Parallèlement, l'intégration de la \textbf{poésie} et de textes littéraires anciens permet d'enrichir la diversité lexicale et de capturer des nuances culturelles uniques, malgré une complexité stylistique accrue. Cette approche a été appliquée avec succès pour le croate \cite{dundjer2020automatic}, le môn \cite{tun2025exploring} et pour la traduction de l'écriture logographique \textbf{Dongba} à partir de textes sacrés \cite{ma2025dongba}. Ces ressources jouent un rôle crucial dans l'amorçage des systèmes de traduction automatique (\ac{NMT} et \ac{SMT}), permettant de réduire la fracture numérique pour les communautés linguistiquement sous-représentées \cite{ranathunga2023neural}.
 
 %------------------------------------------------------------
 \section{Domaine linguistique et langues à faibles ressources}
@@ -424,7 +414,7 @@ Les \textbf{inégalités numériques linguistiques} désignent la différence de
 Cette situation crée une \textbf{exclusion technologique} pour plusieurs communautés linguistiques, notamment africaines, dont les langues ne bénéficient pas pleinement des avancées de l'intelligence artificielle et de la \ac{TAN} \cite{agyei2024low, mandiya2026lingala}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.65\textwidth]{Images/repartition.jpg}
+    \includegraphics[width=0.65\textwidth]{Images/repartition.png}
     \caption[Répartition des langues selon leurs ressources en NLP]{Répartition des langues selon leur nombre de locuteurs et leurs ressources en NLP \cite{laumann2022challenges}}
     \label{fig:repartition-langues-nlp}
 \end{figure}
@@ -499,7 +489,7 @@ L'intelligence artificielle joue un rôle important dans la préservation du pat
 
 \subsubsection{Importance des ressources numériques locales}
 
-Le développement de ressources numériques locales représente un enjeu vital pour les langues africaines afin de surmonter la \textbf{« pénurie de données »} (\textit{data scarcity}) qui marginalise la majorité des langues mondiales \cite{ranathunga2023neural}. Pour le \textbf{ruund}, cette démarche s'appuie sur les avancées méthodologiques observées pour d'autres langues à faibles ressources telles que le \textbf{mizo} \cite{haulai2023construction, lalrempuii2021improved}, le \textbf{pendjabi} \cite{jindal2017building} ou le \textbf{twi} \cite{agyei2024low}, qui souffrent également d'un manque initial de présence numérique native. À l'instar du \textbf{mon} \cite{thu2023monenglishtranslation}, l'absence de corpus parallèles structurés constitue un frein majeur au développement d'applications performantes, rendant indispensable la création d'outils linguistiques et de données annotées pour renforcer les capacités des modèles neuronaux.
+Le développement de ressources numériques locales représente un enjeu vital pour les langues africaines afin de surmonter la \textbf{« pénurie de données »} (\textit{data scarcity}) qui marginalise la majorité des langues mondiales \cite{ranathunga2023neural}. Pour le \textbf{ruund}, cette démarche s'appuie sur les avancées méthodologiques observées pour d'autres langues à faibles ressources telles que le \textbf{mizo} \cite{haulai2023construction, lalrempuii2021improved}, le \textbf{pendjabi} \cite{jindal2017building} ou le \textbf{twi} \cite{agyei2024low}, qui souffrent également d'un manque initial de présence numérique native. À l'instar du \textbf{mon} \cite{tun2025exploring}, l'absence de corpus parallèles structurés constitue un frein majeur au développement d'applications performantes, rendant indispensable la création d'outils linguistiques et de données annotées pour renforcer les capacités des modèles neuronaux.
 
 En s'appuyant sur les efforts de documentation menés pour le \textbf{quechua} \cite{sullatores2024desarrollo} ou l'\textbf{araméen} \cite{liebeskind2024machine}, la constitution de ressources pour le ruund s'inscrit dans une quête de \textbf{justice numérique} visant à réduire la fracture technologique \cite{ranathunga2023neural, agyei2024low}. Cette production de données locales dépasse le simple cadre du progrès technique : elle est essentielle pour \textbf{préserver et valoriser un patrimoine linguistique et culturel} unique face aux défis de la mondialisation. En permettant l'intégration du ruund dans les technologies du langage, ces travaux garantissent que ses locuteurs ne soient pas exclus des services essentiels et puissent participer pleinement à l'écosystème numérique mondial
 
@@ -507,6 +497,68 @@ En s'appuyant sur les efforts de documentation menés pour le \textbf{quechua} \
 %------------------------------------------------------------
 \section{Analyse des travaux existants}
 %------------------------------------------------------------
+
+
+%------------------------------------------------------------
+\subsection{Méthodologie de la revue de littérature}
+%------------------------------------------------------------
+
+\subsubsection{Protocole de recherche documentaire}
+
+Cette revue de littérature a été réalisée selon une démarche systématique inspirée des recommandations \ac{PRISMA}. Les recherches bibliographiques ont été effectuées dans plusieurs bases de données scientifiques, notamment Scopus, \ac{ACM}, \ac{IEEE} et Google Scholar.
+
+Les requêtes de recherche ont été construites autour de quatre axes principaux :
+
+\begin{itemize}
+    \item la traduction automatique neuronale ;
+    \item les langues à faibles ressources ;
+    \item la construction et le prétraitement des corpus parallèles ;
+    \item les modèles multilingues et les méthodes d'évaluation.
+\end{itemize}
+
+Les mots-clés utilisés incluaient notamment \textit{machine translation}, \textit{neural machine translation}, \textit{low-resource languages}, \textit{parallel dataset}, \textit{sentence alignment}, \textit{subword segmentation}, \textit{multilingual models}, \textit{transfer learning}, \textit{Transformer} et \textit{BLEU score}.
+
+\subsubsection{Critères d'inclusion et d'exclusion}
+
+Les études ont été sélectionnées selon des critères prédéfinis afin de garantir leur pertinence par rapport aux objectifs de cette recherche. Le tableau~\ref{tab:criteres_selection} présente l'ensemble des critères appliqués lors du processus de sélection.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{6.8cm}p{6.8cm}}
+\toprule
+\textbf{Critères d'inclusion} & \textbf{Critères d'exclusion} \\
+\midrule
+Traduction automatique neuronale pour les langues à faibles ressources & Reconnaissance automatique de la parole (\textit{Speech Recognition}) \\
+Construction de corpus parallèles & Classification de textes \\
+Alignement de phrases & Analyse de sentiments \\
+Prétraitement des données & Recherche d'information (\textit{Information Retrieval}) \\
+Segmentation en sous-mots (\ac{BPE}, \ac{SentencePiece}) & Enquêtes (\textit{surveys}) \\
+Modèles multilingues & Revues de littérature ou études de synthèse \\
+Apprentissage par transfert (\textit{Transfer Learning}) & \\
+Métriques d'évaluation telles que \ac{BLEU}, \ac{chrF} & \\
+Développement de prototypes de traduction automatique & \\
+\bottomrule
+\end{tabular}
+\caption{Critères d'inclusion et d'exclusion des études sélectionnées}
+\label{tab:criteres_selection}
+\end{table}
+
+\subsubsection{Processus de sélection des études}
+
+La sélection des publications a été réalisée en plusieurs étapes. Après l'identification initiale des documents dans les différentes bases de données, les doublons ont été supprimés. Les titres et résumés ont ensuite été examinés afin d'évaluer leur pertinence au regard des critères d'inclusion et d'exclusion. Les articles retenus ont finalement fait l'objet d'une lecture intégrale avant leur inclusion dans l'analyse finale.
+
+Le processus complet de sélection des études est présenté dans le diagramme \ac{PRISMA} ci-dessous.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.60\textwidth]{Images/prisma_diagram.png}
+    \caption{Diagramme \ac{PRISMA} du processus de sélection des études \cite{Page2021PRISMA}}
+    \label{fig:prisma}
+\end{figure}
+
+
 
 \subsection{Évolution des approches de traduction automatique}
 
@@ -554,7 +606,7 @@ Les langues bantoues, comme le ruund, font face à des défis majeurs en matièr
 
 \subsubsection{Forces des approches actuelles}
 
-Les modèles basés sur les \textbf{Transformers} et l'apprentissage par transfert permettent d'obtenir des résultats exploitables là où les méthodes traditionnelles échouaient. Cette supériorité empirique a été démontrée pour plusieurs paires de langues à faibles ressources, notamment le mizo--anglais \cite{lalrempuii2021improved} et le môn--anglais \cite{thu2023monenglishtranslation}.
+Les modèles basés sur les \textbf{Transformers} et l'apprentissage par transfert permettent d'obtenir des résultats exploitables là où les méthodes traditionnelles échouaient. Cette supériorité empirique a été démontrée pour plusieurs paires de langues à faibles ressources, notamment le mizo--anglais \cite{lalrempuii2021improved} et le môn--anglais \cite{tun2025exploring}.
 
 \subsubsection{Limites liées aux données}
 
@@ -566,7 +618,131 @@ Le manque de standardisation orthographique et la richesse des affixes verbaux c
 
 \subsubsection{Limites des métriques d'évaluation}
 
-Le score \ac{BLEU}, bien que standard, ne corrèle pas toujours parfaitement avec le jugement humain pour les langues à faibles ressources \cite{lankford2022human, lalrempuii2021improved}. Notre choix d'inclure une évaluation humaine est donc scientifiquement justifié pour valider l'adéquation sémantique \cite{thu2023monenglishtranslation}.
+Le score \ac{BLEU}, bien que standard, ne corrèle pas toujours parfaitement avec le jugement humain pour les langues à faibles ressources \cite{lankford2022human, lalrempuii2021improved}. Notre choix d'inclure une évaluation humaine est donc scientifiquement justifié pour valider l'adéquation sémantique \cite{tun2025exploring}.
+
+\subsubsection{Synthèse comparative des travaux}
+
+Le tableau~\ref{tab:synthese_travaux} présente une analyse comparative de seize études représentatives portant sur la traduction automatique pour les langues à faibles ressources. Il synthétise les approches méthodologiques, les performances obtenues, la complexité des systèmes, leur robustesse ainsi que leurs limites principales.
+
+\begingroup
+\renewcommand{\arraystretch}{1.4}
+\small
+\rowcolors{2}{gray!10}{white}
+\begin{longtable}{p{2.8cm}p{2.8cm}p{2.2cm}p{1.9cm}p{1.9cm}p{3.2cm}}
+\toprule
+\textbf{Auteur(s)} & \textbf{Approche} & \textbf{Performance} & \textbf{Complexité} & \textbf{Robustesse} & \textbf{Limites principales} \\
+\midrule
+\endfirsthead
+\endhead
+
+\bottomrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\citeauthor{ali2026hybrid} \cite{ali2026hybrid} &
+\ac{MNMT} non supervisée (XLM-R + ACL) &
++1.2 \ac{BLEU} (bilingue) &
+Élevée &
+Haute &
+Qualité médiocre sur phrases longues ; dépendance aux dictionnaires bilingues \\
+\citeauthor{lalrempuii2021improved} \cite{lalrempuii2021improved} &
+Comparaison SMT vs NMT (mizo) &
+Transformer $\gg$ LSTM et SMT &
+Modérée &
+Moyenne &
+Baisse radicale sur phrases longues ; manque de ressources pour le mizo \\
+\citeauthor{rakhimov2024enhancing} \cite{rakhimov2024enhancing} &
+Fine-tuning mBART-50 &
++11.95 \ac{BLEU} (kazakh--russe) &
+Moyenne &
+Haute &
+Sensibilité à la qualité des données de fine-tuning et aux hyperparamètres \\
+\citeauthor{ahmadnia2021impact} \cite{ahmadnia2021impact} &
+Filtrage de données pseudo-parallèles &
+BLEU $>$ baselines non filtrées &
+Modérée &
+Améliorée &
+Corpus filtré très réduit ; généralisation limitée \\
+\citeauthor{dai2025tfttl} \cite{dai2025tfttl} &
+Transfert TFT-TL (niveau token) &
+19.88 \ac{BLEU} (Tr--En) &
+Élevée &
+Excellente &
+Instabilité possible à certaines étapes d'apprentissage \\
+\citeauthor{brahma2023selectnoise} \cite{brahma2023selectnoise} &
+SELECTNOISE (injection de bruit) &
+Surpasse les baselines zero-shot &
+Élevée &
+Robuste &
+Efficacité réduite si les scripts des langues sont trop différents \\
+\citeauthor{chen-fazio-2021-morphologically} \cite{chen-fazio-2021-morphologically} &
+Segmentation morphologique (PRPE) &
+23.4 \ac{BLEU} (quechua) &
+Modérée &
+Bonne &
+Nécessite une liste d'affixes préalable (connaissances linguistiques) \\
+\citeauthor{bala2024multilingual} \cite{bala2024multilingual} &
+MNMT + translittération (Indic--Indic) &
++6.74 \ac{BLEU} (malayalam) &
+Modérée &
+Bonne &
+Interférence négative sur certains groupes linguistiques rares \\
+\citeauthor{tun2025exploring} \cite{tun2025exploring} &
+Hybride SMT, NMT, BART fine-tuné &
+BART + \ac{SentencePiece} = meilleurs résultats &
+Élevée &
+Bonne &
+Complexité morphologique du môn non résolue par le seul transfert \\
+\citeauthor{ahmed2023guit} \cite{ahmed2023guit} &
+Rétro-traduction itérative (mizo) &
++3.65 \ac{BLEU} par itération &
+Modérée &
+Moyenne &
+Inefficace sur phrases très longues \\
+\citeauthor{gronroos2020transfer} \cite{gronroos2020transfer} &
+Multi-task learning programmé &
++12.7 \ac{BLEU} via \ac{MNMT} + rétro-traduction &
+Élevée &
+Haute &
+Rendements décroissants au-delà de 10~000 phrases \\
+\citeauthor{aci2025morphological} \cite{aci2025morphological} &
+Analyse de profondeur (anglais--turc) &
+47.85 \ac{BLEU} (Transformer 3 couches) &
+Élevée &
+Excellente &
+Chute de performance si la profondeur dépasse le seuil optimal \\
+\citeauthor{kann2022americasnli} \cite{kann2022americasnli} &
+AmericasNLI (langues indigènes) &
++24.53\% pour le quechua &
+Haute &
+Moyenne &
+Répétition de sous-mots dans les sorties ; sensibilité au domaine \\
+\citeauthor{goyal2020efficient} \cite{goyal2020efficient} &
+Translittération unifiée (indo-aryen) &
++5 points \ac{BLEU} en moyenne &
+Modérée &
+Bonne &
+Ambiguïtés à l'inférence entre langues proches \\
+\citeauthor{hong2024cantonmt} \cite{hong2024cantonmt} &
+CANTONMT (rétro-traduction + commutation) &
+SacreBLEU 16.8 &
+Haute &
+Moyenne &
+Corpus très réduit (60k) par rapport à la population cible (80M locuteurs) \\
+\citeauthor{rani2023filtering} \cite{rani2023filtering} &
+Filtrage cross-validation (sanskrit--hindi) &
++1.85 \ac{BLEU} (token-level) &
+Modérée &
+Bonne &
+Corpus filtré final très réduit (300 paires test) ; portée statistique limitée \\
+\end{longtable}
+\addtocounter{table}{-1}
+{\captionsetup{hypcap=false}
+\captionof{table}{Synthèse comparative des travaux existants sur la TAN pour les langues à faibles ressources}
+\label{tab:synthese_travaux}}
+\endgroup
+
 
 %------------------------------------------------------------
 \subsection{Gap scientifique et positionnement du mémoire}
@@ -578,17 +754,16 @@ Il n'existe actuellement aucun système de traduction automatique robuste docume
 
 \subsubsection{Insuffisance des ressources numériques ruund--français}
 
-Les sources disponibles pour le ruund sont fragmentaires et non structurées pour le \ac{ML}. L'effort de \textit{Data Engineering} (nettoyage, normalisation, alignement de 8~431 paires) réalisé dans ce travail constitue une contribution majeure à la documentation numérique de cette langue. \cite{Mununga2026ruunddataset}
+Les sources disponibles pour le ruund sont fragmentaires et non structurées pour le \ac{ML}. L'effort de \textit{Data Engineering} (nettoyage, normalisation, alignement de 8~431 paires) réalisé dans ce travail constitue une contribution majeure à la documentation numérique de cette langue \cite{Mununga2026ruunddataset}.
 
 \subsubsection{Justification scientifique du mémoire}
 
-Ce mémoire se positionne à la pointe de la recherche actuelle en utilisant le \textit{fine-tuning} de modèles étatiques (NLLB-200, mBART-50) pour compenser la rareté des données, selon une démarche validée pour d'autres langues à faibles ressources telles que le môn \cite{thu2023monenglishtranslation}.
+Ce mémoire se positionne à la pointe de la recherche actuelle en utilisant le \textit{fine-tuning} de modèles étatiques (NLLB-200, mBART-50) pour compenser la rareté des données, selon une démarche validée pour d'autres langues à faibles ressources telles que le môn \cite{tun2025exploring}.
 
 \subsubsection{Contribution attendue de la recherche}
 
 Outre le système de traduction, ce travail propose une méthodologie pour construire des jeux de données exploitables à partir de sources religieuses et poétiques, ouvrant la voie à une future généralisation vers des domaines variés.
 
-
 L'analyse du contexte des \textbf{langues à faibles ressources} a montré que le manque de données linguistiques, l'insuffisance des ressources numériques et les défis de standardisation constituent des obstacles majeurs au développement d'outils \ac{NLP} performants \cite{ranathunga2023neural, agyei2024low}. Ces contraintes sont particulièrement marquées dans le cas du \textbf{ruund}, une langue encore faiblement représentée dans les technologies du langage \cite{haulai2023construction, jindal2017building}.
 
-Ainsi, la littérature existante souligne la nécessité de développer des approches adaptées aux langues à faibles ressources, notamment par la constitution de \textbf{corpus parallèles} et l'adaptation de \textbf{modèles multilingues pré-entraînés} \cite{ranathunga2023neural, haulai2023construction}. Ces constats justifient la présente recherche consacrée à la traduction automatique ruund--français.
+Ainsi, la littérature existante souligne la nécessité de développer des approches adaptées aux langues à faibles ressources, notamment par la constitution de \textbf{corpus parallèles} et l'adaptation de \textbf{modèles multilingues pré-entraînés} \cite{ranathunga2023neural, haulai2023construction}. Ces constats justifient la présente recherche consacrée à la traduction automatique ruund--français \cite{rakhimov2024enhancing, nguyen2017transfer}.
