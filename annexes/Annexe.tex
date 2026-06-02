@@ -1,1 +1,141 @@
-\chapter{Annexes} Contenu annexe.
+\chapter{Annexes}
+
+\begin{lstlisting}[language=Python, caption={Extraction OCR – conversion d’une page PDF en image puis reconnaissance par Tesseract.}, label={code:extrait-ocr}]
+def extraire_avec_ocr_neutre(self, pdf_path):
+    """OCR sans interprétation linguistique"""
+    text_parts = []
+
+    try:
+        doc = fitz.open(pdf_path)
+        for page_num in range(len(doc)):
+            page = doc.load_page(page_num)
+            # Vérifier d'abord si la page a du texte vectoriel
+            text_vectoriel = page.get_text()
+            if text_vectoriel and len(text_vectoriel.strip()) > self.min_text_length:
+                continue
+            
+            # Sinon, faire OCR
+            try:
+                pix = page.get_pixmap(matrix=fitz.Matrix(300/72, 300/72))
+                img_data = pix.tobytes("ppm")
+                
+                from io import BytesIO
+                img = Image.open(BytesIO(img_data))
+                
+                # Convertir en niveaux de gris pour meilleur OCR
+                if img.mode != 'L':
+                    img = img.convert('L')
+                
+                # OCR avec configuration neutre
+                text = pytesseract.image_to_string(
+                    img, 
+                    config=self.ocr_config
+                )
+                if text.strip():
+                    text_parts.append(f"\n{'='*40} Page {page_num + 1} (OCR) {'='*40}\n")
+                    text_parts.append(text)
+            except Exception as ocr_error:
+                print(f"    OCR page {page_num + 1} échoué: {ocr_error}")
+                continue
+        doc.close()
+        return "\n".join(text_parts)
+    except Exception as e:
+        print(f"  Erreur OCR neutre: {e}")
+        return ""
+
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Extrait de récupération des chapitres bibliques depuis \url{Bible.com}}, label={code:extrait-scraping}]
+import re
+import requests
+from bs4 import BeautifulSoup, NavigableString
+
+BASE_URL = "https://www.bible.com/fr/bible/63/{}.{}.BFC"
+HEADERS = {"User-Agent": "Mozilla/5.0"}
+
+def is_verse(span):
+    return re.search(r"\.\d+$", span.get("data-usfm", "")) is not None
+
+def is_note(span):
+    classes = span.get("class", [])
+    return any("note" in cls.lower() for cls in classes)
+
+def extract_clean_text(element):
+    morceaux = []
+    for node in element.descendants:
+        if not isinstance(node, NavigableString):
+            continue
+        skip = False
+        for parent in node.parents:
+            if parent == element:
+                break
+            if parent.name == "span" and is_note(parent):
+                skip = True
+                break
+        if not skip:
+            morceaux.append(str(node))
+    texte = "".join(morceaux)
+    return re.sub(r"\s+", " ", texte).strip()
+
+def scraper_chapitre(livre, chapitre):
+    url = BASE_URL.format(livre, chapitre)
+    response = requests.get(url, headers=HEADERS, timeout=10)
+    soup = BeautifulSoup(response.text, "html.parser")
+    contenu = []
+
+    for span in soup.find_all("span"):
+        if is_note(span):
+            continue
+        if "heading" in " ".join(span.get("class", [])).lower():
+            texte = extract_clean_text(span)
+            if texte:
+                contenu.append(f"\n{texte}\n")
+        elif is_verse(span):
+            texte = extract_clean_text(span)
+            if texte:
+                contenu.append(texte)
+    return "\n".join(contenu)
+
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Script d'alignement automatique}, label={code:alignement-automatique}]
+def read_txt(file_path):
+    data = []
+    with open(file_path, 'r', encoding='utf-8') as f:
+        for i, line in enumerate(f, start=1):
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split(' ', 1)
+            if len(parts) != 2:
+                print(f"[ERREUR FORMAT] Ligne {i} dans {file_path}")
+                continue
+            verse_id, text = parts
+            data.append((i, verse_id.strip(), text.strip()))
+    return data
+
+def align_and_export(ruwund_file, francais_file, output_file):
+    ruwund_data = read_txt(ruwund_file)
+    francais_data = read_txt(francais_file)
+    if len(ruwund_data) != len(francais_data):
+        print("Nombre de lignes différent")
+        print(f"Ruwund: {len(ruwund_data)}")
+        print(f"Français: {len(francais_data)}")
+        return
+    print("Nombre de lignes identique")
+    errors = 0
+    with open(output_file, 'w', encoding='utf-8') as out:
+        for i in range(len(ruwund_data)):
+            _, verse_r, text_r = ruwund_data[i]
+            _, verse_f, text_f = francais_data[i]
+            if verse_r != verse_f:
+                print(f"Incohérence à la ligne {i+1}")
+                print(f"Ruwund: {verse_r}")
+                print(f"Français: {verse_f}")
+                errors += 1
+                continue
+            out.write(f"{verse_r}\t{text_r}\t{text_f}\n")
+
+    if errors == 0:
+        print(f"TSV généré : {output_file}")
+    else:
+        print(f"{errors} incohérence(s) détectée(s)")
+\end{lstlisting}
