@@ -1,25 +1,45 @@
 \chapter{Annexes}
 
-\begin{lstlisting}[language=Python, caption={Extraction avec OCR sur les images}, label={appendix:code:python:text-extract-images}]
-# Extract images and use OCR if necessary
-image_list = page.get_images(full=True)
-for image_index, img in enumerate(page.get_images(full=True)):
-    xref = img[0]
-    # Extract the image bytes
-    base_image = doc.extract_image(xref)
-    image_bytes = base_image["image"]
-    image = Image.open(io.BytesIO(image_bytes))
-    ocr_text = pytesseract.image_to_string(
-        image,
-        lang='eng',
-        output_type=Output.STRING
-    )
-
-    extracted_content.append({
-        'page': page_num + 1,
-        'type': 'image',
-        'content': ocr_text,
-        'image_index': image_index + 1
-    })
+\begin{lstlisting}[language=Python, caption={Extraction OCR – conversion d’une page PDF en image puis reconnaissance par Tesseract.}, label={code:extrait-ocr}]
+def extraire_avec_ocr_neutre(self, pdf_path):
+    """OCR sans interprétation linguistique"""
+    text_parts = []
+    try:
+        doc = fitz.open(pdf_path)
+        for page_num in range(len(doc)):
+            page = doc.load_page(page_num)
+            # Vérifier d'abord si la page a du texte vectoriel
+            text_vectoriel = page.get_text()
+            if text_vectoriel and len(text_vectoriel.strip()) > self.min_text_length:
+                continue
+            
+            # Sinon, faire OCR
+            try:
+                pix = page.get_pixmap(matrix=fitz.Matrix(300/72, 300/72))
+                img_data = pix.tobytes("ppm")
+                
+                from io import BytesIO
+                img = Image.open(BytesIO(img_data))
+                
+                # Convertir en niveaux de gris pour meilleur OCR
+                if img.mode != 'L':
+                    img = img.convert('L')
+                
+                # OCR avec configuration neutre
+                text = pytesseract.image_to_string(
+                    img, 
+                    config=self.ocr_config
+                )
+                if text.strip():
+                    text_parts.append(f"\n{'='*40} Page {page_num + 1} (OCR) {'='*40}\n")
+                    text_parts.append(text)
+            except Exception as ocr_error:
+                print(f"    OCR page {page_num + 1} échoué: {ocr_error}")
+                continue
+        doc.close()
+        return "\n".join(text_parts)
+    except Exception as e:
+        print(f"  Erreur OCR neutre: {e}")
+        return ""
 \end{lstlisting}
 
