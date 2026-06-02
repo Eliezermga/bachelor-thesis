@@ -1,1 +1,25 @@
-\chapter{Annexes} Contenu annexe.
+\chapter{Annexes}
+
+\begin{lstlisting}[language=Python, caption={Extraction avec OCR sur les images}, label={appendix:code:python:text-extract-images}]
+# Extract images and use OCR if necessary
+image_list = page.get_images(full=True)
+for image_index, img in enumerate(page.get_images(full=True)):
+    xref = img[0]
+    # Extract the image bytes
+    base_image = doc.extract_image(xref)
+    image_bytes = base_image["image"]
+    image = Image.open(io.BytesIO(image_bytes))
+    ocr_text = pytesseract.image_to_string(
+        image,
+        lang='eng',
+        output_type=Output.STRING
+    )
+
+    extracted_content.append({
+        'page': page_num + 1,
+        'type': 'image',
+        'content': ocr_text,
+        'image_index': image_index + 1
+    })
+\end{lstlisting}
+

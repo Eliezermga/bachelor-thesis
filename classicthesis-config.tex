@@ -250,6 +250,28 @@ natbib=true % natbib compatibility mode (\citep and \citet still work)
 
 \usepackage{classicthesis} 
 
+\definecolor{codekeyword}{rgb}{0.0,0.25,0.6}
+\definecolor{codecomment}{rgb}{0.0,0.45,0.0}
+\definecolor{codestring}{rgb}{0.55,0.1,0.1}
+\definecolor{codebackground}{rgb}{0.97,0.97,0.97}
+
+\lstset{
+	language=Python,
+	basicstyle=\small\ttfamily,
+	keywordstyle=\color{codekeyword}\bfseries,
+	commentstyle=\color{codecomment}\itshape,
+	stringstyle=\color{codestring},
+	backgroundcolor=\color{codebackground},
+	numbers=left,
+	numberstyle=\tiny\color{halfgray},
+	numbersep=8pt,
+	showstringspaces=false,
+	breaklines=true,
+	frame=none,
+	rulecolor=\color{halfgray},
+	captionpos=b
+}
+
 %----------------------------------------------------------------------------------------
 %	CHANGING TEXT AREA 
 %----------------------------------------------------------------------------------------
