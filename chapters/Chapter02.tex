@@ -67,7 +67,7 @@ Les pages du Nouveau Testament en ruund (\textit{Manswik Masu}, 1996) ont été 
 
 \subsection{Reconnaissance optique de caractères}
 
-Les images obtenues ont ensuite été traitées par le moteur d'\ac{OCR} \textbf{Tesseract}, qui convertit automatiquement le contenu textuel des images en texte numérique exploitable. En raison de l'absence de modèle linguistique natif pour le ruund dans Tesseract, le traitement a été réalisé par extraction des caractères bruts.
+Les images obtenues ont ensuite été traitées par le moteur d'\ac{OCR} \textbf{Tesseract}\footnote{\url{https://tesseract-ocr.github.io/tessdoc/}}, qui convertit automatiquement le contenu textuel des images en texte numérique exploitable. En raison de l'absence de modèle linguistique natif pour le ruund dans Tesseract, le traitement a été réalisé par extraction des caractères bruts.
 
 \subsection{Difficultés rencontrées et corrections}
 
@@ -75,4 +75,4 @@ L'extraction automatique a généré certaines erreurs, notamment au niveau des 
 
 \subsection{Extraction des données françaises par \textit{web scraping}}
 
-Pour constituer le versant français du corpus, la \textbf{Bible en Français Courant} (1997) a été utilisée, disponible en ligne sur la plateforme \texttt{bible.com}. Le processus d'extraction a été automatisé à l'aide d'un script \textbf{Python} s'appuyant sur la bibliothèque \textbf{BeautifulSoup}, permettant de transformer le contenu \textbf{HTML} en un flux textuel structuré adapté à l'alignement ultérieur.
+Pour constituer le versant français du corpus, la \textbf{Bible en Français Courant} (1997) a été utilisée, disponible en ligne sur la plateforme \texttt{bible.com}. Le processus d'extraction a été automatisé à l'aide d'un script \textbf{Python} s'appuyant sur la bibliothèque \textbf{BeautifulSoup}\footnote{\url{https://beautiful-soup-4.readthedocs.io/en/latest/}}, permettant de transformer le contenu \textbf{HTML} en un flux textuel structuré adapté à l'alignement ultérieur.
