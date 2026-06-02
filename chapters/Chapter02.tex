@@ -140,9 +140,6 @@ Une vérification finale a été effectuée pour s'assurer de la qualité des al
 Aam nid kwaam nkay chilil mwaan, chikweeza kumudya mwaan chikudyook mukan mweey &
 Je ne suis quant à moi qu'une simple antilope nourricière du petit, ce qui le tuera c'est ta parole malveillante. \\
 
-Anch muntu wakushinyin ku usu kumusendil difund diend kutwal chintampu chimwing, ey musendila, umutwadil ku yintampu yaad. &
-Si quelqu'un t'oblige à faire mille pas, fais-en deux mille avec lui.\\
-
 Yesu wayakula anch: Yangany ukamulejany Yohan yom yiuteshilanya ni yiumenanya &
 Jésus leur répondit: Allez raconter à Jean ce que vous entendez et voyez \\
 
@@ -154,3 +151,49 @@ On corrige une femme discrètement sous le toit conjugal et non en public sinon 
 \caption{Exemples de paires de phrases alignées d'OpenRuund}
 \label{tab:extrait_corpus}
 \end{table}
+
+%------------------------------------------------------------
+\section{Analyse descriptive du corpus}
+%------------------------------------------------------------
+
+le tableau \ref{tab:stats_corpus} présente les principales caractéristiques quantitatives du corpus parallèle construit dans le cadre de cette étude.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{5.2cm}p{3.8cm}p{3.8cm}}
+\toprule
+\textbf{Statistique} & \textbf{Ruund} & \textbf{Français} \\
+\midrule
+Nombre de phrases & 8~431 & 8~431 \\
+Nombre total de mots & 185~911 & 187~248 \\
+Longueur moyenne des phrases (mots) & 22,05 & 22,21 \\
+\bottomrule
+\end{tabular}
+\caption{Statistiques descriptives du corpus OpenRuund}
+\label{tab:stats_corpus}
+\end{table}
+
+
+%------------------------------------------------------------
+\section{Défis et limites de la construction du corpus}
+%------------------------------------------------------------
+
+\subsection{Défis liés à la collecte}
+
+La principale difficulté a été l'accès à des ressources bilingues de qualité en ruund. Contrairement au français, les textes numériques disponibles dans cette langue sont rares, ce qui a limité les sources exploitables pour la constitution du corpus. Cette rareté des données numériques reflète plus largement la situation des \ac{LFR}, pour lesquelles les corpus parallèles structurés demeurent exceptionnels.
+
+\subsection{Défis liés à l'OCR}
+
+L'absence de modèles \ac{OCR} spécifiquement adaptés au ruund a entraîné diverses erreurs lors de l'extraction du texte. Certaines confusions de caractères, omissions et erreurs de segmentation ont nécessité des corrections manuelles avant l'utilisation des données.
+
+\subsection{Défis liés à l'alignement}
+
+Bien que les textes bibliques présentent une structure relativement régulière basée sur les versets, certaines différences de segmentation entre les versions ruund et française ont compliqué l'\textbf{alignement automatique}. Une vérification manuelle a donc été nécessaire pour corriger les associations incorrectes, en particulier dans les cas où la correspondance entre versets n'était pas univoque.
+
+\subsection{Limites du corpus obtenu}
+
+Le corpus construit demeure limité en taille par rapport aux ressources généralement utilisées pour l'entraînement des systèmes de traduction neuronale. En effet, les modèles neuronaux modernes atteignent généralement des performances optimales avec des centaines de milliers de paires de phrases parallèles, tandis que le corpus ruund–français ne contient que 8~431 paires. De plus, une grande partie des données provient de textes religieux, ce qui peut réduire la diversité thématique et linguistique du corpus et affecter la capacité de généralisation des modèles entraînés sur ces données.
+
+Malgré ces limites, cette ressource constitue une base exploitable pour le développement et l'évaluation de modèles de traduction ruund–français et représente une contribution significative à la numérisation du ruund, une langue jusqu'à présent largement sous-représentée dans les technologies linguistiques modernes.
