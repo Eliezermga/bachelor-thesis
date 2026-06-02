@@ -73,6 +73,29 @@ Les images obtenues ont ensuite été traitées par le moteur d'\ac{OCR} \textbf
 
 L'extraction automatique a généré certaines erreurs, notamment au niveau des \textbf{caractères spéciaux}, de la \textbf{segmentation des mots} et de la \textbf{ponctuation}. Une phase de vérification et de correction manuelle a donc été réalisée afin d'améliorer la qualité des textes extraits avant leur utilisation dans le processus d'alignement.
 
+Le tableau~\ref{tab:erreurs_ocr} présente quelques types d'erreurs observées après l'\ac{OCR}, ainsi que des exemples de corrections appliquées manuellement.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Catégorie d'erreur} & \textbf{Exemple avant correction (\ac{OCR})} & \textbf{Exemple après correction} \\
+\midrule
+Numéro de verset manquant & \texttt{Kuvadik kwa Yesu Kristu kwading mwamu.} & \texttt{18 Kuvadik kwa Yesu Kristu kwading mwamu.} \\
+Caractère spécial mal interprété (symbole vers chiffre) & \texttt{\S{} Asa wamuvala Josafat...} & \texttt{8 Asa wamuvala Josafat...} ou \texttt{2}, \texttt{3}, \texttt{9} selon le cas \\
+Caractère spécial mal interprété (crochet ou apostrophe vers chiffre) & \texttt{] 'Minam mawiy majin ma angakiril...} & \texttt{1 Minam mawiy majin ma angakiril...} \\
+Césure de mot intempestive (tiret en fin de ligne) & \texttt{kumu- kwatish} & \texttt{kumukwatish} \\
+Ponctuation finale manquante & \texttt{... mulong wa kuwanyish mazu ma Chinawej} & \texttt{... mulong wa kuwanyish mazu ma Chinawej.} \\
+Numéro de verset collé au texte & \texttt{2 1Yesu wavadika...} & \texttt{1 Yesu wavadika...} \\
+\bottomrule
+\end{tabularx}
+\caption{Exemples d'erreurs produites par l'\ac{OCR} et corrections appliquées}
+\label{tab:erreurs_ocr}
+\end{table}
+
 \subsection{Extraction des données françaises par \textit{web scraping}}
 
 Pour constituer le versant français du corpus, la \textbf{Bible en Français Courant} (1997) a été utilisée, disponible en ligne sur la plateforme \texttt{bible.com}. Le processus d'extraction a été automatisé à l'aide d'un script \textbf{Python} s'appuyant sur la bibliothèque \textbf{BeautifulSoup}\footnote{\url{https://beautiful-soup-4.readthedocs.io/en/latest/}}, permettant de transformer le contenu \textbf{HTML} en un flux textuel structuré adapté à l'alignement ultérieur.
