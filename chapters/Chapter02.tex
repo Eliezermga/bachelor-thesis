@@ -56,3 +56,23 @@ Poèmes bilingues & Ruund–Français & Extraction & Fichier texte (.txt) \\
 \caption{Sources et méthodes de collecte des données du corpus}
 \label{tab:sources_donnees}
 \end{table}
+
+%------------------------------------------------------------
+\section{Numérisation et extraction des données}
+%------------------------------------------------------------
+
+\subsection{Processus de numérisation}
+
+Les pages du Nouveau Testament en ruund (\textit{Manswik Masu}, 1996) ont été numérisées à une résolution de \textbf{900 dpi} à l'aide d'un scanner HP Color LaserJet Pro MFP M283fdw, afin d'obtenir des images nettes. Cette condition est essentielle pour minimiser les erreurs de l'\ac{OCR}. Cette opération a permis de convertir le document physique en images pouvant être traitées automatiquement.
+
+\subsection{Reconnaissance optique de caractères}
+
+Les images obtenues ont ensuite été traitées par le moteur d'\ac{OCR} \textbf{Tesseract}, qui convertit automatiquement le contenu textuel des images en texte numérique exploitable. En raison de l'absence de modèle linguistique natif pour le ruund dans Tesseract, le traitement a été réalisé par extraction des caractères bruts.
+
+\subsection{Difficultés rencontrées et corrections}
+
+L'extraction automatique a généré certaines erreurs, notamment au niveau des \textbf{caractères spéciaux}, de la \textbf{segmentation des mots} et de la \textbf{ponctuation}. Une phase de vérification et de correction manuelle a donc été réalisée afin d'améliorer la qualité des textes extraits avant leur utilisation dans le processus d'alignement.
+
+\subsection{Extraction des données françaises par \textit{web scraping}}
+
+Pour constituer le versant français du corpus, la \textbf{Bible en Français Courant} (1997) a été utilisée, disponible en ligne sur la plateforme \texttt{bible.com}. Le processus d'extraction a été automatisé à l'aide d'un script \textbf{Python} s'appuyant sur la bibliothèque \textbf{BeautifulSoup}, permettant de transformer le contenu \textbf{HTML} en un flux textuel structuré adapté à l'alignement ultérieur.
