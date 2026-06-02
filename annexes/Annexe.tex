@@ -4,6 +4,7 @@
 def extraire_avec_ocr_neutre(self, pdf_path):
     """OCR sans interprétation linguistique"""
     text_parts = []
+
     try:
         doc = fitz.open(pdf_path)
         for page_num in range(len(doc)):
@@ -41,5 +42,57 @@ def extraire_avec_ocr_neutre(self, pdf_path):
     except Exception as e:
         print(f"  Erreur OCR neutre: {e}")
         return ""
-\end{lstlisting}
 
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Extrait de récupération des chapitres bibliques depuis \url{Bible.com}}, label={code:extrait-scraping}]
+import re
+import requests
+from bs4 import BeautifulSoup, NavigableString
+
+BASE_URL = "https://www.bible.com/fr/bible/63/{}.{}.BFC"
+HEADERS = {"User-Agent": "Mozilla/5.0"}
+
+def is_verse(span):
+    return re.search(r"\.\d+$", span.get("data-usfm", "")) is not None
+
+def is_note(span):
+    classes = span.get("class", [])
+    return any("note" in cls.lower() for cls in classes)
+
+def extract_clean_text(element):
+    morceaux = []
+    for node in element.descendants:
+        if not isinstance(node, NavigableString):
+            continue
+        skip = False
+        for parent in node.parents:
+            if parent == element:
+                break
+            if parent.name == "span" and is_note(parent):
+                skip = True
+                break
+        if not skip:
+            morceaux.append(str(node))
+    texte = "".join(morceaux)
+    return re.sub(r"\s+", " ", texte).strip()
+
+def scraper_chapitre(livre, chapitre):
+    url = BASE_URL.format(livre, chapitre)
+    response = requests.get(url, headers=HEADERS, timeout=10)
+    soup = BeautifulSoup(response.text, "html.parser")
+    contenu = []
+
+    for span in soup.find_all("span"):
+        if is_note(span):
+            continue
+        if "heading" in " ".join(span.get("class", [])).lower():
+            texte = extract_clean_text(span)
+            if texte:
+                contenu.append(f"\n{texte}\n")
+        elif is_verse(span):
+            texte = extract_clean_text(span)
+            if texte:
+                contenu.append(texte)
+    return "\n".join(contenu)
+
+\end{lstlisting}

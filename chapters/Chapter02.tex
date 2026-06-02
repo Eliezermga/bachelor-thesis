@@ -65,6 +65,13 @@ Poèmes bilingues & Ruund–Français & Extraction & Fichier texte (.txt) \\
 
 Les pages du Nouveau Testament en ruund (\textit{Manswik Masu}, 1996) ont été numérisées à une résolution de \textbf{900 dpi} à l'aide d'un scanner HP Color LaserJet Pro MFP M283fdw, afin d'obtenir des images nettes. Cette condition est essentielle pour minimiser les erreurs de l'\ac{OCR}. Cette opération a permis de convertir le document physique en images pouvant être traitées automatiquement.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Images/pipeline_numerisation.png}
+    \caption[Pipeline de numérisation de données]{Pipeline de numérisation de données}
+    \label{fig:pipeline_numerisation}
+\end{figure}
+
 \subsection{Reconnaissance optique de caractères}
 
 Les images obtenues ont ensuite été traitées par le moteur d'\ac{OCR} \textbf{Tesseract}\footnote{\url{https://tesseract-ocr.github.io/tessdoc/}}, qui convertit automatiquement le contenu textuel des images en texte numérique exploitable. En raison de l'absence de modèle linguistique natif pour le ruund dans Tesseract, le traitement a été réalisé par extraction des caractères bruts. Le listing~\ref{code:extrait-ocr}, présenté en annexe, illustre cela.
@@ -98,4 +105,4 @@ Numéro de verset collé au texte & \texttt{2 1Yesu wavadika...} & \texttt{1 Yes
 
 \subsection{Extraction des données françaises par \textit{web scraping}}
 
-Pour constituer le versant français du corpus, la \textbf{Bible en Français Courant} (1997) a été utilisée, disponible en ligne sur la plateforme \texttt{bible.com}. Le processus d'extraction a été automatisé à l'aide d'un script \textbf{Python} s'appuyant sur la bibliothèque \textbf{BeautifulSoup}\footnote{\url{https://beautiful-soup-4.readthedocs.io/en/latest/}}, permettant de transformer le contenu \textbf{HTML} en un flux textuel structuré adapté à l'alignement ultérieur.
+Pour constituer le versant français du corpus, la \textbf{Bible en Français Courant} (1997) a été utilisée, disponible en ligne sur la plateforme \url{bible.com}. Le processus d'extraction a été automatisé à l'aide d'un script \textbf{Python} s'appuyant sur la bibliothèque \textbf{BeautifulSoup}\footnote{\url{https://beautiful-soup-4.readthedocs.io/en/latest/}}, permettant de transformer le contenu \textbf{HTML} en un flux textuel structuré adapté à l'alignement ultérieur. Le listing~\ref{code:extrait-scraping}, présenté en annexe, illustre les étapes clés de ce processus d'extraction.
