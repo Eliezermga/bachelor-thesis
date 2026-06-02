@@ -106,3 +106,51 @@ Numéro de verset collé au texte & \texttt{2 1Yesu wavadika...} & \texttt{1 Yes
 \subsection{Extraction des données françaises par \textit{web scraping}}
 
 Pour constituer le versant français du corpus, la \textbf{Bible en Français Courant} (1997) a été utilisée, disponible en ligne sur la plateforme \url{bible.com}. Le processus d'extraction a été automatisé à l'aide d'un script \textbf{Python} s'appuyant sur la bibliothèque \textbf{BeautifulSoup}\footnote{\url{https://beautiful-soup-4.readthedocs.io/en/latest/}}, permettant de transformer le contenu \textbf{HTML} en un flux textuel structuré adapté à l'alignement ultérieur. Le listing~\ref{code:extrait-scraping}, présenté en annexe, illustre les étapes clés de ce processus d'extraction.
+
+%------------------------------------------------------------
+\section{Construction du corpus parallèle}
+%------------------------------------------------------------
+
+Après la collecte et l'extraction des données, les textes ruund et français ont été organisés afin de constituer un \textbf{corpus parallèle} exploitable pour l'entraînement des modèles de \ac{TAN}.
+
+\subsection{Segmentation des textes}
+
+Les textes ont été segmentés en unités correspondant principalement à des \textbf{versets bibliques} et à des \textbf{phrases issues des poèmes bilingues}. Cette étape a permis d'obtenir des segments comparables dans les deux langues et de préparer les données pour l'alignement.
+
+\subsection{Alignement automatique}
+
+L'alignement a consisté à associer chaque segment en ruund à son équivalent en français. Une première correspondance a été réalisée automatiquement à partir de la structure commune des versets des textes sources. Cette étape a permis de générer une version initiale du corpus parallèle. Le listing~\ref{code:alignement-automatique} illustre le principe de cette procédure d'alignement.
+
+\subsection{Correction manuelle des alignements}
+
+Les alignements produits automatiquement ont ensuite été \textbf{vérifiés manuellement}. Les segments mal associés, incomplets ou ambigus ont été corrigés afin d'améliorer la cohérence entre les phrases sources et cibles.
+
+\subsection{Validation du corpus parallèle}
+
+Une vérification finale a été effectuée pour s'assurer de la qualité des alignements et de l'intégrité des données. À l'issue de cette étape, le dataset OpenRuund\footnote{\url{https://huggingface.co/datasets/eliezermga/OpenRuund}} contient \textbf{8~431 paires de phrases ruund–français} prêtes à être utilisées pour l'entraînement et l'évaluation des modèles de \ac{TAN}.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.6}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{7.2cm}p{7.2cm}}
+\toprule
+\textbf{Ruund} & \textbf{Français} \\
+\midrule
+Aam nid kwaam nkay chilil mwaan, chikweeza kumudya mwaan chikudyook mukan mweey &
+Je ne suis quant à moi qu'une simple antilope nourricière du petit, ce qui le tuera c'est ta parole malveillante. \\
+
+Anch muntu wakushinyin ku usu kumusendil difund diend kutwal chintampu chimwing, ey musendila, umutwadil ku yintampu yaad. &
+Si quelqu'un t'oblige à faire mille pas, fais-en deux mille avec lui.\\
+
+Yesu wayakula anch: Yangany ukamulejany Yohan yom yiuteshilanya ni yiumenanya &
+Jésus leur répondit: Allez raconter à Jean ce que vous entendez et voyez \\
+
+Akaat kubul mband ni kumubachikin mu chikumbw, anch wamubachikin pool wamupaan kal kudy akween &
+On corrige une femme discrètement sous le toit conjugal et non en public sinon on l'expose à ce dernier. \\
+
+\bottomrule
+\end{tabular}
+\caption{Exemples de paires de phrases alignées d'OpenRuund}
+\label{tab:extrait_corpus}
+\end{table}
