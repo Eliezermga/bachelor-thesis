@@ -1,1 +1,15 @@
 \chapter{Développement du système de traduction automatique}
+
+
+Après la construction d'\textbf{OpenRuund} présentée au chapitre précédent, cette partie du travail est consacrée au développement du système de traduction automatique. L'objectif est de mettre en œuvre une approche de \ac{TAN} adaptée au contexte des \ac{LFR} en s'appuyant sur des modèles multilingues préentraînés.
+
+Le développement du système comprend l'ensemble des opérations nécessaires à la transformation du corpus en données exploitables pour l'apprentissage automatique, à l'adaptation des modèles retenus, à leur entraînement ainsi qu'à l'évaluation de leurs performances. Une fois le modèle le plus performant identifié, celui-ci est intégré dans une application permettant la traduction automatique.
+
+La Figure~\ref{fig:pipeline_systeme} présente le pipeline global adopté pour le développement du système de traduction automatique.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{Images/pipeline_systeme.png}
+    \caption[Pipeline global du système de traduction automatique]{Pipeline global du système de traduction automatique}
+    \label{fig:pipeline_systeme}
+\end{figure}
