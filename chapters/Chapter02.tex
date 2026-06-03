@@ -99,7 +99,7 @@ Ponctuation finale manquante & \texttt{... mulong wa kuwanyish mazu ma Chinawej}
 Numéro de verset collé au texte & \texttt{2 1Yesu wavadika...} & \texttt{1 Yesu wavadika...} \\
 \bottomrule
 \end{tabularx}
-\caption{Exemples d'erreurs produites par l'\ac{OCR} et corrections appliquées}
+\caption{Exemples d'erreurs produites par l'OCR et corrections appliquées}
 \label{tab:erreurs_ocr}
 \end{table}
 
@@ -120,6 +120,12 @@ Les textes ont été segmentés en unités correspondant principalement à des \
 \subsection{Alignement automatique}
 
 L'alignement a consisté à associer chaque segment en ruund à son équivalent en français. Une première correspondance a été réalisée automatiquement à partir de la structure commune des versets des textes sources. Cette étape a permis de générer une version initiale du corpus parallèle. Le listing~\ref{code:alignement-automatique} illustre le principe de cette procédure d'alignement.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.60\textwidth]{Images/pipeline-alignement.png}
+    \caption[Pipeline d'alignement de textes]{Pipeline d'alignement de textes}
+    \label{fig:pipeline_alignement}
+\end{figure}
 
 \subsection{Correction manuelle des alignements}
 
