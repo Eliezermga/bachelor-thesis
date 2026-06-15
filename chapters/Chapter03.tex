@@ -27,7 +27,9 @@ Par ailleurs, la réduction du bruit dans les données contribue à améliorer l
 
 \subsection{Normalisation des textes}
 
-Dans un premier temps, une normalisation Unicode de type \ac{NFC}  a été effectuée. Cette opération permet d'uniformiser la représentation interne des caractères Unicode et d'éviter que des caractères visuellement identiques soient encodés de manière différente.
+Dans un premier temps, une normalisation Unicode\footnote{La normalisation Unicode est un type spécifique de normalisation de texte qui résout un problème crucial : un même caractère affiché peut avoir plusieurs représentations binaires différentes en Unicode.
+
+} de type \ac{NFC}\footnote{\ac{NFC} est une méthode pour organiser le texte sur un ordinateur. Elle permet de s'assurer que les lettres avec des accents sont toujours écrites de la même façon.}  a été effectuée. Cette opération permet d'uniformiser la représentation interne des caractères Unicode et d'éviter que des caractères visuellement identiques soient encodés de manière différente.
 
 Ensuite, l'ensemble des textes a été converti en minuscules. Cette transformation réduit la variabilité artificielle du vocabulaire en évitant que des mots identiques soient considérés comme différents uniquement en raison de l'utilisation de majuscules.
 
