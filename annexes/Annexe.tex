@@ -1,5 +1,4 @@
 \chapter{Annexes}
-
 \begin{lstlisting}[language=Python, caption={Extraction OCR – conversion d’une page PDF en image puis reconnaissance par Tesseract.}, label={code:extrait-ocr}]
 def extraire_avec_ocr_neutre(self, pdf_path):
     """OCR sans interprétation linguistique"""
@@ -133,9 +132,50 @@ def align_and_export(ruwund_file, francais_file, output_file):
                 errors += 1
                 continue
             out.write(f"{verse_r}\t{text_r}\t{text_f}\n")
-
     if errors == 0:
         print(f"TSV généré : {output_file}")
     else:
         print(f"{errors} incohérence(s) détectée(s)")
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Prétraitement du Texte pour la Normalisation}, label={code:pretraitement-textes}]
+def preprocess_text(text):
+    if not isinstance(text, str):
+        return ""
+    # Normalisation Unicode propre
+    text = unicodedata.normalize('NFC', text)
+
+    # Lowercase
+    text = text.lower()
+
+    # Garder ponctuation utile (.,!?)
+    text = re.sub(r"[^\w\s.,!?']", "", text)
+
+    # Nettoyage espaces
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Filtrage du Corpus pour Optimisation des Données}, label={code:filtrage-phrases}]
+# Sauvegarde taille initiale
+initial_size = len(df)
+
+# 1. Suppression doublons
+df = df.drop_duplicates()
+
+# 2. Longueurs
+df['src_len'] = df['Ruund'].apply(lambda x: len(x.split()))
+df['trg_len'] = df['French'].apply(lambda x: len(x.split()))
+
+# 3. Suppression phrases vides
+df = df[(df['src_len'] > 0) & (df['trg_len'] > 0)]
+
+# 4. Filtrage longueur
+df = df[(df['src_len'] <= 80) & (df['trg_len'] <= 80)]
+
+# 5. Filtrage ratio
+df = df[(df['src_len'] / df['trg_len'] <= 2.0) &
+        (df['trg_len'] / df['src_len'] <= 2.0)]
+
+# Résultat
+print(f"Taille initiale : {initial_size}")
+print(f"Taille après filtrage : {len(df)}")
 \end{lstlisting}
