@@ -46,10 +46,6 @@ def extraire_avec_ocr_neutre(self, pdf_path):
 
 \end{lstlisting}
 \begin{lstlisting}[language=Python, caption={Extrait de récupération des chapitres bibliques depuis \href{https://Bible.com}{Bible.com}}, label={code:extrait-scraping}]
-import re
-import requests
-from bs4 import BeautifulSoup, NavigableString
-
 BASE_URL = "https://www.bible.com/fr/bible/63/{}.{}.BFC"
 HEADERS = {"User-Agent": "Mozilla/5.0"}
 
@@ -180,4 +176,137 @@ df = df[(df['src_len'] / df['trg_len'] <= 2.0) &
 # Résultat
 print(f"Taille initiale : {initial_size}")
 print(f"Taille après filtrage : {len(df)}")
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Chargement du Modèle et du Tokenizer (NLLB)}, label={code:chargement-tokenizer-nllb}]
+model_checkpoint = "facebook/nllb-200-distilled-600M"
+
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint, src_lang="fra_Latn", tgt_lang="run_Latn")
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Tokenisation du Corpus (NLLB)}, label={code:tokenisation-corpus-nllb}]
+dataset = Dataset.from_pandas(df[['Ruund', 'French']])
+
+def preprocess(examples):
+    tokenizer.src_lang = "run_Latn"
+    return tokenizer(
+        examples['Ruund'],
+        text_target=examples['French'],
+        max_length=128,
+        truncation=True,
+        padding=False
+    )
+
+tokenized_dataset = dataset.map(
+    preprocess,
+    batched=True,
+    remove_columns=['Ruund', 'French']
+)
+splits = tokenized_dataset.train_test_split(test_size=0.1, seed=42)
+train_dataset = splits['train']
+eval_dataset = splits['test']
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Chargement du Modèle et du Tokenizer (MBART)}, label={code:chargement-tokenizer-mbart}]
+model_name = "facebook/mbart-large-50"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+# Ajout du token de langue custom pour le Ruund
+tokenizer.add_special_tokens({"additional_special_tokens": ["ruu_CM"]})
+tokenizer.src_lang = "ruu_CM"
+tokenizer.tgt_lang = "fr_XX"
+
+# Chargement du modèle + redimensionnement embedding pour le nouveau token
+model = MBartForConditionalGeneration.from_pretrained(model_name)
+model.config.tie_word_embeddings = False
+model.resize_token_embeddings(len(tokenizer))
+
+# Forcer la génération en français (fr_XX car c'est la nouvelle langue cible)
+model.generation_config.forced_bos_token_id = tokenizer.convert_tokens_to_ids("fr_XX")
+
+print(f"Token ruu_CM id : {tokenizer.convert_tokens_to_ids('ruu_CM')}")
+print(f"Taille du vocabulaire : {len(tokenizer)}")
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Tokenisation du Corpus (MBART)}, label={code:tokenisation-corpus-mbart}]
+dataset = Dataset.from_pandas(df[['French', 'Ruund']])
+
+def preprocess_function(examples):
+    model_inputs = tokenizer(
+        examples["Ruund"],
+        max_length=128,
+        truncation=True,
+        padding=False
+    )
+
+    labels = tokenizer(
+        text_target=examples["French"],
+        max_length=128,
+        truncation=True,
+        padding=False
+    )
+
+    model_inputs["labels"] = [
+        np.array(l, dtype=np.int64) for l in labels["input_ids"]
+    ]
+
+    return model_inputs
+
+tokenized_dataset = dataset.map(
+    preprocess_function,
+    batched=True,
+    remove_columns=["French", "Ruund"]
+)
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Ajout d’un Token de Langue Custom pour le Ruund(MariantMT)}, label={code:toke-custom-mariantmt}]
+model_checkpoint = "Helsinki-NLP/opus-mt-en-fr"
+
+# Chargement du tokenizer pré-entraîné
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+
+# Définir le token spécial pour le Ruund
+new_special_tokens = ['>>ruu_CM<<']
+
+# Ajouter les tokens spéciaux au tokenizer
+tokenizer.add_special_tokens({'additional_special_tokens': new_special_tokens})
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Tokenisation du Corpus avec le Token de Langue Custom (MarianMT)}, label={code:tokenisation-corpus-marianmt}]
+dataset = Dataset.from_pandas(df[['Ruund', 'French']])
+
+def preprocess_function(examples):
+    prefixed_ruund_sentences = [f'>>ruu_CM<< {s}' for s in examples['Ruund']]
+
+    model_inputs = tokenizer(
+        prefixed_ruund_sentences,
+        max_length=128,
+        truncation=True,
+        padding=False
+    )
+    labels = tokenizer(
+        text_target=examples['French'],
+        max_length=128,
+        truncation=True,
+        padding=False
+    )
+
+    model_inputs['labels'] = [
+        np.array(l, dtype=np.int64) for l in labels['input_ids']
+    ]
+    return model_inputs
+
+tokenized_dataset = dataset.map(
+    preprocess_function,
+    batched=True,
+    remove_columns=['Ruund', 'French']
+)
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Création des Splits d'Entraînement, Validation et Test}, label={code:splits-evt}]
+train_testvalid = tokenized_dataset.train_test_split(test_size=0.2, seed=42)
+test_valid = train_testvalid["test"].train_test_split(test_size=0.5, seed=42)
+
+final_datasets = DatasetDict({
+    "train": train_testvalid["train"],
+    "validation": test_valid["train"],
+    "test": test_valid["test"]
+})
+
+train_dataset = final_datasets["train"]
+eval_dataset  = final_datasets["validation"]
+test_dataset  = final_datasets["test"]
 \end{lstlisting}
