@@ -89,9 +89,9 @@ Le tableau~\ref{tab:tokenizers_modeles} présente les stratégies de tokenisatio
 \toprule
 \textbf{Modèle} & \textbf{Mécanisme de tokenisation} & \textbf{Adaptation au ruund} & \textbf{Scripts en annexe} \\
 \midrule
-\ac{NLLB}-200 & \ac{SentencePiece} intégré & Identifiant de langue ruund & Listing~\ref{code:chargement-tokenizer-nllb}, Listing~\ref{code:tokenisation-corpus-nllb} \\
-\ac{mBART}-50 & \ac{SentencePiece} intégré & Identifiant de langue ruund & Listing~\ref{code:chargement-tokenizer-mbart}, Listing~\ref{code:tokenisation-corpus-mbart} \\
-\ac{MarianMT} & Tokenizer pré-entraîné & Ajout d'un token spécial ruund & Listing~\ref{code:toke-custom-mariantmt}, Listing~\ref{code:tokenisation-corpus-marianmt} \\
+\ac{NLLB}-200 & AutoTokenizer pré-entraîné (SentencePiece) & Configuration explicite de \texttt{src\_lang=fra\_Latn} et \texttt{tgt\_lang=run\_Latn} & Listing~\ref{code:chargement-tokenizer-nllb}, Listing~\ref{code:tokenisation-corpus-nllb} \\
+\ac{mBART}-50 & AutoTokenizer pré-entraîné (SentencePiece) & Ajout du token de langue \texttt{ruu\_CM} et configuration \texttt{src\_lang/tgt\_lang} & Listing~\ref{code:chargement-tokenizer-mbart}, Listing~\ref{code:tokenisation-corpus-mbart} \\
+\ac{MarianMT} & AutoTokenizer pré-entraîné & Ajout d'un token spécial \texttt{>>ruu\_CM<<} et préfixage des entrées Ruund & Listing~\ref{code:toke-custom-mariantmt}, Listing~\ref{code:tokenisation-corpus-marianmt} \\
 \bottomrule
 \end{tabular}
 \caption{Stratégies de tokenisation appliquées aux modèles de traduction}
