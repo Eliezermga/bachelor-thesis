@@ -122,11 +122,22 @@ Après la préparation linguistique des données, le corpus a été réparti en 
 
 Le corpus tokenisé a été divisé en trois ensembles distincts : un \textbf{ensemble d'entraînement}, un \textbf{ensemble de validation} et un \textbf{ensemble de test}. La répartition retenue est la suivante :
 
-\begin{itemize}
-    \item 80~\% des données pour l'entraînement ;
-    \item 10~\% des données pour la validation ;
-    \item 10~\% des données pour le test.
-\end{itemize}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{4.0cm}p{3.2cm}p{3.2cm}}
+\toprule
+\textbf{Ensemble} & \textbf{Proportion} & \textbf{Effectif} \\
+\midrule
+Entraînement & 80\% & 6\,492 \\
+Validation & 10\% & 812 \\
+Test & 10\% & 812 \\
+\bottomrule
+\end{tabular}
+\caption{Répartition du corpus tokenisé en ensembles d'entraînement, validation et test}
+\label{tab:decoupage_corpus}
+\end{table}
 
 Le découpage a été réalisé de manière aléatoire en utilisant une graine fixe (\textit{seed}~=~42) afin de garantir la reproductibilité des expériences. Cette procédure assure que les mêmes exemples sont affectés aux différents ensembles lors de chaque exécution.
 
