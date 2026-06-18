@@ -26,7 +26,7 @@ jobs:
           gzip source.tar
 
       - name: Upload source archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: source-archive
           path: source.tar.gz
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download source archive
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: source-archive
           path: .
@@ -66,7 +66,7 @@ jobs:
           latexmk -pdf -interaction=nonstopmode -file-line-error -synctex=1 main.tex
 
       - name: Upload main PDF artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: main-thesis-pdf
           path: main.pdf
