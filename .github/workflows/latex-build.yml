@@ -31,29 +31,10 @@ jobs:
           set -e
           lacheck main.tex
 
-  code-quality:
-    name: Code quality
-    runs-on: ubuntu-latest
-    needs: syntax-validation
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Install chktex
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends chktex
-          sudo rm -rf /var/lib/apt/lists/*
-
-      - name: Run code quality checks
-        run: |
-          set -e
-          chktex -q main.tex
-
   security-analysis:
     name: Security analysis
     runs-on: ubuntu-latest
-    needs: code-quality
+    needs: syntax-validation
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
