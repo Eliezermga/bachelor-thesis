@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install LaTeX dependencies
         run: |
@@ -42,7 +42,7 @@ jobs:
           latexmk -pdf -interaction=nonstopmode -file-line-error -synctex=1 main.tex
 
       - name: Upload PDF artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: main-thesis-pdf
           path: main.pdf
@@ -54,7 +54,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install LaTeX dependencies
         run: |
@@ -75,7 +75,7 @@ jobs:
           latexmk -pdf -interaction=nonstopmode -file-line-error -synctex=1 main.tex
 
       - name: Upload PDF artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: corpus-add-thesis-pdf
           path: main.pdf
