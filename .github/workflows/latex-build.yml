@@ -1,32 +1,81 @@
-name: Build LaTeX thesis
+name: LaTeX CI
 
 on:
   push:
     branches:
       - main
+      - corpus-add
   pull_request:
     branches:
       - main
 
+concurrency:
+  group: latex-ci-${{ github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
-  build:
+  build-main:
+    if: github.ref == 'refs/heads/main' || (github.event_name == 'pull_request' && github.head_ref == 'main')
+    name: Build on main
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install TeX Live packages
+      - name: Install LaTeX dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-bibtex-extra texlive-pictures texlive-lang-french biber latexmk
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-recommended \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-bibtex-extra \
+            texlive-pictures \
+            texlive-lang-french \
+            biber \
+            latexmk
+          sudo rm -rf /var/lib/apt/lists/*
 
-      - name: Build PDF with latexmk
+      - name: Build PDF
         run: |
-          latexmk -pdf -interaction=nonstopmode main.tex
+          latexmk -pdf -interaction=nonstopmode -file-line-error -synctex=1 main.tex
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
-          name: thesis-pdf
+          name: main-thesis-pdf
+          path: main.pdf
+
+  build-corpus-add:
+    if: github.ref == 'refs/heads/corpus-add' || (github.event_name == 'pull_request' && github.head_ref == 'corpus-add')
+    name: Build on corpus-add
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install LaTeX dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-recommended \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-bibtex-extra \
+            texlive-pictures \
+            texlive-lang-french \
+            biber \
+            latexmk
+          sudo rm -rf /var/lib/apt/lists/*
+
+      - name: Build PDF
+        run: |
+          latexmk -pdf -interaction=nonstopmode -file-line-error -synctex=1 main.tex
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: corpus-add-thesis-pdf
           path: main.pdf
