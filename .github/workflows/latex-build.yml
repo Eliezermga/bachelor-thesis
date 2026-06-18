@@ -13,39 +13,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  prepare-source:
-    name: Prepare source archive
+  build-main:
+    if: github.ref == 'refs/heads/main' || (github.event_name == 'pull_request' && github.head_ref == 'main')
+    name: Build on main
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-
-      - name: Create source archive from Git
-        run: |
-          git archive --format=tar --output=source.tar HEAD
-          gzip source.tar
-
-      - name: Upload source archive
-        uses: actions/upload-artifact@v7
-        with:
-          name: source-archive
-          path: source.tar.gz
-
-  build-main:
-    if: github.ref == 'refs/heads/main' || (github.event_name == 'pull_request' && github.head_ref == 'main')
-    name: Build on main
-    needs: prepare-source
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download source archive
-        uses: actions/download-artifact@v7
-        with:
-          name: source-archive
-          path: .
-
-      - name: Extract source
-        run: |
-          tar -xzf source.tar.gz
 
       - name: Install LaTeX dependencies
         run: |
@@ -58,8 +32,29 @@ jobs:
             texlive-pictures \
             texlive-lang-french \
             biber \
-            latexmk
+            latexmk \
+            chktex \
+            lacheck
           sudo rm -rf /var/lib/apt/lists/*
+
+      - name: Syntax & validation
+        run: |
+          set -e
+          lacheck main.tex
+
+      - name: Code quality
+        run: |
+          set -e
+          chktex -q main.tex
+
+      - name: Security analysis
+        run: |
+          set -e
+          if grep -RIn --include='*.tex' '\\write18' .; then
+            echo 'Found forbidden \write18 command.'
+            exit 1
+          fi
+          echo 'No forbidden \write18 usage detected.'
 
       - name: Build PDF
         run: |
