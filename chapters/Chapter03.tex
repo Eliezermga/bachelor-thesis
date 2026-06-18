@@ -67,3 +67,78 @@ Les paires présentant un ratio supérieur à~2 dans l'un ou l'autre sens ont é
 Cette opération permet de détecter les alignements potentiellement incorrects ou les traductions incomplètes. En effet, des différences excessives de longueur entre deux phrases supposées équivalentes peuvent indiquer une mauvaise correspondance entre les segments alignés. Le maintien d'un ratio inférieur ou égal à~2 contribue ainsi à préserver la cohérence linguistique du corpus parallèle utilisé pour l'entraînement des modèles.
 
 L'ensemble des opérations de filtrage décrites ci-dessus est implémenté dans le script présenté en annexe (Listing~\ref{code:filtrage-phrases}).
+\section{Tokenisation et préparation linguistique}
+
+Après prétraitement, le corpus a été préparé pour les architectures de traduction neuronale. Chaque modèle a utilisé son tokenizer pré-entraîné afin de garantir la compatibilité avec le vocabulaire et la segmentation attendus.
+
+\subsection{Segmentation en sous-mots avec SentencePiece}
+
+Les modèles neuronaux ne traitent pas les mots en tant que chaînes brutes, mais des unités plus petites appelées \textbf{sous-mots} (\textit{subwords}). Cette segmentation réduit la taille du vocabulaire tout en permettant de représenter des formes rares ou inconnues.
+
+Les modèles \ac{NLLB} et \ac{mBART} reposent sur \ac{SentencePiece}. En décomposant les phrases en sous-unités, cette méthode limite les difficultés liées à la rareté lexicale du ruund et facilite la prise en charge de sa richesse morphologique.
+
+Pour \ac{MarianMT}, le tokenizer pré-entraîné a été conservé et enrichi d'un token spécial ruund, permettant d'indiquer explicitement la langue source.
+
+Le tableau~\ref{tab:tokenizers_modeles} présente les stratégies de tokenisation utilisées.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{3.0cm}p{3.2cm}p{3.2cm}p{4.0cm}}
+\toprule
+\textbf{Modèle} & \textbf{Mécanisme de tokenisation} & \textbf{Adaptation au ruund} & \textbf{Scripts en annexe} \\
+\midrule
+\ac{NLLB}-200 & AutoTokenizer pré-entraîné (SentencePiece) & Configuration explicite de \texttt{src\_lang=fra\_Latn} et \texttt{tgt\_lang=run\_Latn} & Listing~\ref{code:chargement-tokenizer-nllb}, Listing~\ref{code:tokenisation-corpus-nllb} \\
+\ac{mBART}-50 & AutoTokenizer pré-entraîné (SentencePiece) & Ajout du token de langue \texttt{ruu\_CM} et configuration \texttt{src\_lang/tgt\_lang} & Listing~\ref{code:chargement-tokenizer-mbart}, Listing~\ref{code:tokenisation-corpus-mbart} \\
+\ac{MarianMT} & AutoTokenizer pré-entraîné & Ajout d'un token spécial \texttt{>>ruu\_CM<<} et préfixage des entrées Ruund & Listing~\ref{code:toke-custom-mariantmt}, Listing~\ref{code:tokenisation-corpus-marianmt} \\
+\bottomrule
+\end{tabular}
+\caption{Stratégies de tokenisation appliquées aux modèles de traduction}
+\label{tab:tokenizers_modeles}
+\end{table}
+
+\subsection{Gestion des mots hors vocabulaire}
+\label{subsec:oov}
+
+La segmentation en sous-mots réduit le phénomène des mots hors vocabulaire (\ac{OOV}). Lorsqu’un mot n’est pas présent dans le vocabulaire, il est décomposé en sous-unités existantes plutôt que remplacé par un symbole générique. Cette approche préserve davantage d’informations linguistiques et améliore la prise en charge des formes rares du ruund.
+
+L’ajout d’un identifiant de langue ruund pour \ac{MarianMT} et \ac{mBART} renforce l’intégration explicite de cette langue dans le traitement des données.
+
+\subsection{Préparation des séquences d’entrée et de sortie}
+\label{subsec:sequences}
+
+Après tokenisation, les phrases ont été converties en séquences d’identifiants numériques reconnues par chaque tokenizer. Ces séquences servent d’entrées et de sorties pour l’entraînement.
+
+Une longueur maximale de 128~tokens a été fixée pour les séquences afin de couvrir la majorité des phrases tout en limitant les besoins en mémoire et en assurant une homogénéité des données.
+
+\section{Constitution des ensembles d'apprentissage}
+\label{sec:constitution_ensembles}
+
+Après la préparation linguistique des données, le corpus a été réparti en plusieurs sous-ensembles destinés aux différentes phases du processus d'apprentissage et d'évaluation.
+
+\subsection{Découpage du corpus}
+\label{subsec:decoupage_corpus}
+
+Le corpus tokenisé a été divisé en trois ensembles distincts : un \textbf{ensemble d'entraînement}, un \textbf{ensemble de validation} et un \textbf{ensemble de test}. La répartition retenue est la suivante :
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{4.0cm}p{3.2cm}p{3.2cm}}
+\toprule
+\textbf{Ensemble} & \textbf{Proportion} & \textbf{Effectif} \\
+\midrule
+Entraînement & 80\% & 6\,492 \\
+Validation & 10\% & 812 \\
+Test & 10\% & 812 \\
+\bottomrule
+\end{tabular}
+\caption{Répartition du corpus tokenisé en ensembles d'entraînement, validation et test}
+\label{tab:decoupage_corpus}
+\end{table}
+
+Le découpage a été réalisé de manière aléatoire en utilisant une graine fixe (\textit{seed}~=~42) afin de garantir la reproductibilité des expériences. Cette procédure assure que les mêmes exemples sont affectés aux différents ensembles lors de chaque exécution.
+
+L'ensemble d'entraînement est utilisé pour ajuster les paramètres du modèle. L'ensemble de validation sert à suivre l'évolution des performances pendant l'apprentissage et à comparer différentes configurations. Enfin, l'ensemble de test est exclusivement réservé à l'évaluation finale des modèles après l'entraînement. Le script implémentant ce découpage est présenté en annexe (Listing~\ref{code:splits-evt}).
