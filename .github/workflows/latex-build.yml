@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - corpus-add
   pull_request:
     branches:
       - main
@@ -14,14 +13,38 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  prepare-source:
+    name: Prepare source archive
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Archive repository source
+        run: |
+          tar -czf source.tar.gz .
+
+      - name: Upload source archive
+        uses: actions/upload-artifact@v5
+        with:
+          name: source-archive
+          path: source.tar.gz
+
   build-main:
     if: github.ref == 'refs/heads/main' || (github.event_name == 'pull_request' && github.head_ref == 'main')
     name: Build on main
+    needs: prepare-source
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
+      - name: Download source archive
+        uses: actions/download-artifact@v5
+        with:
+          name: source-archive
+          path: .
+
+      - name: Extract source
+        run: |
+          tar -xzf source.tar.gz
 
       - name: Install LaTeX dependencies
         run: |
@@ -41,41 +64,8 @@ jobs:
         run: |
           latexmk -pdf -interaction=nonstopmode -file-line-error -synctex=1 main.tex
 
-      - name: Upload PDF artifact
+      - name: Upload main PDF artifact
         uses: actions/upload-artifact@v5
         with:
           name: main-thesis-pdf
-          path: main.pdf
-
-  build-corpus-add:
-    if: github.ref == 'refs/heads/corpus-add' || (github.event_name == 'pull_request' && github.head_ref == 'corpus-add')
-    name: Build on corpus-add
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Install LaTeX dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            texlive-latex-recommended \
-            texlive-latex-extra \
-            texlive-fonts-recommended \
-            texlive-bibtex-extra \
-            texlive-pictures \
-            texlive-lang-french \
-            biber \
-            latexmk
-          sudo rm -rf /var/lib/apt/lists/*
-
-      - name: Build PDF
-        run: |
-          latexmk -pdf -interaction=nonstopmode -file-line-error -synctex=1 main.tex
-
-      - name: Upload PDF artifact
-        uses: actions/upload-artifact@v5
-        with:
-          name: corpus-add-thesis-pdf
           path: main.pdf
