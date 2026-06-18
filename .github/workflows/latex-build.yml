@@ -1,0 +1,32 @@
+name: Build LaTeX thesis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install TeX Live packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-bibtex-extra texlive-pictures texlive-lang-french biber latexmk
+
+      - name: Build PDF with latexmk
+        run: |
+          latexmk -pdf -interaction=nonstopmode main.tex
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: thesis-pdf
+          path: main.pdf
