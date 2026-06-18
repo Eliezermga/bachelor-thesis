@@ -13,10 +13,65 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  syntax-validation:
+    name: Syntax & validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install lacheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends lacheck
+          sudo rm -rf /var/lib/apt/lists/*
+
+      - name: Run syntax validation
+        run: |
+          set -e
+          lacheck main.tex
+
+  code-quality:
+    name: Code quality
+    runs-on: ubuntu-latest
+    needs: syntax-validation
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install chktex
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends chktex
+          sudo rm -rf /var/lib/apt/lists/*
+
+      - name: Run code quality checks
+        run: |
+          set -e
+          chktex -q main.tex
+
+  security-analysis:
+    name: Security analysis
+    runs-on: ubuntu-latest
+    needs: code-quality
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Run security analysis
+        run: |
+          set -e
+          if grep -RIn --include='*.tex' '\\write18' .; then
+            echo 'Found forbidden \write18 command.'
+            exit 1
+          fi
+          echo 'No forbidden \write18 usage detected.'
+
   build-main:
-    if: github.ref == 'refs/heads/main' || (github.event_name == 'pull_request' && github.head_ref == 'main')
+    if: github.ref == 'refs/heads/main'
     name: Build on main
     runs-on: ubuntu-latest
+    needs: security-analysis
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -32,29 +87,8 @@ jobs:
             texlive-pictures \
             texlive-lang-french \
             biber \
-            latexmk \
-            chktex \
-            lacheck
+            latexmk
           sudo rm -rf /var/lib/apt/lists/*
-
-      - name: Syntax & validation
-        run: |
-          set -e
-          lacheck main.tex
-
-      - name: Code quality
-        run: |
-          set -e
-          chktex -q main.tex
-
-      - name: Security analysis
-        run: |
-          set -e
-          if grep -RIn --include='*.tex' '\\write18' .; then
-            echo 'Found forbidden \write18 command.'
-            exit 1
-          fi
-          echo 'No forbidden \write18 usage detected.'
 
       - name: Build PDF
         run: |
