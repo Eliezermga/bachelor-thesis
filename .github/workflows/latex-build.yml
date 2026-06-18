@@ -20,9 +20,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Archive repository source
+      - name: Create source archive from Git
         run: |
-          tar -czf source.tar.gz .
+          git archive --format=tar --output=source.tar HEAD
+          gzip source.tar
 
       - name: Upload source archive
         uses: actions/upload-artifact@v5
