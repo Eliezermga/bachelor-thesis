@@ -142,3 +142,37 @@ Test & 10\% & 812 \\
 Le découpage a été réalisé de manière aléatoire en utilisant une graine fixe (\textit{seed}~=~42) afin de garantir la reproductibilité des expériences. Cette procédure assure que les mêmes exemples sont affectés aux différents ensembles lors de chaque exécution.
 
 L'ensemble d'entraînement est utilisé pour ajuster les paramètres du modèle. L'ensemble de validation sert à suivre l'évolution des performances pendant l'apprentissage et à comparer différentes configurations. Enfin, l'ensemble de test est exclusivement réservé à l'évaluation finale des modèles après l'entraînement. Le script implémentant ce découpage est présenté en annexe (Listing~\ref{code:splits-evt}).
+
+\subsection{Configuration des hyperparamètres}
+\label{subsec:hyperparametres}
+
+L'entraînement des modèles de \ac{TAN} repose sur un ensemble d'hyperparamètres qui influencent directement la convergence, la stabilité de l'apprentissage et les performances finales du système. Dans cette étude, ces valeurs ont été définies en tenant compte des contraintes liées à la taille du corpus, aux ressources computationnelles disponibles ainsi qu'aux caractéristiques propres à chaque architecture.
+
+Les modèles \ac{mBART} et \ac{MarianMT} ont été entraînés pendant 10~époques, tandis que \ac{NLLB} a nécessité 15~époques afin d'explorer davantage l'espace des paramètres et d'améliorer son adaptation au corpus ruund--français.
+
+Une taille de lot(Batch Size) de 16~exemples a été retenue pour \ac{mBART} et \ac{MarianMT}, et de 32~exemples pour \ac{NLLB}. Ces valeurs assurent un compromis entre stabilité de l'apprentissage, rapidité d'exécution et consommation mémoire.
+
+Un taux d'apprentissage de $5 \times 10^{-5}$ a été appliqué aux trois modèles. Cette valeur, couramment utilisée lors du \textit{fine-tuning} de modèles Transformer pré-entraînés, permet de préserver les connaissances acquises durant le pré-entraînement tout en adaptant progressivement le modèle au domaine cible.
+
+Le tableau~\ref{tab:hyperparametres} présente une synthèse des hyperparamètres retenus pour chacun des trois modèles.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{4.5cm}p{2.8cm}p{2.8cm}p{2.8cm}}
+\toprule
+\textbf{Hyperparamètre} & \textbf{\ac{mBART}-50} & \textbf{\ac{NLLB}-200} & \textbf{\ac{MarianMT}} \\
+\midrule
+\textbf{Époques}                          & 10                & 15                & 10      \\
+\textbf{\textit{Batch size}}              & 16                & 32                & 16      \\
+\textbf{\textit{Learning rate}}           & $5\times10^{-5}$  & $5\times10^{-5}$  & $5\times10^{-5}$ \\
+\textbf{\textit{Warmup steps}}\tablefootnote{Les warmup steps représentent une phase initiale de l'entraînement où le learning rate commence très bas et augmente progressivement sur un certain nombre d'étapes jusqu'à atteindre sa valeur cible. }            & 200               & 200               & 100     \\
+\textbf{\textit{Weight decay}}\tablefootnote{Le weight decay est une technique de régularisation qui pénalise les poids trop grands. Il force l'optimiseur à garder les valeurs des poids proches de zéro, ce qui empêche le modèle d'apprendre "par cœur" les données d'entraînement (surapprentissage) et lui permet de mieux généraliser.}           & 0,01              & 0,01              & 0,01    \\
+\textbf{\textit{Gradient accumulation}}\tablefootnote{La gradient accumulation permet de simuler une grande taille de lot (batch size) avec un matériel limité.}  & 1                 & 2                 & 2       \\
+\textbf{Optimiseur}\tablefootnote{Un optimiseur est l'algorithme moteur responsable de l'apprentissage.}                       & Adafactor         & AdamW             & AdamW   \\
+\bottomrule
+\end{tabular}
+\caption{Hyperparamètres d'entraînement des modèles de traduction automatique}
+\label{tab:hyperparametres}
+\end{table}
