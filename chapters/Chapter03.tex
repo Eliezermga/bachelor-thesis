@@ -176,3 +176,24 @@ Le tableau~\ref{tab:hyperparametres} présente une synthèse des hyperparamètre
 \caption{Hyperparamètres d'entraînement des modèles de traduction automatique}
 \label{tab:hyperparametres}
 \end{table}
+\subsection{Environnement expérimental}
+\label{subsec:environnement_experimental}
+
+\subsubsection{Google Colab Pro}
+
+L'ensemble des expériences a été réalisé sur la plateforme Google Colab Pro. Cette solution a permis de bénéficier d'un environnement de calcul infonuagique équipé de \ac{GPU} de type G4, T4, H100... facilitant l'entraînement et l'évaluation des modèles de \ac{TAN} dans des délais raisonnables.
+
+\subsubsection{Bibliothèques utilisées}
+
+Plusieurs bibliothèques Python ont été mobilisées pour l'expérimentation :
+
+\begin{itemize}
+    \item \textbf{Transformers} pour le chargement, l'adaptation et l'entraînement des modèles de traduction ;
+    \item \textbf{Datasets} pour la gestion et le traitement du corpus ;
+    \item \textbf{PyTorch} comme cadre d'apprentissage profond ;
+    \item \textbf{\ac{SentencePiece}} pour la tokenisation en sous-mots ;
+    \item \textbf{Evaluate} pour l'évaluation des performances ;
+    \item \textbf{Pandas} et \textbf{NumPy} pour la manipulation et le prétraitement des données.
+\end{itemize}
+
+L'utilisation conjointe de ces bibliothèques a permis de mettre en place un environnement expérimental cohérent pour le \textit{fine-tuning} et l'évaluation des modèles étudiés.
