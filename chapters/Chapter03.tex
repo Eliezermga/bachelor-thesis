@@ -197,3 +197,88 @@ Plusieurs bibliothèques Python ont été mobilisées pour l'expérimentation :
 \end{itemize}
 
 L'utilisation conjointe de ces bibliothèques a permis de mettre en place un environnement expérimental cohérent pour le \textit{fine-tuning} et l'évaluation des modèles étudiés.
+
+\section{Évaluation des modèles}
+\label{sec:evaluation_modeles}
+
+\subsection{Méthodologie d'évaluation}
+\label{subsec:methodologie_evaluation}
+
+Après l'entraînement, les performances des modèles ont été évaluées sur l'ensemble de test afin de mesurer leur capacité à produire des traductions correctes sur des données non observées durant l'apprentissage. L'évaluation repose sur une comparaison automatique entre les traductions générées par les modèles et les traductions de référence présentes dans le corpus.
+
+Pour chaque phrase source, le modèle génère une traduction qui est ensuite comparée à la traduction de référence correspondante. Les performances sont mesurées à l'aide de \textbf{métriques automatiques} permettant d'estimer la qualité des traductions produites.
+
+\subsection{Génération des traductions}
+\label{subsec:generation_traductions}
+
+La génération des traductions a été réalisée automatiquement à partir des modèles \textit{fine-tunés} à l'aide du mécanisme de génération intégré à la bibliothèque \textbf{Transformers}. Les séquences produites ont ensuite été décodées afin de reconstruire les phrases textuelles correspondantes.
+
+Avant le calcul des métriques, les identifiants de tokens générés ont été vérifiés afin de garantir leur validité par rapport au vocabulaire du tokenizer. Les prédictions et les références ont ensuite été décodées en texte naturel tout en supprimant les tokens spéciaux utilisés durant l'entraînement.
+
+\subsection{Métriques d'évaluation}
+\label{subsec:metriques_evaluation}
+
+Afin d'évaluer les performances des modèles de traduction, deux métriques automatiques ont été utilisées : \textbf{\ac{BLEU}} et \textbf{\ac{chrF}}. Ces métriques permettent de comparer les traductions générées aux traductions de référence du corpus de test.
+
+\subsubsection{Principe général}
+
+\ac{BLEU} évalue principalement la correspondance entre les groupes de mots présents dans les deux phrases, tandis que \ac{chrF} repose sur la comparaison de séquences de caractères. L'utilisation conjointe de ces deux métriques permet d'obtenir une évaluation plus complète de la qualité des traductions produites.
+
+\subsubsection{Calcul des scores}
+
+Les scores \ac{BLEU} et \ac{chrF} ont été calculés à l'aide des bibliothèques \textbf{Evaluate} et \textbf{SacreBLEU}. Après génération des traductions sur l'ensemble de test, les prédictions ont été comparées aux références correspondantes.
+
+Le score \ac{BLEU} est obtenu à partir du recouvrement des groupes de mots (\textit{n-grammes}) entre les traductions générées et les références. Le score \ac{chrF} est calculé à partir de la précision et du rappel des séquences de caractères partagées entre les deux textes. Les deux métriques sont calculées sur l'ensemble des phrases du jeu de test afin d'obtenir une mesure globale des performances de chaque modèle.
+
+\subsubsection{Interprétation}
+
+Les scores \ac{BLEU} et \ac{chrF} varient généralement entre 0 et 100. Une valeur élevée indique une plus grande similarité lexicale entre les traductions générées et les références.
+
+Contrairement à \ac{BLEU}, \ac{chrF} opère au niveau des caractères et s'avère particulièrement adaptée à l'évaluation des \ac{LFR}, où les variations morphologiques peuvent être importantes. Elle est souvent plus sensible aux similitudes linguistiques partielles et aux différences de segmentation. L'utilisation conjointe de \ac{BLEU} et \ac{chrF} permet ainsi d'obtenir une évaluation plus robuste des performances des modèles étudiés.
+
+%------------------------------------------------------------
+\section{Déploiement du système de traduction}
+\label{sec:deploiement}
+%------------------------------------------------------------
+
+\subsection{Publication des modèles sur Hugging Face}
+\label{subsec:publication_hf}
+
+À l'issue du processus de \textit{fine-tuning}, les modèles entraînés ont été publiés sur la plateforme \textbf{Hugging Face}. Cette publication facilite leur conservation, leur partage ainsi que leur réutilisation dans des applications externes. Les modèles peuvent ainsi être chargés directement depuis leur dépôt lors du déploiement du système de traduction.
+
+\subsection{Architecture générale de l'application}
+\label{subsec:architecture_application}
+
+L'application \textbf{LugaYetu} développée repose sur une architecture \textbf{client-serveur} intégrant le framework \textbf{Django} pour la gestion de l'interface utilisateur et des traitements applicatifs. Le processus de traduction suit les étapes suivantes :
+
+\begin{enumerate}
+    \item saisie du texte par l'utilisateur ;
+    \item transmission de la requête à l'application Django ;
+    \item chargement et exécution du modèle de traduction ;
+    \item génération de la traduction ;
+    \item affichage du résultat à l'utilisateur.
+\end{enumerate}
+
+Cette architecture permet de séparer clairement l'interface utilisateur du moteur de traduction.
+
+\subsection{Intégration des modèles dans Django}
+\label{subsec:integration_django}
+
+Les modèles publiés ont été intégrés à l'application Django à l'aide des bibliothèques \textbf{Transformers} et \textbf{PyTorch}. Lors du démarrage du serveur, le modèle sélectionné est chargé localement afin d'être disponible pour les requêtes de traduction. Lorsque l'utilisateur soumet un texte, celui-ci est prétraité par le tokenizer associé au modèle, puis transmis au moteur de traduction. La sortie générée est ensuite décodée avant d'être renvoyée à l'interface utilisateur.
+
+\subsection{Fonctionnement du système de traduction}
+\label{subsec:fonctionnement_systeme}
+
+\subsubsection{Traduction ruund \texorpdfstring{$\rightarrow$}{->} français}
+
+Pour la traduction du ruund vers le français, le modèle \textbf{\ac{NLLB}-200} \textit{fine-tuné} sur le corpus parallèle ruund--français est utilisé. Le texte saisi en ruund est tokenisé puis transmis au modèle, qui génère automatiquement la traduction en français.
+
+\subsubsection{Traduction français \texorpdfstring{$\rightarrow$}{->} ruund}
+
+Pour la traduction du français vers le ruund, un second modèle \textbf{\ac{NLLB}-200} \textit{fine-tuné} est utilisé après adaptation à la direction inverse de traduction. Le texte français est converti en représentations numériques avant d'être traité par le modèle afin de produire la traduction correspondante en ruund.
+
+%------------------------------------------------------------
+\section*{Conclusion}
+%------------------------------------------------------------
+
+Ce chapitre a présenté les différentes étapes de développement du système de traduction automatique ruund--français. Après la préparation du corpus et l'adaptation des modèles pré-entraînés, plusieurs expérimentations de \textit{fine-tuning} ont été réalisées avant leur évaluation à l'aide des métriques \ac{BLEU} et \ac{chrF}. Enfin, le modèle retenu a été intégré dans une application \textbf{Django} afin de mettre à disposition un système opérationnel de traduction bidirectionnelle entre le ruund et le français.
