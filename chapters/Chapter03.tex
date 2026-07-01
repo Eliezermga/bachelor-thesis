@@ -251,13 +251,12 @@ Contrairement à \ac{BLEU}, \ac{chrF} opère au niveau des caractères et s'avè
 
 L'application \textbf{LugaYetu} développée repose sur une architecture \textbf{client-serveur} intégrant le framework \textbf{Django} pour la gestion de l'interface utilisateur et des traitements applicatifs. Le processus de traduction suit les étapes suivantes :
 
-\begin{enumerate}
-    \item saisie du texte par l'utilisateur ;
-    \item transmission de la requête à l'application Django ;
-    \item chargement et exécution du modèle de traduction ;
-    \item génération de la traduction ;
-    \item affichage du résultat à l'utilisateur.
-\end{enumerate}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{Images/architectuerapp.png}
+    \caption[Architecture générale de l'application]{Architecture générale de l'application }
+    \label{fig:architecture_aap}
+\end{figure}
 
 Cette architecture permet de séparer clairement l'interface utilisateur du moteur de traduction.
 
