@@ -29,7 +29,7 @@ Les mots-clés utilisés incluaient notamment \textit{machine translation}, \tex
 
 \subsubsection{Critères d'inclusion et d'exclusion}
 
-Les études ont été sélectionnées selon des critères prédéfinis afin de garantir leur pertinence par rapport aux objectifs de cette recherche. Le tableau~\ref{tab:criteres_selection} présente l'ensemble des critères appliqués lors du processus de sélection.
+Les études ont été sélectionnées selon des critères prédéfinis afin de garantir leur pertinence par rapport aux objectifs de cette recherche. Le Tableau~\ref{tab:criteres_selection} présente l'ensemble des critères appliqués lors du processus de sélection.
 
 \begin{table}[H]
 \centering
@@ -178,6 +178,8 @@ Malgré leurs contributions importantes, les approches classiques de traduction 
 
 Ces limitations ont favorisé l'émergence de la \textbf{traduction automatique neuronale} (\ac{TAN}), capable d'apprendre automatiquement des représentations linguistiques plus complexes et de produire des traductions plus naturelles et plus cohérentes \cite{vaswani2017attention}.
 
+Le Tableau~\ref{tab:comparaison_ta} présente une synthèse comparative des trois grandes approches de traduction automatique selon plusieurs critères pertinents.
+
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.5}
@@ -216,6 +218,8 @@ Les premiers systèmes de traduction neuronale reposaient principalement sur l'a
 
 Cette architecture a permis d'améliorer considérablement les performances de la traduction automatique en facilitant l'apprentissage des relations sémantiques entre les langues \cite{lalrempuii2021improved}.
 
+La Figure~\ref{fig:encoder_decoder} illustre le fonctionnement de l'architecture encodeur-décodeur utilisée dans les premiers systèmes de traduction neuronale.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.50\textwidth]{Images/encode_decoder.png}
@@ -252,6 +256,8 @@ Cette architecture a marqué une évolution majeure dans le domaine du \ac{NLP} 
 Le \textbf{mécanisme d'attention} permet au modèle d'identifier les éléments les plus importants d'une phrase lors du traitement linguistique. Pour chaque mot, le système évalue les relations avec les autres mots de la séquence afin de mieux comprendre le contexte global \cite{vaswani2017attention}.
 
 Cette approche améliore la gestion des dépendances linguistiques longues et réduit certaines limitations des architectures récurrentes classiques. Les Transformers utilisent principalement une variante appelée \textbf{\textit{Self-Attention}}, dans laquelle chaque mot peut interagir directement avec les autres mots de la phrase \cite{vaswani2017attention}.
+
+La Figure~\ref{fig: Architecture Transformer} illustre l'architecture générale du modèle Transformer telle que proposée par \citeauthor{vaswani2017attention}.
 
 \begin{figure}[H]
     \centering
@@ -302,7 +308,7 @@ MarianMT propose des modèles pré-entraînés spécialisés pour différentes c
 
 \subsubsection{Comparaison générale des modèles}
 
-Les modèles mBART-50, NLLB-200-distilled-600M et MarianMT reposent tous sur les architectures Transformer et utilisent des approches multilingues de traduction automatique neuronale. Le tableau~\ref{tab:comparaison_modeles} présente une synthèse comparative de ces trois modèles selon plusieurs critères pertinents pour le contexte des langues à faibles ressources \cite{rakhimov2024enhancing, ranathunga2023neural}.
+Les modèles mBART-50, NLLB-200-distilled-600M et MarianMT reposent tous sur les architectures Transformer et utilisent des approches multilingues de traduction automatique neuronale. Le Tableau~\ref{tab:comparaison_modeles} présente une synthèse comparative de ces trois modèles selon plusieurs critères pertinents pour le contexte des langues à faibles ressources \cite{rakhimov2024enhancing, ranathunga2023neural}.
 
 
 \begin{table}[H]
@@ -464,6 +470,9 @@ Dans plusieurs langues africaines, les ressources disponibles existent souvent s
 Les \textbf{inégalités numériques linguistiques} désignent la différence de représentation entre les langues dans les technologies numériques modernes. Certaines langues largement utilisées à l'échelle internationale disposent de grandes quantités de données et de nombreux outils \ac{NLP}, tandis que d'autres restent faiblement représentées \cite{ranathunga2023neural, agyei2025dynamic}.
 
 Cette situation crée une \textbf{exclusion technologique} pour plusieurs communautés linguistiques, notamment africaines, dont les langues ne bénéficient pas pleinement des avancées de l'intelligence artificielle et de la \ac{TAN} \cite{agyei2024low, mandiya2026lingala}.
+
+La Figure~\ref{fig:repartition-langues-nlp} illustre cette inégalité en représentant la répartition des langues du monde selon leur nombre de locuteurs et le niveau de ressources disponibles en \ac{TAL}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.65\textwidth]{Images/repartition.png}
@@ -615,7 +624,7 @@ Le score \ac{BLEU}, bien que standard, ne corrèle pas toujours parfaitement ave
 
 \subsubsection{Synthèse comparative des travaux}
 
-Le tableau~\ref{tab:synthese_travaux} présente une analyse comparative de seize études représentatives portant sur la traduction automatique pour les langues à faibles ressources. Il synthétise les approches méthodologiques, les performances obtenues, la complexité des systèmes, leur robustesse ainsi que leurs limites principales.
+Le Tableau~\ref{tab:synthese_travaux} présente une analyse comparative de seize études représentatives portant sur la traduction automatique pour les langues à faibles ressources. Il synthétise les approches méthodologiques, les performances obtenues, la complexité des systèmes, leur robustesse ainsi que leurs limites principales.
 
 \begingroup
 \renewcommand{\arraystretch}{1.4}
