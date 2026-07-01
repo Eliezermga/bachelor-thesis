@@ -9,6 +9,66 @@ Dans ce contexte, ce chapitre présente les fondements théoriques liés à l'in
 
 
 %------------------------------------------------------------
+\section{Méthodologie de la revue de littérature}
+%------------------------------------------------------------
+
+\subsubsection{Protocole de recherche documentaire}
+
+Cette revue de littérature a été réalisée selon une démarche systématique inspirée des recommandations \ac{PRISMA}. Les recherches bibliographiques ont été effectuées dans plusieurs bases de données scientifiques, notamment Scopus, \ac{ACM}, \ac{IEEE} et Google Scholar.
+
+Les requêtes de recherche ont été construites autour de quatre axes principaux :
+
+\begin{itemize}
+    \item la traduction automatique neuronale ;
+    \item les langues à faibles ressources ;
+    \item la construction et le prétraitement des corpus parallèles ;
+    \item les modèles multilingues et les méthodes d'évaluation.
+\end{itemize}
+
+Les mots-clés utilisés incluaient notamment \textit{machine translation}, \textit{neural machine translation}, \textit{low-resource languages}, \textit{parallel dataset}, \textit{sentence alignment}, \textit{subword segmentation}, \textit{multilingual models}, \textit{transfer learning}, \textit{Transformer} et \textit{BLEU score}.
+
+\subsubsection{Critères d'inclusion et d'exclusion}
+
+Les études ont été sélectionnées selon des critères prédéfinis afin de garantir leur pertinence par rapport aux objectifs de cette recherche. Le tableau~\ref{tab:criteres_selection} présente l'ensemble des critères appliqués lors du processus de sélection.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{6.8cm}p{6.8cm}}
+\toprule
+\textbf{Critères d'inclusion} & \textbf{Critères d'exclusion} \\
+\midrule
+Traduction automatique neuronale pour les langues à faibles ressources & Reconnaissance automatique de la parole (\textit{Speech Recognition}) \\
+Construction de corpus parallèles & Classification de textes \\
+Alignement de phrases & Analyse de sentiments \\
+Prétraitement des données & Recherche d'information (\textit{Information Retrieval}) \\
+Segmentation en sous-mots (\ac{BPE}, \ac{SentencePiece}) & Enquêtes (\textit{surveys}) \\
+Modèles multilingues & Revues de littérature ou études de synthèse \\
+Apprentissage par transfert (\textit{Transfer Learning}) & \\
+Métriques d'évaluation telles que \ac{BLEU}, \ac{chrF} & \\
+Développement de prototypes de traduction automatique & \\
+\bottomrule
+\end{tabular}
+\caption{Critères d'inclusion et d'exclusion des études sélectionnées}
+\label{tab:criteres_selection}
+\end{table}
+
+\subsubsection{Processus de sélection des études}
+
+La sélection des publications a été réalisée en plusieurs étapes. Après l'identification initiale des documents dans les différentes bases de données, les doublons ont été supprimés. Les titres et résumés ont ensuite été examinés afin d'évaluer leur pertinence au regard des critères d'inclusion et d'exclusion. Les articles retenus ont finalement fait l'objet d'une lecture intégrale avant leur inclusion dans l'analyse finale.
+
+Le processus complet de sélection des études est présenté dans le diagramme \ac{PRISMA} ci-dessous.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.60\textwidth]{Images/prisma_diagram.png}
+    \caption{Diagramme PRISMA du processus de sélection des études \cite{Page2021PRISMA}}
+    \label{fig:prisma}
+\end{figure}
+
+
+%------------------------------------------------------------
 \section{Fondements théoriques}
 %------------------------------------------------------------
 
@@ -490,65 +550,6 @@ En s'appuyant sur les efforts de documentation menés pour le \textbf{quechua} \
 \section{Analyse des travaux existants}
 %------------------------------------------------------------
 
-
-%------------------------------------------------------------
-\subsection{Méthodologie de la revue de littérature}
-%------------------------------------------------------------
-
-\subsubsection{Protocole de recherche documentaire}
-
-Cette revue de littérature a été réalisée selon une démarche systématique inspirée des recommandations \ac{PRISMA}. Les recherches bibliographiques ont été effectuées dans plusieurs bases de données scientifiques, notamment Scopus, \ac{ACM}, \ac{IEEE} et Google Scholar.
-
-Les requêtes de recherche ont été construites autour de quatre axes principaux :
-
-\begin{itemize}
-    \item la traduction automatique neuronale ;
-    \item les langues à faibles ressources ;
-    \item la construction et le prétraitement des corpus parallèles ;
-    \item les modèles multilingues et les méthodes d'évaluation.
-\end{itemize}
-
-Les mots-clés utilisés incluaient notamment \textit{machine translation}, \textit{neural machine translation}, \textit{low-resource languages}, \textit{parallel dataset}, \textit{sentence alignment}, \textit{subword segmentation}, \textit{multilingual models}, \textit{transfer learning}, \textit{Transformer} et \textit{BLEU score}.
-
-\subsubsection{Critères d'inclusion et d'exclusion}
-
-Les études ont été sélectionnées selon des critères prédéfinis afin de garantir leur pertinence par rapport aux objectifs de cette recherche. Le tableau~\ref{tab:criteres_selection} présente l'ensemble des critères appliqués lors du processus de sélection.
-
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.5}
-\rowcolors{2}{gray!10}{white}
-\begin{tabular}{p{6.8cm}p{6.8cm}}
-\toprule
-\textbf{Critères d'inclusion} & \textbf{Critères d'exclusion} \\
-\midrule
-Traduction automatique neuronale pour les langues à faibles ressources & Reconnaissance automatique de la parole (\textit{Speech Recognition}) \\
-Construction de corpus parallèles & Classification de textes \\
-Alignement de phrases & Analyse de sentiments \\
-Prétraitement des données & Recherche d'information (\textit{Information Retrieval}) \\
-Segmentation en sous-mots (\ac{BPE}, \ac{SentencePiece}) & Enquêtes (\textit{surveys}) \\
-Modèles multilingues & Revues de littérature ou études de synthèse \\
-Apprentissage par transfert (\textit{Transfer Learning}) & \\
-Métriques d'évaluation telles que \ac{BLEU}, \ac{chrF} & \\
-Développement de prototypes de traduction automatique & \\
-\bottomrule
-\end{tabular}
-\caption{Critères d'inclusion et d'exclusion des études sélectionnées}
-\label{tab:criteres_selection}
-\end{table}
-
-\subsubsection{Processus de sélection des études}
-
-La sélection des publications a été réalisée en plusieurs étapes. Après l'identification initiale des documents dans les différentes bases de données, les doublons ont été supprimés. Les titres et résumés ont ensuite été examinés afin d'évaluer leur pertinence au regard des critères d'inclusion et d'exclusion. Les articles retenus ont finalement fait l'objet d'une lecture intégrale avant leur inclusion dans l'analyse finale.
-
-Le processus complet de sélection des études est présenté dans le diagramme \ac{PRISMA} ci-dessous.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.60\textwidth]{Images/prisma_diagram.png}
-    \caption{Diagramme PRISMA du processus de sélection des études \cite{Page2021PRISMA}}
-    \label{fig:prisma}
-\end{figure}
 
 
 
