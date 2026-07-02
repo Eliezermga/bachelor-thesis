@@ -1,5 +1,7 @@
 \chapter{Résultats et discussion}
 
+\section{Introduction}
+
 Après avoir présenté la méthodologie de construction du corpus parallèle ruund--français ainsi que le développement du système de traduction automatique basé sur les modèles neuronaux, il est indispensable d'évaluer les performances obtenues afin d'apprécier la capacité de ces modèles à produire des traductions de qualité. L'évaluation constitue une étape essentielle dans le développement d'un système de traduction automatique, puisqu'elle permet de mesurer objectivement les performances des modèles, d'identifier leurs forces et leurs limites, et de déterminer l'approche la plus adaptée au contexte des \ac{LFR}.
 
 Ce chapitre présente les résultats obtenus à l'issue du processus de \textit{fine-tuning} des différents modèles de traduction. Les performances sont d'abord analysées à l'aide de métriques d'évaluation automatiques, qui permettent d'estimer la proximité des traductions générées avec les traductions de référence. Cette évaluation est ensuite complétée par une analyse qualitative reposant sur une évaluation humaine. Cette double approche permet d'apprécier non seulement la qualité lexicale et syntaxique des traductions, mais également leur fidélité sémantique et leur fluidité.
@@ -107,4 +109,4 @@ Les Figures \ref{fig:marianmt_convergence_fr_ruu} et \ref{fig:marianmt_convergen
     \label{fig:marianmt_convergence_ruu_fr}
 \end{figure}
 
-Ces observations corroborent les résultats obtenus par les métriques automatiques (section~\ref{subsec:resultats_metriques}) : \ac{NLLB}-200-distilled-600M combine les meilleures performances et la convergence la plus stable ; \ac{mBART}-50 apprend rapidement mais présente des signes de surapprentissage ; \ac{MarianMT} converge de façon stable sans atteindre un niveau de performance comparable. Ces résultats confirment l'intérêt des modèles multilingues préentraînés de grande capacité pour la \ac{TAN} appliquée aux \ac{LFR} telles que le ruund.
+Ces observations corroborent les résultats obtenus par les métriques automatiques (Section~\ref{subsec:resultats_metriques}) : \ac{NLLB}-200-distilled-600M combine les meilleures performances et la convergence la plus stable ; \ac{mBART}-50 apprend rapidement mais présente des signes de surapprentissage ; \ac{MarianMT} converge de façon stable sans atteindre un niveau de performance comparable. Ces résultats confirment l'intérêt des modèles multilingues préentraînés de grande capacité pour la \ac{TAN} appliquée aux \ac{LFR} telles que le ruund.

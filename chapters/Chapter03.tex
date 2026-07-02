@@ -1,5 +1,6 @@
 \chapter{Développement du système de traduction automatique}
 
+\section{Introduction}
 
 Après la construction du corpus \textbf{OpenRuund} présentée au chapitre précédent, cette partie du travail est consacrée au développement du système de traduction automatique. L'objectif est de mettre en œuvre une approche de \ac{TAN} adaptée au contexte des \ac{LFR} en s'appuyant sur des modèles multilingues préentraînés.
 
@@ -120,7 +121,7 @@ Après la préparation linguistique des données, le corpus a été réparti en 
 \subsection{Découpage du corpus}
 \label{subsec:decoupage_corpus}
 
-Le corpus tokenisé a été divisé en trois ensembles distincts : un \textbf{ensemble d'entraînement}, un \textbf{ensemble de validation} et un \textbf{ensemble de test}. La répartition retenue est présentée dans Le Tableau~\ref{tab:decoupage_corpus} ci-dessous.
+Le corpus tokenisé a été divisé en trois ensembles distincts : un \textbf{ensemble d'entraînement}, un \textbf{ensemble de validation} et un \textbf{ensemble de test}. La répartition retenue est présentée dans le Tableau~\ref{tab:decoupage_corpus} ci-dessous.
 
 \begin{table}[H]
 \centering
@@ -277,7 +278,9 @@ Pour la traduction du ruund vers le français, le modèle \textbf{\ac{NLLB}-200}
 Pour la traduction du français vers le ruund, un second modèle \textbf{\ac{NLLB}-200} \textit{fine-tuné} est utilisé après adaptation à la direction inverse de traduction. Le texte français est converti en représentations numériques avant d'être traité par le modèle afin de produire la traduction correspondante en ruund.
 
 %------------------------------------------------------------
-\section*{Conclusion}
+\section*{Conclusion partielle}
 %------------------------------------------------------------
 
 Ce chapitre a présenté les différentes étapes de développement du système de traduction automatique ruund--français. Après la préparation du corpus et l'adaptation des modèles pré-entraînés, plusieurs expérimentations de \textit{fine-tuning} ont été réalisées avant leur évaluation à l'aide des métriques \ac{BLEU} et \ac{chrF}. Enfin, le modèle retenu a été intégré dans une application \textbf{Django} afin de mettre à disposition un système opérationnel de traduction bidirectionnelle entre le ruund et le français.
+
+Le chapitre suivant présente les résultats obtenus et leur discussion critique à partir des évaluations quantitatives et qualitatives réalisées sur les modèles entraînés.

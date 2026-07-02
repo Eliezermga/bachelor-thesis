@@ -1,5 +1,7 @@
 \chapter{Construction du corpus parallèle ruund–français}
 
+\section{Introduction}
+
 Ce chapitre présente le processus de constitution du corpus utilisé pour l'entraînement et l'évaluation des modèles de traduction automatique étudiés. Il décrit les objectifs poursuivis, les sources de données exploitées ainsi que l'organisation générale du corpus obtenu.
 
 
@@ -166,7 +168,7 @@ On corrige une femme discrètement sous le toit conjugal et non en public sinon 
 \section{Analyse descriptive du corpus}
 %------------------------------------------------------------
 
-Le Tableau \ref{tab:stats_corpus} présente les principales caractéristiques quantitatives du corpus parallèle construit dans le cadre de cette étude.
+Le Tableau~\ref{tab:stats_corpus} présente les principales caractéristiques quantitatives du corpus parallèle construit dans le cadre de cette étude.
 
 \begin{table}[H]
 \centering
@@ -207,3 +209,9 @@ Bien que les textes bibliques présentent une structure relativement régulière
 Le corpus construit demeure limité en taille par rapport aux ressources généralement utilisées pour l'entraînement des systèmes de traduction neuronale. En effet, les modèles neuronaux modernes atteignent généralement des performances optimales avec des centaines de milliers de paires de phrases parallèles, tandis que le corpus ruund–français ne contient que 8~431 paires. De plus, une grande partie des données provient de textes religieux, ce qui peut réduire la diversité thématique et linguistique du corpus et affecter la capacité de généralisation des modèles entraînés sur ces données.
 
 Malgré ces limites, cette ressource constitue une base exploitable pour le développement et l'évaluation de modèles de traduction ruund–français et représente une contribution significative à la numérisation du ruund, une langue jusqu'à présent largement sous-représentée dans les technologies linguistiques modernes.
+
+\section*{Conclusion partielle}
+
+Ce chapitre a décrit la construction du corpus parallèle ruund--français, depuis la collecte et l'extraction des données jusqu'à l'alignement et la validation du dataset OpenRuund. Les opérations de nettoyage et de contrôle qualité ont permis d'obtenir une base exploitable pour l'entraînement des modèles de traduction.
+
+Le chapitre suivant présente la préparation linguistique des données, l'adaptation des modèles multilingues préentraînés et la mise en place du système de traduction automatique.
