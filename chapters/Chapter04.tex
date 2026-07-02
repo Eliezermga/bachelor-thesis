@@ -5,3 +5,48 @@ Après avoir présenté la méthodologie de construction du corpus parallèle ru
 Ce chapitre présente les résultats obtenus à l'issue du processus de \textit{fine-tuning} des différents modèles de traduction. Les performances sont d'abord analysées à l'aide de métriques d'évaluation automatiques, qui permettent d'estimer la proximité des traductions générées avec les traductions de référence. Cette évaluation est ensuite complétée par une analyse qualitative reposant sur une évaluation humaine. Cette double approche permet d'apprécier non seulement la qualité lexicale et syntaxique des traductions, mais également leur fidélité sémantique et leur fluidité.
 
 Enfin, une discussion critique des résultats est proposée afin d'interpréter les performances observées en tenant compte des caractéristiques du corpus parallèle, des spécificités linguistiques du ruund. Cette analyse permet de mettre en évidence les principaux facteurs ayant influencé les performances du système développé, d'identifier les limites de l'étude et de dégager des perspectives d'amélioration pour les travaux futurs.
+
+\section{Résultats quantitatifs}
+
+L'évaluation quantitative des modèles de traduction automatique a été réalisée à l'aide de deux métriques largement utilisées dans le domaine de la \textbf{\ac{TAN}} : le score \textbf{\ac{BLEU}} et le score \textbf{\ac{chrF}}. Le score \ac{BLEU} mesure le degré de correspondance entre la traduction générée et la traduction de référence à partir des \textit{n-grammes} de mots, tandis que le score \ac{chrF} repose sur les \textit{n-grammes} de caractères, ce qui le rend particulièrement adapté à l'évaluation des langues présentant une forte richesse morphologique ou disposant de ressources limitées. En complément, le temps d'entraînement de chaque modèle a été relevé afin d'apprécier le coût computationnel associé au processus de \textit{fine-tuning}.
+
+\subsection{Présentation des résultats des métriques automatiques}
+\label{subsec:resultats_metriques}
+
+Les performances obtenues par les trois modèles étudiés --- \ac{mBART}-50, \ac{NLLB}-200-distilled-600M et \ac{MarianMT} --- ont été mesurées pour les deux directions de traduction, à savoir du ruund vers le français et du français vers le ruund.
+
+Les résultats montrent des différences significatives entre les modèles évalués. Pour les deux directions de traduction, le modèle \ac{NLLB}-200-distilled-600M obtient systématiquement les meilleurs scores \ac{BLEU} et \ac{chrF}. Le modèle \ac{mBART}-50 se situe en deuxième position, avec des performances satisfaisantes bien qu'inférieures à celles de \ac{NLLB}-200-distilled-600M, tandis que \ac{MarianMT} affiche les performances les plus faibles, en particulier pour la direction français--ruund.
+
+Concernant le temps d'entraînement, les trois modèles présentent des durées relativement proches, comprises entre environ neuf et quinze minutes selon la direction de traduction. Malgré un nombre de paramètres comparable à celui de \ac{mBART}-50, le modèle \ac{NLLB}-200-distilled-600M présente un temps d'entraînement légèrement inférieur tout en offrant des performances nettement supérieures.
+
+Le Tableau~\ref{tab:resultats_metriques} présente les résultats détaillés des métriques automatiques pour les trois modèles.
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{4cm}p{4cm}ccc}
+\toprule
+\textbf{Modèle} & \textbf{Direction} & \textbf{\ac{BLEU}} & \textbf{\ac{chrF}} & \textbf{Temps d'entraînement} \\
+\midrule
+\ac{mBART}-50 & Ruund $\rightarrow$ Français & 20,84 & 43,38 & 12~min~47~s \\
+\ac{mBART}-50 & Français $\rightarrow$ Ruund & 25,23 & 51,92 & 14~min~40~s \\
+\ac{NLLB}-200-distilled-600M & Ruund $\rightarrow$ Français & \textbf{37,55} & \textbf{57,25} & 12~min~30~s \\
+\ac{NLLB}-200-distilled-600M & Français $\rightarrow$ Ruund & \textbf{26,02} & \textbf{53,95} & 13~min~27~s \\
+\ac{MarianMT} & Ruund $\rightarrow$ Français & 15,56 & 40,24 & 14~min~58~s \\
+\ac{MarianMT} & Français $\rightarrow$ Ruund & 10,64 & 36,79 & 8~min~48~s \\
+\bottomrule
+\end{tabular}
+\caption{Performances des modèles selon les scores \ac{BLEU} et \ac{chrF}}
+\label{tab:resultats_metriques}
+\end{table}
+
+\subsection{Analyse comparative des performances des modèles}
+\label{subsec:analyse_comparative}
+
+L'analyse met en évidence l'intérêt des modèles multilingues de grande capacité pour les \textbf{\ac{LFR}}. Avec environ 600 millions de paramètres, \ac{mBART}-50 et \ac{NLLB}-200-distilled-600M disposent d'une capacité de représentation largement supérieure à celle de \ac{MarianMT}, qui compte environ 60 millions de paramètres. Cette différence de capacité favorise l'apprentissage de représentations linguistiques plus riches et améliore la généralisation lors du \textit{fine-tuning} sur un corpus de taille limitée.
+
+Les performances plus faibles de \ac{MarianMT} peuvent également être attribuées au fait que le modèle d'origine, \texttt{Helsinki-NLP/opus-mt-en-fr}, n'a pas été initialement conçu pour prendre en charge le ruund. Son adaptation au moyen de l'ajout du jeton de langue \textit{ruu\_CM} et d'un \textit{fine-tuning} sur le corpus parallèle a permis d'étendre ses capacités à cette langue, mais les résultats montrent que cette adaptation reste moins efficace que celle des modèles multilingues préentraînés sur un grand nombre de langues.
+
+Le corpus parallèle construit dans le cadre de cette étude comprend une taille initiale de 8~431 paires de phrases, réparties en 6~492 exemples d'entraînement, 812 exemples de validation et 812 exemples de test. Malgré cette quantité relativement modeste au regard des standards actuels de la \ac{TAN}, les résultats obtenus, en particulier par le modèle \ac{NLLB}-200-distilled-600M, montrent qu'un \textit{fine-tuning} de modèles multilingues préentraînés constitue une approche pertinente pour le développement de systèmes de traduction destinés aux \ac{LFR}. Les connaissances linguistiques acquises lors du préentraînement permettent ainsi de compenser en partie la rareté des données disponibles et d'améliorer la qualité des traductions produites.
+
+Ces résultats quantitatifs constituent une première indication des performances des différents modèles. Toutefois, les métriques automatiques ne permettent pas, à elles seules, d'apprécier pleinement la qualité des traductions générées. Une analyse qualitative complétée par une évaluation humaine est donc nécessaire afin d'examiner plus finement la fidélité sémantique, la fluidité et l'acceptabilité linguistique des traductions produites.
