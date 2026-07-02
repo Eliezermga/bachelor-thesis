@@ -50,3 +50,61 @@ Les performances plus faibles de \ac{MarianMT} peuvent également être attribu�
 Le corpus parallèle construit dans le cadre de cette étude comprend une taille initiale de 8~431 paires de phrases, réparties en 6~492 exemples d'entraînement, 812 exemples de validation et 812 exemples de test. Malgré cette quantité relativement modeste au regard des standards actuels de la \ac{TAN}, les résultats obtenus, en particulier par le modèle \ac{NLLB}-200-distilled-600M, montrent qu'un \textit{fine-tuning} de modèles multilingues préentraînés constitue une approche pertinente pour le développement de systèmes de traduction destinés aux \ac{LFR}. Les connaissances linguistiques acquises lors du préentraînement permettent ainsi de compenser en partie la rareté des données disponibles et d'améliorer la qualité des traductions produites.
 
 Ces résultats quantitatifs constituent une première indication des performances des différents modèles. Toutefois, les métriques automatiques ne permettent pas, à elles seules, d'apprécier pleinement la qualité des traductions générées. Une analyse qualitative complétée par une évaluation humaine est donc nécessaire afin d'examiner plus finement la fidélité sémantique, la fluidité et l'acceptabilité linguistique des traductions produites.
+
+\subsection{Analyse de la convergence des modèles}
+\label{subsec:convergence_modeles}
+
+L'analyse des courbes d'entraînement complète l'évaluation par les métriques automatiques en permettant d'examiner la vitesse d'apprentissage, la stabilité de l'entraînement et la capacité de généralisation des trois modèles étudiés, à partir de l'évolution de la \textbf{perte d'entraînement}, de la \textbf{perte de validation} et des scores \ac{BLEU}/\ac{chrF} au fil des époques.
+
+Le modèle \ac{NLLB}-200-distilled-600M présente la convergence la plus régulière. Pour les deux directions de traduction, les pertes d'entraînement et de validation diminuent de façon continue sur les quinze époques, tandis que les scores \ac{BLEU} et \ac{chrF} progressent jusqu'à atteindre un plateau en fin d'entraînement. L'écart limité entre les deux courbes de perte indique une bonne capacité de généralisation, sans signe marqué de \textbf{surapprentissage} (\textit{overfitting}).
+
+Les Figures \ref{fig:nllb_convergence_ruu_fr} et \ref{fig:nllb_convergence_fr_ruu} illustrent l'évolution de la perte et des métriques automatiques pour le modèle \ac{NLLB}-200-distilled-600M en fonction des époques.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{Images/nllb_fr_ruund.png}
+    \caption[Courbes d'entraînement NLLB-200-distilled-600M - Français $\rightarrow$ Ruund]{Courbes d'entraînement NLLB-200-distilled-600M - Français $\rightarrow$ Ruund}
+    \label{fig:nllb_convergence_fr_ruu}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{Images/nllb_ruund_fr.png}
+    \caption[Courbes d'entraînement NLLB-200-distilled-600M - Ruund $\rightarrow$ Français]{Courbes d'entraînement NLLB-200-distilled-600M - Ruund $\rightarrow$ Français}
+    \label{fig:nllb_convergence_ruu_fr}
+\end{figure}
+
+Le modèle \ac{mBART}-50 converge plus rapidement sur les premières époques, avec les gains les plus importants en \ac{BLEU} et \ac{chrF} observés entre la deuxième et la quatrième époque. Au-delà de cette phase, la perte de validation augmente alors que la perte d'entraînement continue de diminuer, ce qui traduit un début de surapprentissage. Les scores \ac{BLEU} et \ac{chrF} conservent néanmoins une légère progression jusqu'à la dixième époque, sans être affectés par cette divergence des pertes.
+
+Les Figures \ref{fig:mbart_convergence_fr_ruu} et \ref{fig:mbart_convergence_ruu_fr} illustrent l'évolution de la perte et des métriques automatiques pour le modèle \ac{mBART}-50 en fonction des époques.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{Images/mbart_fr_ruund.png}
+    \caption[Courbes d'entraînement mBART-50 - Français $\rightarrow$ Ruund]{Courbes d'entraînement mBART-50 - Français $\rightarrow$ Ruund}
+    \label{fig:mbart_convergence_fr_ruu}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{Images/mbart_ruund_fr.png}
+    \caption[Courbes d'entraînement mBART-50 - Ruund $\rightarrow$ Français]{Courbes d'entraînement mBART-50 - Ruund $\rightarrow$ Français}
+    \label{fig:mbart_convergence_ruu_fr}
+\end{figure}
+
+Le modèle \ac{MarianMT} affiche une diminution régulière et stable des deux pertes, sans augmentation notable de la perte de validation. Les scores \ac{BLEU} et \ac{chrF} progressent de manière constante mais avec des gains décroissants au fil des époques, révélant une convergence vers un optimum local à un niveau de performance inférieur à celui des deux modèles multilingues.
+
+Les Figures \ref{fig:marianmt_convergence_fr_ruu} et \ref{fig:marianmt_convergence_ruu_fr} illustrent l'évolution de la perte et des métriques automatiques pour le modèle \ac{MarianMT} en fonction des époques.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{Images/marianmt_fr_ruund.png}
+    \caption[Courbes d'entraînement MarianMT - Français $\rightarrow$ Ruund]{Courbes d'entraînement MarianMT - Français $\rightarrow$ Ruund}
+    \label{fig:marianmt_convergence_fr_ruu}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{Images/marianmt_ruund_fr.png}
+    \caption[Courbes d'entraînement MarianMT - Ruund $\rightarrow$ Français]{Courbes d'entraînement MarianMT - Ruund $\rightarrow$ Français}
+    \label{fig:marianmt_convergence_ruu_fr}
+\end{figure}
+
+Ces observations corroborent les résultats obtenus par les métriques automatiques (section~\ref{subsec:resultats_metriques}) : \ac{NLLB}-200-distilled-600M combine les meilleures performances et la convergence la plus stable ; \ac{mBART}-50 apprend rapidement mais présente des signes de surapprentissage ; \ac{MarianMT} converge de façon stable sans atteindre un niveau de performance comparable. Ces résultats confirment l'intérêt des modèles multilingues préentraînés de grande capacité pour la \ac{TAN} appliquée aux \ac{LFR} telles que le ruund.
