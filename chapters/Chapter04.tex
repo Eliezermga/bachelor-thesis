@@ -113,6 +113,7 @@ Ces observations corroborent les résultats obtenus par les métriques automatiq
 
 \section{Évaluation qualitative des traductions}
 \subsection{Analyse d'exemples de traduction}
+\subsubsection{Analyse qualitative des traductions hors contexte religieux}
 
 Le Tableau~\ref{tab:exempletraduction} présente quelques exemples de traductions générées par les trois modèles dans les directions Français $\rightarrow$ Ruund et Ruund $\rightarrow$ Français. Les exemples retenus couvrent des textes variés, principalement hors contexte religieux, tout en incluant quelques extraits du domaine religieux\begin{landscape}
 \begingroup
@@ -140,9 +141,18 @@ Walankan, dijine dam uriel ,nid mu Kolwezi, nikatine emband mud kristu mukatinay
 \captionof{table}{Exemple de traduction de textes variés, principalement hors contexte religieux, tout en incluant quelques extraits du domaine religieux, sur les 3 modèles}
 \label{tab:exempletraduction}}
 \endgroup
+\end{landscape}
 
 
-Le Tableau~\ref{tab:exempletraductionreligieux} présente quelques exemples de traductions générées par les trois modèles dans les directions Français $\rightarrow$ Ruund et Ruund $\rightarrow$ Français, à partir de phrases issues du corpus biblique. Ces exemples permettent d'évaluer la capacité des modèles à traduire des énoncés relevant du domaine religieux, caractérisés par un vocabulaire spécifique et des formulations propres aux textes sacrés.
+L'exemple présenté dans le Tableau~\ref{tab:exempletraduction} permet d'observer le comportement des trois modèles sur un texte conversationnel, hors du registre biblique majoritaire du corpus d'entraînement.
+
+Dans la direction \textbf{français$\rightarrow$ruund}, le \ac{NLLB} produit une traduction globalement cohérente, conservant les éléments sémantiques centraux de la phrase source (identité du locuteur, provenance géographique, thématique du travail et de l'argent), avec une structure syntaxique proche de la référence. Le \ac{mBART} propose également une sortie cohérente sur le plan grammatical, mais s'écarte davantage de la référence dans le choix lexical, tout en conservant l'idée générale du texte source. Le \ac{MarianMT}, en revanche, présente une dégradation marquée en fin de séquence : la répétition de la séquence \textit{« nfalang ja utad wa nfalang »} illustre un phénomène de \textbf{répétition dégénérative} (\textit{repetition loop}), fréquent chez les modèles neuronaux insuffisamment régularisés dans les contextes à faibles ressources, traduisant une perte de contrôle du décodeur sur la génération.
+
+Dans la direction inverse \textbf{ruund$\rightarrow$français}, les trois modèles échouent à restituer le sens de la phrase source. Le \ac{NLLB} génère un contenu à connotation religieuse (« inquiétude », « Colosses ») totalement étranger au texte source, tandis que le \ac{mBART} produit une hallucination construite autour des thématiques de la virginité et des impôts. Le \ac{MarianMT} propose un texte incohérent mêlant des éléments disparates (« viande de jésus », « récolte »), sans lien perceptible avec la source. Ce phénomène suggère un \textbf{biais de domaine} (\textit{domain bias}) : la forte proportion de textes bibliques dans le corpus d'entraînement semble conduire les modèles à reproduire un registre religieux par défaut lorsqu'ils sont confrontés à un énoncé hors distribution, en particulier dans le sens ruund$\rightarrow$français où la charge de génération repose sur le français.
+
+
+\subsubsection{Analyse qualitative des traductions en contexte religieux}
+Le Tableau~\ref{tab:exempletraductionreligieux} présente quelques exemples de traductions générées par les trois modèles dans les directions Français $\rightarrow$ Ruund et Ruund $\rightarrow$ Français, à partir de phrases en contexte religieux. Ces exemples permettent d'évaluer la capacité des modèles à traduire des énoncés relevant du domaine religieux, caractérisés par un vocabulaire spécifique et des formulations propres aux textes sacrés.\begin{landscape}
 \begingroup
 \renewcommand{\arraystretch}{1.4}
 \small
@@ -169,3 +179,16 @@ Ov, nany wa pakach pen anch unenganen ukutwisha kuwejaku ku mwom wend ap kusu ka
 \label{tab:exempletraductionreligieux}}
 \endgroup
 \end{landscape}
+
+
+Le Tableau~\ref{tab:exempletraductionreligieux} présente des exemples en contexte religieux, permettant d'évaluer les modèles sur le registre dominant de l'entraînement.
+
+Dans la direction français$\rightarrow$ruund, le \ac{NLLB} et le \ac{mBART} produisent des traductions structurellement proches de la référence. Le \ac{mBART} laisse toutefois apparaître un phénomène de \textbf{alternance codique} (\textit{code-switching}) involontaire, en conservant le terme français \textit{« souci »} non traduit au sein de la phrase en ruund, révélant une lacune du vocabulaire cible appris pour ce terme. Le \ac{MarianMT} échoue de nouveau à produire une traduction exploitable, avec une répétition partielle de la structure interrogative (\textit{« ov, nany ukutwisha kwikal »}) qui vide la phrase de son contenu sémantique original.
+
+Dans la direction ruund$\rightarrow$français, le \ac{NLLB} produit la meilleure traduction observée sur l'ensemble des exemples analysés : la sortie restitue fidèlement le sens de la source. À l'inverse, le \ac{mBART} produit une hallucination importante, introduisant une thématique de résurrection totalement absente du texte source. Le \ac{MarianMT} conserve partiellement le sens interrogatif et la référence à la durée de vie, mais omet la notion causale de \textit{« souci »}, ce qui constitue une \textbf{omission sémantique} significative.
+
+\subsubsection{Comparaison générale des trois modèles}
+
+La confrontation des deux contextes met en évidence des tendances cohérentes avec les résultats quantitatifs présentés en section~4.2. Le \ac{NLLB} apparaît comme le modèle le plus robuste, tant en contexte religieux qu'hors contexte religieux, avec une performance particulièrement notable dans la direction ruund$\rightarrow$français sur les données bibliques. Le \ac{mBART} affiche une qualité intermédiaire, marquée par une tendance récurrente à l'hallucination lorsque le texte source s'éloigne du registre religieux ou lorsque la traduction s'effectue vers le français. Le \ac{MarianMT}, enfin, présente la performance la plus instable, avec des phénomènes récurrents de répétition dégénérative observés dans les deux directions de traduction, indépendamment du domaine du texte source.
+
+De façon transversale, deux constats se dégagent : d'une part, la direction français$\rightarrow$ruund tend à produire des sorties plus stables que la direction inverse, possiblement en raison d'une distribution lexicale ruund plus contrainte lors de la génération ; d'autre part, la performance des trois modèles reste globalement meilleure sur le registre religieux, ce qui s'explique par la prédominance de ce registre dans le corpus d'entraînement de 8~431 paires \cite{Mununga2026ruunddataset}. Ces observations qualitatives corroborent l'hypothèse d'un déséquilibre de domaine du corpus, susceptible de limiter la capacité de généralisation des modèles vers des registres non religieux.
