@@ -286,3 +286,18 @@ L'exemple biblique portant sur l'expression figurée \textit{« ajouter une coud
 
 \subsubsection{Erreurs morphologiques et répétitions.}
 Le modèle \ac{MarianMT} présente un phénomène récurrent de répétition dégénérative (\textit{repetition loop}), notamment observable en fin de séquence longue, où une suite de tokens est reproduite de manière cyclique sans apport sémantique. Ce comportement, associé à la structure fortement agglutinante du ruund (classes nominales, affixes verbaux multiples), suggère une difficulté du modèle à gérer la composition morphologique de la langue cible plutôt qu'une simple erreur de décodage lexical.
+
+\section{Validation du système développé}
+
+Au terme de l'évaluation quantitative et qualitative, le modèle NLLB-200-distilled-600M s'est révélé être le plus performant pour la traduction automatique entre le français et le ruund. En raison de ses meilleurs résultats en termes de scores BLEU, de score chrF et d'évaluation humaine, ce modèle a été retenu pour le déploiement du système de traduction développé dans le cadre de cette étude.
+
+L'intégration du modèle a été réalisée au sein d'une application web développée avec le framework Django. Cette application constitue une interface permettant aux utilisateurs de saisir un texte en français ou en ruund et d'obtenir instantanément sa traduction dans la langue cible. Le modèle de traduction, préalablement affiné puis publié sur la plateforme Hugging Face, est chargé par le serveur lors du démarrage de l'application. Lorsqu'une requête est soumise, le texte est prétraité selon la procédure décrite au chapitre précédent, puis transmis au modèle NLLB qui génère la traduction avant son affichage à l'utilisateur.
+
+Au-delà de l'aspect technique, le système développé constitue une première contribution à la valorisation numérique du ruund. En démontrant la faisabilité d'un système de traduction automatique pour cette langue à faibles ressources, ce travail contribue à accroître sa présence dans les technologies du traitement automatique des langues.
+
+Par ailleurs, l'approche méthodologique adoptée dans cette étude n'est pas limitée au ruund. Les différentes étapes mises en œuvre, notamment la constitution d'un corpus parallèle, l'adaptation d'un modèle multilingue, le fine-tuning et le déploiement dans une application web, peuvent être reproduites pour d'autres langues de la RDC disposant de peu de ressources numériques. Ainsi, cette recherche ouvre des perspectives intéressantes pour le développement d'outils de traduction destinés à favoriser l'inclusion numérique, la préservation du patrimoine linguistique et l'accessibilité des contenus dans les langues congolaises.
+
+\section{Conclusion partielle}
+Les expérimentations menées confirment la supériorité du modèle NLLB-200-distilled-600M sur mBART-50 et MarianMT, tant en scores BLEU/chrF qu'en stabilité d'apprentissage. Ces résultats valident la faisabilité d'une traduction automatique de qualité pour le ruund, malgré la faiblesse des ressources disponibles. L'intégration du meilleur modèle dans une application web démontre l'opérationnalité de l'approche et son intérêt pour la valorisation numérique des langues congolaises.
+
+Le chapitre suivant propose une synthèse générale des résultats obtenus, revient sur les principales limites de cette étude et ouvre des perspectives d'amélioration, tant sur le plan linguistique que technique, afin d'envisager l'extension de cette démarche à d'autres langues à faibles ressources.
