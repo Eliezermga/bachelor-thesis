@@ -140,4 +140,32 @@ Walankan, dijine dam uriel ,nid mu Kolwezi, nikatine emband mud kristu mukatinay
 \captionof{table}{Exemple de traduction de textes variés, principalement hors contexte religieux, tout en incluant quelques extraits du domaine religieux, sur les 3 modèles}
 \label{tab:exempletraduction}}
 \endgroup
+
+
+Le Tableau~\ref{tab:exempletraductionreligieux} présente quelques exemples de traductions générées par les trois modèles dans les directions Français $\rightarrow$ Ruund et Ruund $\rightarrow$ Français, à partir de phrases issues du corpus biblique. Ces exemples permettent d'évaluer la capacité des modèles à traduire des énoncés relevant du domaine religieux, caractérisés par un vocabulaire spécifique et des formulations propres aux textes sacrés.
+\begingroup
+\renewcommand{\arraystretch}{1.4}
+\small
+\rowcolors{2}{gray!10}{white}
+\begin{longtable}{p{4.5cm}p{4.5cm}p{4.5cm}p{4.5cm}p{4.5cm}}
+\toprule
+\textbf{Source} & \textbf{Référence} & \textbf{\ac{NLLB}-200} & \textbf{\ac{mBART}-50} & \textbf{\ac{MarianMT}} \\
+\midrule
+\endfirsthead
+\endhead
+
+\bottomrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+Qui d'entre vous parvient à prolonger un peu la durée de sa vie par le souci qu'il se fait? & Ov, nany wa pakach pen anch unenganen ukutwisha kuwejaku ku mwom wend ap kusu kachisu kakemp? &  ov, nany wa pakach pen ukutwisha kukarumun chikas chimwing ku mwom wend mulong wa kuzengol kwend? & ov, nany wa pakach pen ukutwisha kukarumuk mivu yivud ya mwom wend mulong wa souci chisotilau? &  ov, nany ukutwisha kwikal kand anch ov, nany ukutwisha kwikal mwom wa chikupu? \\
+Ov, nany wa pakach pen anch unenganen ukutwisha kuwejaku ku mwom wend ap kusu kachisu kakemp? & Qui d'entre vous parvient à prolonger un peu la durée de sa vie par le souci qu'il se fait? & qui d'entre vous peut, en s'inquiétant, ajouter une seule coudée à la longueur de sa vie? & il n'est pas surprenant que quelqu'un, dans votre cas, puisse se relever d'entre les morts pour un peu de temps. & qui d'entre vous peut être capable d'aller jusqu'au bout de sa vie ou d'en sortir? \\
+\bottomrule
+\end{longtable}
+\addtocounter{table}{-1}
+{\captionsetup{hypcap=false}
+\captionof{table}{Exemple de traduction de textes religieux, sur les 3 modèles}
+\label{tab:exempletraductionreligieux}}
+\endgroup
 \end{landscape}
