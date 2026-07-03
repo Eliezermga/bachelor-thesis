@@ -1,5 +1,6 @@
 \chapter{Développement du système de traduction automatique}
 
+\section{Introduction}
 
 Après la construction du corpus \textbf{OpenRuund} présentée au chapitre précédent, cette partie du travail est consacrée au développement du système de traduction automatique. L'objectif est de mettre en œuvre une approche de \ac{TAN} adaptée au contexte des \ac{LFR} en s'appuyant sur des modèles multilingues préentraînés.
 
@@ -9,7 +10,7 @@ La Figure~\ref{fig:pipeline_systeme} présente le pipeline global adopté pour l
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.70\textwidth]{Images/pipeline_systeme.png}
+    \includegraphics[width=0.95\textwidth]{Images/pipeline_systeme.png}
     \caption[Pipeline global du système de traduction automatique]{Pipeline global du système de traduction automatique}
     \label{fig:pipeline_systeme}
 \end{figure}
@@ -79,7 +80,7 @@ Les modèles \ac{NLLB} et \ac{mBART} reposent sur \ac{SentencePiece}. En décomp
 
 Pour \ac{MarianMT}, le tokenizer pré-entraîné a été conservé et enrichi d'un token spécial ruund, permettant d'indiquer explicitement la langue source.
 
-Le tableau~\ref{tab:tokenizers_modeles} présente les stratégies de tokenisation utilisées.
+Le Tableau~\ref{tab:tokenizers_modeles} présente les stratégies de tokenisation utilisées.
 
 \begin{table}[H]
 \centering
@@ -120,7 +121,7 @@ Après la préparation linguistique des données, le corpus a été réparti en 
 \subsection{Découpage du corpus}
 \label{subsec:decoupage_corpus}
 
-Le corpus tokenisé a été divisé en trois ensembles distincts : un \textbf{ensemble d'entraînement}, un \textbf{ensemble de validation} et un \textbf{ensemble de test}. La répartition retenue est la suivante :
+Le corpus tokenisé a été divisé en trois ensembles distincts : un \textbf{ensemble d'entraînement}, un \textbf{ensemble de validation} et un \textbf{ensemble de test}. La répartition retenue est présentée dans le Tableau~\ref{tab:decoupage_corpus} ci-dessous.
 
 \begin{table}[H]
 \centering
@@ -154,7 +155,7 @@ Une taille de lot(Batch Size) de 16~exemples a été retenue pour \ac{mBART} et 
 
 Un taux d'apprentissage de $5 \times 10^{-5}$ a été appliqué aux trois modèles. Cette valeur, couramment utilisée lors du \textit{fine-tuning} de modèles Transformer pré-entraînés, permet de préserver les connaissances acquises durant le pré-entraînement tout en adaptant progressivement le modèle au domaine cible.
 
-Le tableau~\ref{tab:hyperparametres} présente une synthèse des hyperparamètres retenus pour chacun des trois modèles.
+Le Tableau~\ref{tab:hyperparametres} présente une synthèse des hyperparamètres retenus pour chacun des trois modèles.
 
 \begin{table}[H]
 \centering
@@ -249,11 +250,11 @@ Contrairement à \ac{BLEU}, \ac{chrF} opère au niveau des caractères et s'avè
 \subsection{Architecture générale de l'application}
 \label{subsec:architecture_application}
 
-L'application \textbf{LugaYetu} développée repose sur une architecture \textbf{client-serveur} intégrant le framework \textbf{Django} pour la gestion de l'interface utilisateur et des traitements applicatifs. Le processus de traduction suit les étapes suivantes :
+L'application \textbf{LugaYetu} développée repose sur une architecture \textbf{client-serveur} intégrant le framework \textbf{Django} pour la gestion de l'interface utilisateur et des traitements applicatifs. La Figure~\ref{fig:architecture_aap} présente l'architecture générale de l'application et le flux de traitement des requêtes de traduction. Le processus de traduction suit les étapes suivantes :
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.70\textwidth]{Images/architectuerapp.png}
+    \includegraphics[width=0.95\textwidth]{Images/architectuerapp.png}
     \caption[Architecture générale de l'application]{Architecture générale de l'application }
     \label{fig:architecture_aap}
 \end{figure}
@@ -277,7 +278,9 @@ Pour la traduction du ruund vers le français, le modèle \textbf{\ac{NLLB}-200}
 Pour la traduction du français vers le ruund, un second modèle \textbf{\ac{NLLB}-200} \textit{fine-tuné} est utilisé après adaptation à la direction inverse de traduction. Le texte français est converti en représentations numériques avant d'être traité par le modèle afin de produire la traduction correspondante en ruund.
 
 %------------------------------------------------------------
-\section*{Conclusion}
+\section*{Conclusion partielle}
 %------------------------------------------------------------
 
 Ce chapitre a présenté les différentes étapes de développement du système de traduction automatique ruund--français. Après la préparation du corpus et l'adaptation des modèles pré-entraînés, plusieurs expérimentations de \textit{fine-tuning} ont été réalisées avant leur évaluation à l'aide des métriques \ac{BLEU} et \ac{chrF}. Enfin, le modèle retenu a été intégré dans une application \textbf{Django} afin de mettre à disposition un système opérationnel de traduction bidirectionnelle entre le ruund et le français.
+
+Le chapitre suivant présente les résultats obtenus et leur discussion critique à partir des évaluations quantitatives et qualitatives réalisées sur les modèles entraînés.
