@@ -193,3 +193,47 @@ Dans la direction ruund$\rightarrow$français, le \ac{NLLB} produit la meilleure
 La confrontation des deux contextes met en évidence des tendances cohérentes avec les résultats quantitatifs présentés en section~\ref{sec:resultats_quantitatifs}. Le \ac{NLLB} apparaît comme le modèle le plus robuste, tant en contexte religieux qu'hors contexte religieux, avec une performance particulièrement notable dans la direction ruund$\rightarrow$français sur les données bibliques. Le \ac{mBART} affiche une qualité intermédiaire, marquée par une tendance récurrente à l'hallucination lorsque le texte source s'éloigne du registre religieux ou lorsque la traduction s'effectue vers le français. Le \ac{MarianMT}, enfin, présente la performance la plus instable, avec des phénomènes récurrents de répétition dégénérative observés dans les deux directions de traduction, indépendamment du domaine du texte source.
 
 De façon transversale, deux constats se dégagent : d'une part, la direction français$\rightarrow$ruund tend à produire des sorties plus stables que la direction inverse, possiblement en raison d'une distribution lexicale ruund plus contrainte lors de la génération ; d'autre part, la performance des trois modèles reste globalement meilleure sur le contexte religieux, ce qui s'explique par la prédominance  dans le corpus d'entraînement. Ces observations qualitatives corroborent l'hypothèse d'un déséquilibre de domaine du corpus, susceptible de limiter la capacité de généralisation des modèles vers des registres non religieux.
+
+\subsection{Évaluation humaine}
+\label{sec:evaluation-humaine}
+
+En complément des métriques automatiques, une \textbf{évaluation humaine} a été réalisée afin d'apprécier la qualité linguistique réelle des traductions produites par les modèles. Cette étape avait pour objectif de vérifier si les résultats obtenus à l'aide des scores \ac{BLEU} et \ac{chrF} reflétaient effectivement la qualité des traductions du point de vue d'un lecteur humain.
+
+L'évaluation a été menée sur un échantillon de vingt phrases sélectionnées dans le corpus de test et hors corpus. Les traductions générées par les trois modèles ont été examinées indépendamment par deux évaluateurs : 3~locuteurs natifs du ruund, dont l'identité est volontairement anonymisée, et un expert titulaire d'un doctorat (PhD) en linguistique et littératures africaines de l'Université de Lubumbashi, le Prof. Michel Kasombo. Les notes attribuées par les deux évaluateurs ont ensuite été moyennées afin d'obtenir un score unique pour chaque critère.
+
+Trois critères ont été retenus pour cette évaluation :
+
+\begin{itemize}
+    \item \textbf{la fidélité au texte source}, qui mesure la capacité du modèle à restituer correctement le sens du texte original ;
+    \item \textbf{la fluidité}, qui évalue le caractère naturel et la cohérence de la traduction produite ;
+    \item \textbf{la correction grammaticale}, qui apprécie le respect des règles morphologiques et syntaxiques de la langue cible.
+\end{itemize}
+
+Chaque critère a été évalué sur une échelle de~0 à~10, où~0 correspond à une traduction de très mauvaise qualité et~10 à une traduction excellente.
+
+Le Tableau~\ref{tab:evaluation-humaine} présente les résultats moyens obtenus pour chacun des modèles.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{4cm}p{2.3cm}p{2.3cm}p{2.3cm}p{2cm}}
+\toprule
+\textbf{Modèle} & \textbf{Fidélité} & \textbf{Fluidité} & \textbf{Grammaire} & \textbf{Score global (/10)} \\
+\midrule
+\ac{NLLB}-200-distilled-600M & 6,00 & 5,00 & 3,00 & 4,67 \\
+\ac{mBART}-50 & 3,00 & 2,00 & 2,00 & 2,33 \\
+\ac{MarianMT} & 1,00 & 0,00 & 1,00 & 0,67 \\
+\bottomrule
+\end{tabular}
+\caption{Résultats de l'évaluation humaine}
+\label{tab:evaluation-humaine}
+\end{table}
+
+Les résultats montrent que le modèle \ac{NLLB} obtient les meilleures appréciations sur l'ensemble des critères évalués. Il se distingue notamment par une meilleure fidélité au texte source et une plus grande fluidité des traductions. Bien que certaines erreurs grammaticales subsistent, les évaluateurs ont considéré que les traductions produites conservaient généralement le sens du texte original et demeuraient compréhensibles.
+
+Le modèle \ac{mBART} se classe en deuxième position. Les évaluateurs ont relevé que ce modèle restitue une partie du contenu du texte source, mais qu'il présente davantage d'imprécisions lexicales, d'omissions et d'erreurs grammaticales que \ac{NLLB}. Ces insuffisances affectent la fluidité des traductions ainsi que leur fidélité sémantique.
+
+\ac{MarianMT} obtient les scores les plus faibles pour les trois critères évalués. Les traductions générées présentent fréquemment des omissions, des répétitions et des erreurs lexicales importantes, rendant parfois difficile la compréhension du message initial. Ces observations sont cohérentes avec les résultats obtenus lors de l'analyse qualitative des exemples de traduction.
+
+Dans l'ensemble, l'évaluation humaine confirme les tendances observées lors de l'évaluation quantitative. Le classement des modèles reste identique, avec \ac{NLLB} en première position, suivi de \ac{mBART} puis de \ac{MarianMT}. Cette concordance entre les appréciations humaines et les métriques automatiques renforce la fiabilité des résultats obtenus et confirme la capacité du modèle \ac{NLLB} à produire des traductions de meilleure qualité dans le contexte de la traduction automatique entre le français et le ruund.
