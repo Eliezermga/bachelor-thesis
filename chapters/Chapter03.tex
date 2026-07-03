@@ -86,13 +86,13 @@ Le Tableau~\ref{tab:tokenizers_modeles} présente les stratégies de tokenisatio
 \centering
 \renewcommand{\arraystretch}{1.5}
 \rowcolors{2}{gray!10}{white}
-\begin{tabular}{p{3.0cm}p{3.2cm}p{3.2cm}p{4.0cm}}
+\begin{tabular}{p{2.5cm}p{3.7cm}p{4.0cm}p{3.2cm}}
 \toprule
 \textbf{Modèle} & \textbf{Mécanisme de tokenisation} & \textbf{Adaptation au ruund} & \textbf{Scripts en annexe} \\
 \midrule
-\ac{NLLB}-200 & AutoTokenizer pré-entraîné (SentencePiece) & Configuration explicite de \texttt{src\_lang=fra\_Latn} et \texttt{tgt\_lang=run\_Latn} & Listing~\ref{code:chargement-tokenizer-nllb}, Listing~\ref{code:tokenisation-corpus-nllb} \\
-\ac{mBART}-50 & AutoTokenizer pré-entraîné (SentencePiece) & Ajout du token de langue \texttt{ruu\_CM} et configuration \texttt{src\_lang/tgt\_lang} & Listing~\ref{code:chargement-tokenizer-mbart}, Listing~\ref{code:tokenisation-corpus-mbart} \\
-\ac{MarianMT} & AutoTokenizer pré-entraîné & Ajout d'un token spécial \texttt{>>ruu\_CM<<} et préfixage des entrées Ruund & Listing~\ref{code:toke-custom-mariantmt}, Listing~\ref{code:tokenisation-corpus-marianmt} \\
+\ac{NLLB}-200 & AutoTokenizer pré-entraîné (SentencePiece) & Configuration explicite de \textit{src\_lang=fra\_Latn} et \textit{tgt\_lang=run\_Latn} & Listing~\ref{code:chargement-tokenizer-nllb}, Listing~\ref{code:tokenisation-corpus-nllb} \\
+\ac{mBART}-50 & AutoTokenizer pré-entraîné (SentencePiece) & Ajout du token de langue \textit{ruu\_CM} et configuration \textit{src\_lang/tgt\_lang} & Listing~\ref{code:chargement-tokenizer-mbart}, Listing~\ref{code:tokenisation-corpus-mbart} \\
+\ac{MarianMT} & AutoTokenizer pré-entraîné & Ajout d'un token spécial \textit{>>ruu\_CM<<} et préfixage des entrées Ruund & Listing~\ref{code:toke-custom-mariantmt}, Listing~\ref{code:tokenisation-corpus-marianmt} \\
 \bottomrule
 \end{tabular}
 \caption{Stratégies de tokenisation appliquées aux modèles de traduction}

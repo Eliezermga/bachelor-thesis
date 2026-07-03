@@ -1,6 +1,23 @@
 \setcounter{chapter}{0}
 \renewcommand{\thechapter}{\Alph{chapter}}
 \chapter{Annexes}
+
+\noindent Le code source complet développé dans le cadre de ce mémoire est mis à disposition afin de permettre la vérification, la reproductibilité et l'éventuelle extension des travaux réalisés. Il est accessible publiquement via le dépôt GitHub suivant :
+
+\begin{center}
+\url{https://github.com/Eliezermga/Lugayetu}
+\end{center}
+
+\noindent Ce dépôt contient l'ensemble des modules, scripts et composants nécessaires au fonctionnement du système présenté. Toute réutilisation ou modification du code doit respecter les conditions de la licence associée au dépôt. Aucune donnée sensible ou confidentielle n'est incluse dans ce dépôt.
+
+\noindent Les ressources associées au projet sont également disponibles sur Hugging Face :
+\begin{itemize}
+    \item Jeu de données OpenRuund : \url{https://huggingface.co/datasets/eliezermga/OpenRuund}
+    \item Modèle français $\rightarrow$ ruund : \url{https://huggingface.co/eliezermga/fr-ruund-nllb}
+    \item Modèle ruund $\rightarrow$ français : \url{https://huggingface.co/eliezermga/ruund-fr-nllb}
+\end{itemize}
+\vspace{2.5cm}
+
 \begin{lstlisting}[language=Python, caption={Extraction OCR – conversion d’une page PDF en image puis reconnaissance par Tesseract.}, label={code:extrait-ocr}]
 def extraire_avec_ocr_neutre(self, pdf_path):
     """OCR sans interprétation linguistique"""
@@ -310,6 +327,13 @@ train_dataset = final_datasets["train"]
 eval_dataset  = final_datasets["validation"]
 test_dataset  = final_datasets["test"]
 \end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Images/exemple-scan.jpg}
+    \caption[Exemple d'une page scanée du Manswik Masu]{Exemple d'une page scanée du Manswik Masu }
+    \label{fig:pagescan}
+\end{figure}
 
 \begin{figure}[H]
     \centering

@@ -1,0 +1,10 @@
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+Recent advances in neural machine translation have substantially improved translation quality for high-resource languages. By contrast, low-resource languages such as Ruund remain largely underrepresented because of the scarcity of parallel corpora and digital language resources. This thesis addresses this gap by investigating machine translation approaches tailored to low-resource settings through the development of a neural translation system for the Ruund--French language pair.
+
+To tackle this challenge, a parallel corpus named \textbf{OpenRuund} was compiled from New Testament texts and poetic texts, yielding a total of 8~431 sentence pairs. After digitization, optical character recognition, cleaning, normalization, and alignment, three neural translation models, mBART-50, MarianMT, and NLLB-200-distilled-600M, were adapted to Ruund through \textit{fine-tuning}. Performance was assessed using BLEU and chrF metrics and complemented by human evaluation conducted by native Ruund speakers and a specialist in African linguistics.
+
+The results show that pretrained models can produce meaningful translations despite the limited amount of training data. NLLB-200-distilled-600M achieved the best overall performance in both translation directions and was integrated into a web application together with a collaborative module for collecting textual and spoken data. All produced resources, including the corpus and trained models, were released to support scientific reuse and contribute to the development of natural language processing tools for Ruund.
+
+\vspace{8cm}
+\textbf{Keywords:} Neural Machine Translation, Low-Resource Languages, Ruund, Parallel Corpus, Transformer, Fine-tuning, mBART-50, MarianMT, NLLB-200-distilled-600M, Natural Language Processing.

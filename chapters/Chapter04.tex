@@ -9,6 +9,7 @@ Ce chapitre présente les résultats obtenus à l'issue du processus de \textit{
 Enfin, une discussion critique des résultats est proposée afin d'interpréter les performances observées en tenant compte des caractéristiques du corpus parallèle, des spécificités linguistiques du ruund. Cette analyse permet de mettre en évidence les principaux facteurs ayant influencé les performances du système développé, d'identifier les limites de l'étude et de dégager des perspectives d'amélioration pour les travaux futurs.
 
 \section{Résultats quantitatifs}
+\label{sec:resultats_quantitatifs}
 
 L'évaluation quantitative des modèles de traduction automatique a été réalisée à l'aide de deux métriques largement utilisées dans le domaine de la \textbf{\ac{TAN}} : le score \textbf{\ac{BLEU}} et le score \textbf{\ac{chrF}}. Le score \ac{BLEU} mesure le degré de correspondance entre la traduction générée et la traduction de référence à partir des \textit{n-grammes} de mots, tandis que le score \ac{chrF} repose sur les \textit{n-grammes} de caractères, ce qui le rend particulièrement adapté à l'évaluation des langues présentant une forte richesse morphologique ou disposant de ressources limitées. En complément, le temps d'entraînement de chaque modèle a été relevé afin d'apprécier le coût computationnel associé au processus de \textit{fine-tuning}.
 
@@ -112,7 +113,10 @@ Les Figures \ref{fig:marianmt_convergence_fr_ruu} et \ref{fig:marianmt_convergen
 Ces observations corroborent les résultats obtenus par les métriques automatiques (Section~\ref{subsec:resultats_metriques}) : \ac{NLLB}-200-distilled-600M combine les meilleures performances et la convergence la plus stable ; \ac{mBART}-50 apprend rapidement mais présente des signes de surapprentissage ; \ac{MarianMT} converge de façon stable sans atteindre un niveau de performance comparable. Ces résultats confirment l'intérêt des modèles multilingues préentraînés de grande capacité pour la \ac{TAN} appliquée aux \ac{LFR} telles que le ruund.
 
 \section{Évaluation qualitative des traductions}
+\label{sec:evaluation_qualitative}
 \subsection{Analyse d'exemples de traduction}
+\label{subsec:analyse-exemples-traduction}
+\subsubsection{Analyse qualitative des traductions hors contexte religieux}
 
 Le Tableau~\ref{tab:exempletraduction} présente quelques exemples de traductions générées par les trois modèles dans les directions Français $\rightarrow$ Ruund et Ruund $\rightarrow$ Français. Les exemples retenus couvrent des textes variés, principalement hors contexte religieux, tout en incluant quelques extraits du domaine religieux\begin{landscape}
 \begingroup
@@ -140,9 +144,18 @@ Walankan, dijine dam uriel ,nid mu Kolwezi, nikatine emband mud kristu mukatinay
 \captionof{table}{Exemple de traduction de textes variés, principalement hors contexte religieux, tout en incluant quelques extraits du domaine religieux, sur les 3 modèles}
 \label{tab:exempletraduction}}
 \endgroup
+\end{landscape}
 
 
-Le Tableau~\ref{tab:exempletraductionreligieux} présente quelques exemples de traductions générées par les trois modèles dans les directions Français $\rightarrow$ Ruund et Ruund $\rightarrow$ Français, à partir de phrases issues du corpus biblique. Ces exemples permettent d'évaluer la capacité des modèles à traduire des énoncés relevant du domaine religieux, caractérisés par un vocabulaire spécifique et des formulations propres aux textes sacrés.
+L'exemple présenté dans le Tableau~\ref{tab:exempletraduction} permet d'observer le comportement des trois modèles sur un texte conversationnel, hors du registre biblique majoritaire du corpus d'entraînement.
+
+Dans la direction \textbf{français$\rightarrow$ruund}, le \ac{NLLB} produit une traduction globalement cohérente, conservant les éléments sémantiques centraux de la phrase source (identité du locuteur, provenance géographique, thématique du travail et de l'argent), avec une structure syntaxique proche de la référence. Le \ac{mBART} propose également une sortie cohérente sur le plan grammatical, mais s'écarte davantage de la référence dans le choix lexical, tout en conservant l'idée générale du texte source. Le \ac{MarianMT}, en revanche, présente une dégradation marquée en fin de séquence : la répétition de la séquence \textit{« nfalang ja utad wa nfalang »} illustre un phénomène de \textbf{répétition dégénérative} (\textit{repetition loop}), fréquent chez les modèles neuronaux insuffisamment régularisés dans les contextes à faibles ressources, traduisant une perte de contrôle du décodeur sur la génération.
+
+Dans la direction inverse \textbf{ruund$\rightarrow$français}, les trois modèles échouent à restituer le sens de la phrase source. Le \ac{NLLB} génère un contenu à connotation religieuse (« inquiétude », « Colosses ») totalement étranger au texte source, tandis que le \ac{mBART} produit une hallucination construite autour des thématiques de la virginité et des impôts. Le \ac{MarianMT} propose un texte incohérent mêlant des éléments disparates (« viande de jésus », « récolte »), sans lien perceptible avec la source. Ce phénomène suggère un \textbf{biais de domaine} (\textit{domain bias}) : la forte proportion de textes bibliques dans le corpus d'entraînement semble conduire les modèles à reproduire un registre religieux par défaut lorsqu'ils sont confrontés à un énoncé hors distribution, en particulier dans le sens ruund$\rightarrow$français où la charge de génération repose sur le français.
+
+
+\subsubsection{Analyse qualitative des traductions en contexte religieux}
+Le Tableau~\ref{tab:exempletraductionreligieux} présente quelques exemples de traductions générées par les trois modèles dans les directions Français $\rightarrow$ Ruund et Ruund $\rightarrow$ Français, à partir de phrases en contexte religieux. Ces exemples permettent d'évaluer la capacité des modèles à traduire des énoncés relevant du domaine religieux, caractérisés par un vocabulaire spécifique et des formulations propres aux textes sacrés.\begin{landscape}
 \begingroup
 \renewcommand{\arraystretch}{1.4}
 \small
@@ -169,3 +182,122 @@ Ov, nany wa pakach pen anch unenganen ukutwisha kuwejaku ku mwom wend ap kusu ka
 \label{tab:exempletraductionreligieux}}
 \endgroup
 \end{landscape}
+
+
+Le Tableau~\ref{tab:exempletraductionreligieux} présente des exemples en contexte religieux, permettant d'évaluer les modèles sur le registre dominant de l'entraînement.
+
+Dans la direction français$\rightarrow$ruund, le \ac{NLLB} et le \ac{mBART} produisent des traductions structurellement proches de la référence. Le \ac{mBART} laisse toutefois apparaître un phénomène de \textbf{alternance codique} (\textit{code-switching}) involontaire, en conservant le terme français \textit{« souci »} non traduit au sein de la phrase en ruund, révélant une lacune du vocabulaire cible appris pour ce terme. Le \ac{MarianMT} échoue de nouveau à produire une traduction exploitable, avec une répétition partielle de la structure interrogative (\textit{« ov, nany ukutwisha kwikal »}) qui vide la phrase de son contenu sémantique original.
+
+Dans la direction ruund$\rightarrow$français, le \ac{NLLB} produit la meilleure traduction observée sur l'ensemble des exemples analysés : la sortie restitue fidèlement le sens de la source. À l'inverse, le \ac{mBART} produit une hallucination importante, introduisant une thématique de résurrection totalement absente du texte source. Le \ac{MarianMT} conserve partiellement le sens interrogatif et la référence à la durée de vie, mais omet la notion causale de \textit{« souci »}, ce qui constitue une \textbf{omission sémantique} significative.
+
+\subsubsection{Comparaison générale des trois modèles}
+
+La confrontation des deux contextes met en évidence des tendances cohérentes avec les résultats quantitatifs présentés en section~\ref{sec:resultats_quantitatifs}. Le \ac{NLLB} apparaît comme le modèle le plus robuste, tant en contexte religieux qu'hors contexte religieux, avec une performance particulièrement notable dans la direction ruund$\rightarrow$français sur les données bibliques. Le \ac{mBART} affiche une qualité intermédiaire, marquée par une tendance récurrente à l'hallucination lorsque le texte source s'éloigne du registre religieux ou lorsque la traduction s'effectue vers le français. Le \ac{MarianMT}, enfin, présente la performance la plus instable, avec des phénomènes récurrents de répétition dégénérative observés dans les deux directions de traduction, indépendamment du domaine du texte source.
+
+De façon transversale, deux constats se dégagent : d'une part, la direction français$\rightarrow$ruund tend à produire des sorties plus stables que la direction inverse, possiblement en raison d'une distribution lexicale ruund plus contrainte lors de la génération ; d'autre part, la performance des trois modèles reste globalement meilleure sur le contexte religieux, ce qui s'explique par la prédominance  dans le corpus d'entraînement. Ces observations qualitatives corroborent l'hypothèse d'un déséquilibre de domaine du corpus, susceptible de limiter la capacité de généralisation des modèles vers des registres non religieux.
+
+\subsection{Évaluation humaine}
+\label{sec:evaluation-humaine}
+
+En complément des métriques automatiques, une \textbf{évaluation humaine} a été réalisée afin d'apprécier la qualité linguistique réelle des traductions produites par les modèles. Cette étape avait pour objectif de vérifier si les résultats obtenus à l'aide des scores \ac{BLEU} et \ac{chrF} reflétaient effectivement la qualité des traductions du point de vue d'un lecteur humain.
+
+L'évaluation a été menée sur un échantillon de vingt phrases sélectionnées dans le corpus de test et hors corpus. Les traductions générées par les trois modèles ont été examinées indépendamment par deux évaluateurs : 3~locuteurs natifs du ruund, dont l'identité est volontairement anonymisée, et un expert titulaire d'un doctorat (PhD) en linguistique et littératures africaines de l'Université de Lubumbashi, le Prof. Michel Kasombo. Les notes attribuées par les deux évaluateurs ont ensuite été moyennées afin d'obtenir un score unique pour chaque critère.
+
+Trois critères ont été retenus pour cette évaluation :
+
+\begin{itemize}
+    \item \textbf{la fidélité au texte source}, qui mesure la capacité du modèle à restituer correctement le sens du texte original ;
+    \item \textbf{la fluidité}, qui évalue le caractère naturel et la cohérence de la traduction produite ;
+    \item \textbf{la correction grammaticale}, qui apprécie le respect des règles morphologiques et syntaxiques de la langue cible.
+\end{itemize}
+
+Chaque critère a été évalué sur une échelle de~0 à~10, où~0 correspond à une traduction de très mauvaise qualité et~10 à une traduction excellente.
+
+Le Tableau~\ref{tab:evaluation-humaine} présente les résultats moyens obtenus pour chacun des modèles.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{4cm}p{2.3cm}p{2.3cm}p{2.3cm}p{2cm}}
+\toprule
+\textbf{Modèle} & \textbf{Fidélité} & \textbf{Fluidité} & \textbf{Grammaire} & \textbf{Score global (/10)} \\
+\midrule
+\ac{NLLB}-200-distilled-600M & 6,00 & 5,00 & 3,00 & 4,67 \\
+\ac{mBART}-50 & 3,00 & 2,00 & 2,00 & 2,33 \\
+\ac{MarianMT} & 1,00 & 0,00 & 1,00 & 0,67 \\
+\bottomrule
+\end{tabular}
+\caption{Résultats de l'évaluation humaine}
+\label{tab:evaluation-humaine}
+\end{table}
+
+Les résultats montrent que le modèle \ac{NLLB} obtient les meilleures appréciations sur l'ensemble des critères évalués. Il se distingue notamment par une meilleure fidélité au texte source et une plus grande fluidité des traductions. Bien que certaines erreurs grammaticales subsistent, les évaluateurs ont considéré que les traductions produites conservaient généralement le sens du texte original et demeuraient compréhensibles.
+
+Le modèle \ac{mBART} se classe en deuxième position. Les évaluateurs ont relevé que ce modèle restitue une partie du contenu du texte source, mais qu'il présente davantage d'imprécisions lexicales, d'omissions et d'erreurs grammaticales que \ac{NLLB}. Ces insuffisances affectent la fluidité des traductions ainsi que leur fidélité sémantique.
+
+\ac{MarianMT} obtient les scores les plus faibles pour les trois critères évalués. Les traductions générées présentent fréquemment des omissions, des répétitions et des erreurs lexicales importantes, rendant parfois difficile la compréhension du message initial. Ces observations sont cohérentes avec les résultats obtenus lors de l'analyse qualitative des exemples de traduction.
+
+Dans l'ensemble, l'évaluation humaine confirme les tendances observées lors de l'évaluation quantitative. Le classement des modèles reste identique, avec \ac{NLLB} en première position, suivi de \ac{mBART} puis de \ac{MarianMT}. Cette concordance entre les appréciations humaines et les métriques automatiques renforce la fiabilité des résultats obtenus et confirme la capacité du modèle \ac{NLLB} à produire des traductions de meilleure qualité dans le contexte de la traduction automatique entre le français et le ruund.
+
+\section{Discussion des résultats}
+\label{sec:discussion-resultats}
+
+Cette section propose une interprétation critique et transversale des résultats présentés dans les sections précédentes. Elle vise à expliquer les performances obtenues à la lumière des caractéristiques du corpus, des architectures des modèles ainsi que des erreurs observées, avant de discuter les limites méthodologiques de l'étude.
+
+%------------------------------------------------------------
+\subsection{Influence du corpus parallèle}
+\label{subsec:influence-corpus}
+
+Le corpus utilisé dans ce travail comprend \textbf{8~431} paires de phrases ruund--français, construites à partir du Nouveau Testament et de poèmes bilingues. La taille de ce corpus constitue un facteur déterminant des performances observées. Selon la littérature portant sur la \ac{TAN} pour les \ac{LFR}, les performances des modèles neuronaux chutent drastiquement en deçà de 10~000 paires de phrases \cite{ranathunga2023neural}. Le corpus mobilisé dans cette étude se situe précisément en dessous de ce seuil critique, ce qui explique en partie le niveau des scores \ac{BLEU} obtenus, ainsi que le recours indispensable au \textit{fine-tuning} de modèles multilingues pré-entraînés plutôt qu'à un entraînement \textit{from scratch}.
+
+Au-delà de la taille, la qualité de l'alignement des paires de phrases joue un rôle déterminant dans l'apprentissage des correspondances linguistiques. La structuration en versets du corpus biblique offre un cadre d'alignement naturellement fiable, réduisant les risques de désalignement source--cible. Cette caractéristique constitue un avantage méthodologique pour la fiabilité des données d'entraînement, mais elle s'accompagne d'une contrepartie importante en matière de \textbf{diversité lexicale et stylistique} : le vocabulaire, les tournures syntaxiques et le registre du corpus biblique ne couvrent qu'une partie restreinte de l'usage réel de la langue ruund.
+
+Cette limite liée au domaine biblique se reflète directement dans les résultats de l'analyse qualitative (section~\ref{sec:evaluation_qualitative}), où les trois modèles éprouvent des difficultés marquées à traiter des énoncés hors du registre religieux, allant jusqu'à produire des hallucinations à connotation biblique lorsqu'ils sont confrontés à un texte conversationnel. Ce constat suggère que les modèles ont partiellement appris une \textbf{distribution de domaine} plutôt qu'une compétence de traduction généraliste, ce qui limite la capacité de généralisation du système à des contextes d'usage variés (administratif, conversationnel, éducatif, etc.).
+
+%------------------------------------------------------------
+\subsection{Influence des architectures des modèles}
+\label{subsec:influence-architectures}
+
+Le Tableau~\ref{tab:resultats_metriques}  met en évidence des écarts de performance significatifs entre les trois modèles évalués.
+
+Le modèle \textbf{\ac{NLLB}-200-distilled-600M} obtient les meilleurs résultats dans les deux directions de traduction (\ac{BLEU} de 37,55 et \ac{chrF} de 57,25 en Ruund$\rightarrow$Français ; \ac{BLEU} de 26,02 et \ac{chrF} de 53,95 en Français$\rightarrow$Ruund). Cette supériorité peut s'expliquer par la couverture linguistique nettement plus large de ce modèle, pré-entraîné sur plus de 200~langues, incluant un nombre important de langues africaines à faibles ressources. Cette exposition préalable à des structures linguistiques typologiquement proches du ruund (langues bantoues ou agglutinantes) favorise vraisemblablement un \textbf{transfert cross-lingual} plus efficace lors du \textit{fine-tuning}, conformément aux mécanismes de transfert décrits dans la littérature \cite{rakhimov2024enhancing}. La version distillée du modèle permet en outre de conserver cette capacité de généralisation tout en réduisant les besoins computationnels.
+
+Le modèle \textbf{\ac{mBART}-50} obtient des performances intermédiaires (\ac{BLEU} de 20,84 à 25,23 selon la direction). Sa couverture linguistique plus restreinte (50~langues, majoritairement à fortes ressources) limite probablement l'exposition du modèle à des structures morphologiques comparables à celles du ruund avant le \textit{fine-tuning}, réduisant d'autant l'efficacité du transfert de connaissances.
+
+Le modèle \textbf{\ac{MarianMT}} affiche les performances les plus faibles (\ac{BLEU} de 10,64 à 15,56), en particulier dans la direction Français$\rightarrow$Ruund. Contrairement aux deux modèles précédents, MarianMT repose sur des architectures pré-entraînées pour des paires de langues spécifiques, sans couverture massive multilingue. Le \textit{fine-tuning} sur le ruund s'effectue donc avec une base de connaissances linguistiques nettement plus limitée, ce qui se traduit par un apprentissage proche d'un entraînement partiel \textit{from scratch} et explique la faiblesse des scores obtenus, en cohérence avec les difficultés déjà documentées pour l'entraînement de systèmes neuronaux sur des corpus réduits.
+
+Un constat mérite par ailleurs d'être souligné : à l'exception de \ac{mBART}-50, les modèles \ac{NLLB} et \ac{MarianMT} obtiennent de meilleurs scores en direction Ruund$\rightarrow$Français qu'en Français$\rightarrow$Ruund, ce qui suggère que la génération vers le français, langue à forte ressource déjà bien représentée dans le pré-entraînement, reste globalement plus aisée que la génération vers le ruund, dont la morphologie agglutinante complexifie la production. Le comportement inverse observé chez \ac{mBART}-50 constitue une anomalie qui ne peut être expliquée avec certitude à partir des données disponibles et mériterait une investigation complémentaire.
+
+%------------------------------------------------------------
+\subsection{Analyse des erreurs}
+\label{subsec:analyse-erreurs}
+
+L'examen des exemples de traduction présentés en section~\ref{subsec:analyse-exemples-traduction} permet d'identifier plusieurs catégories d'erreurs récurrentes chez les modèles évalués.
+
+\subsubsection{Erreurs lexicales et mots rares.}
+Le modèle \ac{mBART} laisse apparaître un phénomène d'\textbf{alternance codique} (\textit{code-switching}) involontaire, en conservant le terme français \textit{« souci »} non traduit au sein d'une phrase générée en ruund. Ce comportement traduit une lacune du vocabulaire cible pour un terme peu fréquent dans le corpus d'entraînement, illustrant la sensibilité des modèles aux mots rares et aux mots hors vocabulaire.
+
+\subsubsection{Ambiguïtés et hallucinations liées au domaine.}
+Lorsque le texte source s'éloigne du registre religieux, les modèles \ac{NLLB} et \ac{mBART} produisent des traductions sémantiquement incohérentes mais syntaxiquement fluides, reconstituant des contenus à connotation biblique (inquiétude, résurrection, impôts). Ce phénomène d'hallucination constitue une forme d'ambiguïté résolue de manière erronée par le modèle, qui privilégie la distribution de domaine apprise plutôt que le sens réel de la phrase source.
+
+\subsubsection{Expressions idiomatiques.}
+L'exemple biblique portant sur l'expression figurée \textit{« ajouter une coudée à la longueur de sa vie »} révèle une disparité importante entre les modèles : seul \ac{NLLB} restitue correctement cette formulation idiomatique, tandis que \ac{mBART} et \ac{MarianMT} en perdent le sens figuré, ce qui confirme la difficulté propre à la traduction des expressions idiomatiques dans un contexte de données limitées.
+
+\subsubsection{Erreurs morphologiques et répétitions.}
+Le modèle \ac{MarianMT} présente un phénomène récurrent de répétition dégénérative (\textit{repetition loop}), notamment observable en fin de séquence longue, où une suite de tokens est reproduite de manière cyclique sans apport sémantique. Ce comportement, associé à la structure fortement agglutinante du ruund (classes nominales, affixes verbaux multiples), suggère une difficulté du modèle à gérer la composition morphologique de la langue cible plutôt qu'une simple erreur de décodage lexical.
+
+\section{Validation du système développé}
+
+Au terme de l'évaluation quantitative et qualitative, le modèle NLLB-200-distilled-600M s'est révélé être le plus performant pour la traduction automatique entre le français et le ruund. En raison de ses meilleurs résultats en termes de scores BLEU, de score chrF et d'évaluation humaine, ce modèle a été retenu pour le déploiement du système de traduction développé dans le cadre de cette étude.
+
+L'intégration du modèle a été réalisée au sein d'une application web développée avec le framework Django. Cette application constitue une interface permettant aux utilisateurs de saisir un texte en français ou en ruund et d'obtenir instantanément sa traduction dans la langue cible. Le modèle de traduction, préalablement affiné puis publié sur la plateforme Hugging Face, est chargé par le serveur lors du démarrage de l'application. Lorsqu'une requête est soumise, le texte est prétraité selon la procédure décrite au chapitre précédent, puis transmis au modèle NLLB qui génère la traduction avant son affichage à l'utilisateur.
+
+Au-delà de l'aspect technique, le système développé constitue une première contribution à la valorisation numérique du ruund. En démontrant la faisabilité d'un système de traduction automatique pour cette langue à faibles ressources, ce travail contribue à accroître sa présence dans les technologies du traitement automatique des langues.
+
+Par ailleurs, l'approche méthodologique adoptée dans cette étude n'est pas limitée au ruund. Les différentes étapes mises en œuvre, notamment la constitution d'un corpus parallèle, l'adaptation d'un modèle multilingue, le fine-tuning et le déploiement dans une application web, peuvent être reproduites pour d'autres langues de la RDC disposant de peu de ressources numériques. Ainsi, cette recherche ouvre des perspectives intéressantes pour le développement d'outils de traduction destinés à favoriser l'inclusion numérique, la préservation du patrimoine linguistique et l'accessibilité des contenus dans les langues congolaises.
+
+\section{Conclusion partielle}
+Les expérimentations menées confirment la supériorité du modèle NLLB-200-distilled-600M sur mBART-50 et MarianMT, tant en scores BLEU/chrF qu'en stabilité d'apprentissage. Ces résultats valident la faisabilité d'une traduction automatique de qualité pour le ruund, malgré la faiblesse des ressources disponibles. L'intégration du meilleur modèle dans une application web démontre l'opérationnalité de l'approche et son intérêt pour la valorisation numérique des langues congolaises.
+
+Le chapitre suivant propose une synthèse générale des résultats obtenus, revient sur les principales limites de cette étude et ouvre des perspectives d'amélioration, tant sur le plan linguistique que technique, afin d'envisager l'extension de cette démarche à d'autres langues à faibles ressources.
