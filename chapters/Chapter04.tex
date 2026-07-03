@@ -115,18 +115,27 @@ Ces observations corroborent les résultats obtenus par les métriques automatiq
 \subsection{Analyse d'exemples de traduction}
 
 Le Tableau~\ref{tab:exempletraduction} présente quelques exemples de traductions générées par les trois modèles pour la direction Français $\rightarrow$ Ruund et Ruund $\rightarrow$ Français.
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.5}
+\begingroup
+\renewcommand{\arraystretch}{1.4}
+\small
 \rowcolors{2}{gray!10}{white}
-\begin{tabular}{p{4.5cm}p{2.8cm}p{2.8cm}p{2.8cm}p{2.8cm}}
+\begin{longtable}{p{3.9cm}p{3.0cm}p{3.0cm}p{3.0cm}p{3.0cm}}
 \toprule
-\textbf{Source} & \textbf{Référence} & \textbf{\ac{NLLB}-200}& \textbf{\ac{mBART}-50} & \textbf{\ac{MarianMT}} \\
+\textbf{Source} & \textbf{Référence} & \textbf{\ac{NLLB}-200} & \textbf{\ac{mBART}-50} & \textbf{\ac{MarianMT}} \\
 \midrule
-Bonjour, je suis Uriel et je viens de Kolwezi. J'aime les femmes comme le Christ a aimé l'Église. J'ai remarqué que pour avoir de l'argent, il faut travailler, ce qui est difficile à faire, sachant que la majorité des personnes dans le pays sont au chômage. Je vous remercie, que le Seigneur vous bénisse et multiplie le poisson dans votre génération.                         & Walankan, dijine dam uriel ,nid mu Kolwezi, nikatine emband mud kristu mukatinaye chikumb chend cha nzamb ,nimen kwikal ni nfalang ifandin kusal mudum,ikasken kwihisal,mutap enchu avud mwi ngand kadap ni mudum , nikujikitishinan  ni nzamb akuyukishan ,avudish enshi mu chipuk Chen             & mwalany, am nidi uriel wa ku kolwezi. nikatil amband mudi mukatilay kristu in chikumbu cha nzamb. natesha anch, chakwel ukwet nfalang, ufanyidin kusal mudimu, mulong antu avud a mu mangand minam akwet mudimu. nakushimanany, chifanyidin nzamb akuyukishany ni kupan ansh avud mu chisak chen.                & nakwitiyany, am uriel, nidiokil ku musumb wa kolowezi. nikat ambwez ambach pa ambweny, nikat kukat ambwez chidi chom chamwamu, mulong kristu watutazuka kand in chikumbu cha nzamb. nova kudi en anch, chifanyidin nsalejetu akwinkishany yiyukish yau ni kupalangan mu yisak yen yau. & am nikat kulembil kudiokal ku musumb wa kolwezi, niyam amband amwinend mudi kristu wakad mukach mwi ngand ya in chikumbu cha nzamb. chawiy nading ni kuyilej antu akata kurumburil rusangu ruwamp ra nfalang ja utad wa nfalang ja utad wa nfalang ja utad wa nfalang ja utad wa nfalang      \\
-Walankan, dijine dam uriel ,nid mu Kolwezi, nikatine emband mud kristu mukatinaye chikumb chend cha nzamb ,nimen kwikal ni nfalang ifandin kusal mudum,ikasken kwihisal,mutap enchu avud mwi ngand kadap ni mudum , nikujikitishinan  ni nzamb akuyukishan ,avudish enshi mu chipuk Chen             & Bonjour, je suis Uriel et je viens de Kolwezi. J'aime les femmes comme le Christ a aimé l'Église. J'ai remarqué que pour avoir de l'argent, il faut travailler, ce qui est difficile à faire, sachant que la majorité des personnes dans le pays sont au chômage. Je vous remercie, que le Seigneur vous bénisse et multiplie le poisson dans votre génération.               & d'où me vient l'inquiétude et la détresse que j'éprouve à colosses? je t'adresse ma défense, une fidélité chrétienne qui m'est attachée. je te demande de m'enrichir de plus en plus pour t'aider à progresser dans le monde nouveau. je te demande de m'en remercier, à cause de la grande bénédiction que dieu m'a accordée               & il est écrit je suis une femme vierge, qui répond à l'exigence de dieu je suis prête à payer les impôts et les taxes du monde, afin de ne pas avoir à payer les impôts et les taxes du monde. que dieu bénisse ceux qui sont dans le besoin! & en effet, le nom d'un dam urbain, uni à Kolwezi, est une femme qui produit de la viande de jésus, dont l'herbe est cultivée et dont l'argent sert à la fois à la récolte et à la récolte, et qui a beaucoup d'importance dans le monde entier.      \\
+\endfirsthead
+\endhead
+
 \bottomrule
-\end{tabular}
-\caption{Exemple de Traduction d'un text sur les 3 modèles}
-\label{tab:exempletraduction}
-\end{table}
+\endfoot
+
+\bottomrule
+\endlastfoot
+Bonjour, je suis Uriel et je viens de Kolwezi. J'aime les femmes comme le Christ a aimé l'Église. J'ai remarqué que pour avoir de l'argent, il faut travailler, ce qui est difficile à faire, sachant que la majorité des personnes dans le pays sont au chômage. Je vous remercie, que le Seigneur vous bénisse et multiplie le poisson dans votre génération. & Walankan, dijine dam uriel ,nid mu Kolwezi, nikatine emband mud kristu mukatinaye chikumb chend cha nzamb ,nimen kwikal ni nfalang ifandin kusal mudum,ikasken kwihisal,mutap enchu avud mwi ngand kadap ni mudum , nikujikitishinan  ni nzamb akuyukishan ,avudish enshi mu chipuk Chen & mwalany, am nidi uriel wa ku kolwezi. nikatil amband mudi mukatilay kristu in chikumbu cha nzamb. natesha anch, chakwel ukwet nfalang, ufanyidin kusal mudimu, mulong antu avud a mu mangand minam akwet mudimu. nakushimanany, chifanyidin nzamb akuyukishany ni kupan ansh avud mu chisak chen. & nakwitiyany, am uriel, nidiokil ku musumb wa kolowezi. nikat ambwez ambach pa ambweny, nikat kukat ambwez chidi chom chamwamu, mulong kristu watutazuka kand in chikumbu cha nzamb. nova kudi en anch, chifanyidin nsalejetu akwinkishany yiyukish yau ni kupalangan mu yisak yen yau. & am nikat kulembil kudiokal ku musumb wa kolwezi, niyam amband amwinend mudi kristu wakad mukach mwi ngand ya in chikumbu cha nzamb. chawiy nading ni kuyilej antu akata kurumburil rusangu ruwamp ra nfalang ja utad wa nfalang ja utad wa nfalang ja utad wa nfalang ja utad wa nfalang \\
+Walankan, dijine dam uriel ,nid mu Kolwezi, nikatine emband mud kristu mukatinaye chikumb chend cha nzamb ,nimen kwikal ni nfalang ifandin kusal mudum,ikasken kwihisal,mutap enchu avud mwi ngand kadap ni mudum , nikujikitishinan  ni nzamb akuyukishan ,avudish enshi mu chipuk Chen & Bonjour, je suis Uriel et je viens de Kolwezi. J'aime les femmes comme le Christ a aimé l'Église. J'ai remarqué que pour avoir de l'argent, il faut travailler, ce qui est difficile à faire, sachant que la majorité des personnes dans le pays sont au chômage. Je vous remercie, que le Seigneur vous bénisse et multiplie le poisson dans votre génération. & d'où me vient l'inquiétude et la détresse que j'éprouve à colosses? je t'adresse ma défense, une fidélité chrétienne qui m'est attachée. je te demande de m'enrichir de plus en plus pour t'aider à progresser dans le monde nouveau. je te demande de m'en remercier, à cause de la grande bénédiction que dieu m'a accordée & il est écrit je suis une femme vierge, qui répond à l'exigence de dieu je suis prête à payer les impôts et les taxes du monde, afin de ne pas avoir à payer les impôts et les taxes du monde. que dieu bénisse ceux qui sont dans le besoin! & en effet, le nom d'un dam urbain, uni à Kolwezi, est une femme qui produit de la viande de jésus, dont l'herbe est cultivée et dont l'argent sert à la fois à la récolte et à la récolte, et qui a beaucoup d'importance dans le monde entier. \\
+\end{longtable}
+\addtocounter{table}{-1}
+{\captionsetup{hypcap=false}
+\captionof{table}{Exemple de traduction sur les 3 modèles}
+\label{tab:exempletraduction}}
+\endgroup
