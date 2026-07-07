@@ -26,7 +26,7 @@ La Figure ~\ref{fig:resultats_metriques} présente les résultats détaillés de
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{Images/resultats_metriques.png}
-    \caption{Performances des modèles selon les scores \ac{BLEU} et \ac{chrF}}
+    \caption{Performances des modèles selon les scores BLEU et chrF}
     \label{fig:resultats_metriques}
 \end{figure}
 
@@ -36,8 +36,6 @@ La Figure ~\ref{fig:resultats_metriques} présente les résultats détaillés de
 L'analyse met en évidence l'intérêt des modèles multilingues de grande capacité pour les \textbf{\ac{LFR}}. Avec environ 600 millions de paramètres, \ac{mBART}-50 et \ac{NLLB}-200-distilled-600M disposent d'une capacité de représentation largement supérieure à celle de \ac{MarianMT}, qui compte environ 60 millions de paramètres. Cette différence de capacité favorise l'apprentissage de représentations linguistiques plus riches et améliore la généralisation lors du \textit{fine-tuning} sur un corpus de taille limitée.
 
 Les performances plus faibles de \ac{MarianMT} peuvent également être attribuées au fait que le modèle d'origine, \texttt{Helsinki-NLP/opus-mt-ln-fr}, n'a pas été initialement conçu pour prendre en charge le ruund. Son adaptation au moyen de l'ajout du jeton de langue \textit{ruu\_CM} et d'un \textit{fine-tuning} sur le corpus parallèle a permis d'étendre ses capacités à cette langue, mais les résultats montrent que cette adaptation reste moins efficace que celle des modèles multilingues préentraînés sur un grand nombre de langues.
-
-Le corpus parallèle construit dans le cadre de cette étude comprend une taille initiale de 8~431 paires de phrases, réparties en 6~492 exemples d'entraînement, 812 exemples de validation et 812 exemples de test. Malgré cette quantité relativement modeste au regard des standards actuels de la \ac{TAN}, les résultats obtenus, en particulier par le modèle \ac{NLLB}-200-distilled-600M, montrent qu'un \textit{fine-tuning} de modèles multilingues préentraînés constitue une approche pertinente pour le développement de systèmes de traduction destinés aux \ac{LFR}. Les connaissances linguistiques acquises lors du préentraînement permettent ainsi de compenser en partie la rareté des données disponibles et d'améliorer la qualité des traductions produites.
 
 Ces résultats quantitatifs constituent une première indication des performances des différents modèles. Toutefois, les métriques automatiques ne permettent pas, à elles seules, d'apprécier pleinement la qualité des traductions générées. Une analyse qualitative complétée par une évaluation humaine est donc nécessaire afin d'examiner plus finement la fidélité sémantique, la fluidité et l'acceptabilité linguistique des traductions produites.
 
