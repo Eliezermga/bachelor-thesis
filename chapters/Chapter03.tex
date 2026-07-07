@@ -58,12 +58,7 @@ Un seuil maximal de 80~mots a été fixé pour chacune des langues. Les paires d
 
 \subsubsection{Filtrage par ratio de longueur}
 
-Un contrôle du rapport de longueur entre les phrases alignées a également été réalisé. Pour chaque paire de phrases, le ratio entre la longueur de la phrase source et celle de la phrase cible a été calculé :
-\begin{center}
-$\displaystyle \frac{\max(L_{\text{ruund}},\,L_{\text{français}})}{\min(L_{\text{ruund}},\,L_{\text{français}})} \leq 2$
-\end{center}
-
-Les paires présentant un ratio supérieur à~2 dans l'un ou l'autre sens ont été éliminées.
+Un contrôle du rapport de longueur entre les phrases alignées a également été réalisé. Pour chaque paire de phrases, le ratio entre la longueur de la phrase source et celle de la phrase cible a été calculé.
 
 Cette opération permet de détecter les alignements potentiellement incorrects ou les traductions incomplètes. En effet, des différences excessives de longueur entre deux phrases supposées équivalentes peuvent indiquer une mauvaise correspondance entre les segments alignés. Le maintien d'un ratio inférieur ou égal à~2 contribue ainsi à préserver la cohérence linguistique du corpus parallèle utilisé pour l'entraînement des modèles.
 
@@ -293,13 +288,7 @@ Les modèles publiés ont été intégrés à l'application Django à l'aide des
 \subsection{Fonctionnement du système de traduction}
 \label{subsec:fonctionnement_systeme}
 
-\subsubsection{Traduction ruund \texorpdfstring{$\rightarrow$}{->} français}
-
-Pour la traduction du ruund vers le français, le modèle \textbf{\ac{NLLB}-200} \textit{fine-tuné} sur le corpus parallèle ruund--français est utilisé. Le texte saisi en ruund est tokenisé puis transmis au modèle, qui génère automatiquement la traduction en français.
-
-\subsubsection{Traduction français \texorpdfstring{$\rightarrow$}{->} ruund}
-
-Pour la traduction du français vers le ruund, un second modèle \textbf{\ac{NLLB}-200} \textit{fine-tuné} est utilisé après adaptation à la direction inverse de traduction. Le texte français est converti en représentations numériques avant d'être traité par le modèle afin de produire la traduction correspondante en ruund.
+Pour la traduction dans les deux directioins, le modèle \textbf{\ac{NLLB}-200} \textit{fine-tuné} sur le corpus parallèle ruund--français est utilisé. Le texte saisi en par l'utilisateur est tokenisé puis transmis au modèle, qui génère automatiquement la traduction.
 
 %------------------------------------------------------------
 \section*{Conclusion partielle}
