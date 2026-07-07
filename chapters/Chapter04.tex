@@ -184,22 +184,9 @@ De façon transversale, deux constats se dégagent : d'une part, la direction fr
 
 \subsection{Évaluation humaine}
 \label{sec:evaluation-humaine}
+En complément des métriques automatiques, une \textbf{évaluation humaine} est actuellement en cours afin d'apprécier la qualité linguistique réelle des traductions produites par les modèles. Cette évaluation est menée sur un échantillon de vingt phrases sélectionnées dans le corpus de test et hors corpus, examinées indépendamment par 3~locuteurs natifs du ruund dont un expert titulaire d'un doctorat (PhD) en linguistique et littératures africaines de l'Université de Lubumbashi, le Prof. Michel Kasombo. Trois critères ont été retenus : \textbf{la fidélité au texte source}, \textbf{la fluidité} et \textbf{la correction grammaticale}, chacun noté sur une échelle de~0 à~10.
 
-En complément des métriques automatiques, une \textbf{évaluation humaine} a été réalisée afin d'apprécier la qualité linguistique réelle des traductions produites par les modèles. Cette étape avait pour objectif de vérifier si les résultats obtenus à l'aide des scores \ac{BLEU} et \ac{chrF} reflétaient effectivement la qualité des traductions du point de vue d'un lecteur humain.
-
-L'évaluation a été menée sur un échantillon de vingt phrases sélectionnées dans le corpus de test et hors corpus. Les traductions générées par les trois modèles ont été examinées indépendamment par deux évaluateurs : 3~locuteurs natifs du ruund, dont l'identité est volontairement anonymisée, et un expert titulaire d'un doctorat (PhD) en linguistique et littératures africaines de l'Université de Lubumbashi, le Prof. Michel Kasombo. Les notes attribuées par les deux évaluateurs ont ensuite été moyennées afin d'obtenir un score unique pour chaque critère.
-
-Trois critères ont été retenus pour cette évaluation :
-
-\begin{itemize}
-    \item \textbf{la fidélité au texte source}, qui mesure la capacité du modèle à restituer correctement le sens du texte original ;
-    \item \textbf{la fluidité}, qui évalue le caractère naturel et la cohérence de la traduction produite ;
-    \item \textbf{la correction grammaticale}, qui apprécie le respect des règles morphologiques et syntaxiques de la langue cible.
-\end{itemize}
-
-Chaque critère a été évalué sur une échelle de~0 à~10, où~0 correspond à une traduction de très mauvaise qualité et~10 à une traduction excellente.
-
-Le Tableau~\ref{tab:evaluation-humaine} présente les résultats moyens obtenus pour chacun des modèles.
+Les résultats préliminaires disponibles à ce stade sont présentés au Tableau~\ref{tab:evaluation-humaine}, à titre indicatif, et seront consolidés à l'issue de la validation complète.
 
 \begin{table}[H]
 \centering
@@ -214,18 +201,11 @@ Le Tableau~\ref{tab:evaluation-humaine} présente les résultats moyens obtenus 
 \ac{MarianMT} & 1,00 & 0,00 & 1,00 & 0,67 \\
 \bottomrule
 \end{tabular}
-\caption{Résultats de l'évaluation humaine}
+\caption{Résultats préliminaires de l'évaluation humaine (en cours)}
 \label{tab:evaluation-humaine}
 \end{table}
 
-Les résultats montrent que le modèle \ac{NLLB} obtient les meilleures appréciations sur l'ensemble des critères évalués. Il se distingue notamment par une meilleure fidélité au texte source et une plus grande fluidité des traductions. Bien que certaines erreurs grammaticales subsistent, les évaluateurs ont considéré que les traductions produites conservaient généralement le sens du texte original et demeuraient compréhensibles.
-
-Le modèle \ac{mBART} se classe en deuxième position. Les évaluateurs ont relevé que ce modèle restitue une partie du contenu du texte source, mais qu'il présente davantage d'imprécisions lexicales, d'omissions et d'erreurs grammaticales que \ac{NLLB}. Ces insuffisances affectent la fluidité des traductions ainsi que leur fidélité sémantique.
-
-\ac{MarianMT} obtient les scores les plus faibles pour les trois critères évalués. Les traductions générées présentent fréquemment des omissions, des répétitions et des erreurs lexicales importantes, rendant parfois difficile la compréhension du message initial. Ces observations sont cohérentes avec les résultats obtenus lors de l'analyse qualitative des exemples de traduction.
-
-Dans l'ensemble, l'évaluation humaine confirme les tendances observées lors de l'évaluation quantitative. Le classement des modèles reste identique, avec \ac{NLLB} en première position, suivi de \ac{mBART} puis de \ac{MarianMT}. Cette concordance entre les appréciations humaines et les métriques automatiques renforce la fiabilité des résultats obtenus et confirme la capacité du modèle \ac{NLLB} à produire des traductions de meilleure qualité dans le contexte de la traduction automatique entre le français et le ruund.
-
+Ces résultats préliminaires suggèrent un classement cohérent avec l'évaluation quantitative, \ac{NLLB} se démarquant provisoirement par une meilleure fidélité et fluidité. Ces tendances demeurent toutefois à confirmer une fois l'évaluation humaine achevée, et restent pour l'instant cohérentes avec les orientations de la littérature actuelle, qui favorisent globalement \ac{NLLB} dans les scénarios de traduction à faibles ressources \cite{ranathunga2023neural, agyei2025dynamic}.
 \section{Discussion des résultats}
 \label{sec:discussion-resultats}
 
@@ -278,7 +258,7 @@ L'intégration du modèle a été réalisée au sein d'une application web déve
 
 Au-delà de l'aspect technique, le système développé constitue une première contribution à la valorisation numérique du ruund. En démontrant la faisabilité d'un système de traduction automatique pour cette langue à faibles ressources, ce travail contribue à accroître sa présence dans les technologies du traitement automatique des langues.
 
-Par ailleurs, l'approche méthodologique adoptée dans cette étude n'est pas limitée au ruund. Les différentes étapes mises en œuvre, notamment la constitution d'un corpus parallèle, l'adaptation d'un modèle multilingue, le fine-tuning et le déploiement dans une application web, peuvent être reproduites pour d'autres langues de la RDC disposant de peu de ressources numériques. Ainsi, cette recherche ouvre des perspectives intéressantes pour le développement d'outils de traduction destinés à favoriser l'inclusion numérique, la préservation du patrimoine linguistique et l'accessibilité des contenus dans les langues congolaises.
+Par ailleurs, l'approche méthodologique adoptée dans cette étude n'est pas limitée au ruund. Les différentes étapes mises en œuvre, notamment la constitution d'un corpus parallèle, l'adaptation d'un modèle multilingue, le fine-tuning et le déploiement dans une application web, peuvent être reproduites pour d'autres langues de la \ac{RDC} disposant de peu de ressources numériques. Ainsi, cette recherche ouvre des perspectives intéressantes pour le développement d'outils de traduction destinés à favoriser l'inclusion numérique, la préservation du patrimoine linguistique et l'accessibilité des contenus dans les langues congolaises.
 
 \section{Conclusion partielle}
 Les expérimentations menées confirment la supériorité du modèle NLLB-200-distilled-600M sur mBART-50 et MarianMT, tant en scores BLEU/chrF qu'en stabilité d'apprentissage. Ces résultats valident la faisabilité d'une traduction automatique de qualité pour le ruund, malgré la faiblesse des ressources disponibles. L'intégration du meilleur modèle dans une application web démontre l'opérationnalité de l'approche et son intérêt pour la valorisation numérique des langues congolaises.
