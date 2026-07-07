@@ -272,7 +272,7 @@ tokenized_dataset = dataset.map(
 )
 \end{lstlisting}
 \begin{lstlisting}[language=Python, caption={Ajout d’un Token de Langue Custom pour le Ruund(MariantMT)}, label={code:toke-custom-mariantmt}]
-model_checkpoint = "Helsinki-NLP/opus-mt-en-fr"
+model_checkpoint = "Helsinki-NLP/opus-mt-ln-fr"
 
 # Chargement du tokenizer pré-entraîné
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
