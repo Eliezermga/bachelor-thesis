@@ -22,37 +22,23 @@ Les résultats montrent des différences significatives entre les modèles éval
 
 Concernant le temps d'entraînement, les trois modèles présentent des durées relativement proches, comprises entre environ neuf et quinze minutes selon la direction de traduction. Malgré un nombre de paramètres comparable à celui de \ac{mBART}-50, le modèle \ac{NLLB}-200-distilled-600M présente un temps d'entraînement légèrement inférieur tout en offrant des performances nettement supérieures.
 
-Le Tableau~\ref{tab:resultats_metriques} présente les résultats détaillés des métriques automatiques pour les trois modèles.
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.4}
-\rowcolors{2}{gray!10}{white}
-\begin{tabular}{p{4cm}p{4cm}ccc}
-\toprule
-\textbf{Modèle} & \textbf{Direction} & \textbf{\ac{BLEU}} & \textbf{\ac{chrF}} & \textbf{Temps d'entraînement} \\
-\midrule
-\ac{mBART}-50 & Ruund $\rightarrow$ Français & 20,84 & 43,38 & 12~min~47~s \\
-\ac{mBART}-50 & Français $\rightarrow$ Ruund & 25,23 & 51,92 & 14~min~40~s \\
-\ac{NLLB}-200-distilled-600M & Ruund $\rightarrow$ Français & \textbf{37,55} & \textbf{57,25} & 12~min~30~s \\
-\ac{NLLB}-200-distilled-600M & Français $\rightarrow$ Ruund & \textbf{26,02} & \textbf{53,95} & 13~min~27~s \\
-\ac{MarianMT} & Ruund $\rightarrow$ Français & 15,56 & 40,24 & 14~min~58~s \\
-\ac{MarianMT} & Français $\rightarrow$ Ruund & 10,64 & 36,79 & 8~min~48~s \\
-\bottomrule
-\end{tabular}
-\caption{Performances des modèles selon les scores \ac{BLEU} et \ac{chrF}}
-\label{tab:resultats_metriques}
-\end{table}
+La Figure ~\ref{fig:resultats_metriques} présente les résultats détaillés des métriques automatiques pour les trois modèles.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Images/resultats_metriques.png}
+    \caption{Performances des modèles selon les scores BLEU et chrF}
+    \label{fig:resultats_metriques}
+\end{figure}
 
 \subsection{Analyse comparative des performances des modèles}
 \label{subsec:analyse_comparative}
 
 L'analyse met en évidence l'intérêt des modèles multilingues de grande capacité pour les \textbf{\ac{LFR}}. Avec environ 600 millions de paramètres, \ac{mBART}-50 et \ac{NLLB}-200-distilled-600M disposent d'une capacité de représentation largement supérieure à celle de \ac{MarianMT}, qui compte environ 60 millions de paramètres. Cette différence de capacité favorise l'apprentissage de représentations linguistiques plus riches et améliore la généralisation lors du \textit{fine-tuning} sur un corpus de taille limitée.
 
-Les performances plus faibles de \ac{MarianMT} peuvent également être attribuées au fait que le modèle d'origine, \texttt{Helsinki-NLP/opus-mt-en-fr}, n'a pas été initialement conçu pour prendre en charge le ruund. Son adaptation au moyen de l'ajout du jeton de langue \textit{ruu\_CM} et d'un \textit{fine-tuning} sur le corpus parallèle a permis d'étendre ses capacités à cette langue, mais les résultats montrent que cette adaptation reste moins efficace que celle des modèles multilingues préentraînés sur un grand nombre de langues.
-
-Le corpus parallèle construit dans le cadre de cette étude comprend une taille initiale de 8~431 paires de phrases, réparties en 6~492 exemples d'entraînement, 812 exemples de validation et 812 exemples de test. Malgré cette quantité relativement modeste au regard des standards actuels de la \ac{TAN}, les résultats obtenus, en particulier par le modèle \ac{NLLB}-200-distilled-600M, montrent qu'un \textit{fine-tuning} de modèles multilingues préentraînés constitue une approche pertinente pour le développement de systèmes de traduction destinés aux \ac{LFR}. Les connaissances linguistiques acquises lors du préentraînement permettent ainsi de compenser en partie la rareté des données disponibles et d'améliorer la qualité des traductions produites.
+Les performances plus faibles de \ac{MarianMT} peuvent également être attribuées au fait que le modèle d'origine, \texttt{Helsinki-NLP/opus-mt-ln-fr}, n'a pas été initialement conçu pour prendre en charge le ruund. Son adaptation au moyen de l'ajout du jeton de langue \textit{ruu\_CM} et d'un \textit{fine-tuning} sur le corpus parallèle a permis d'étendre ses capacités à cette langue, mais les résultats montrent que cette adaptation reste moins efficace que celle des modèles multilingues préentraînés sur un grand nombre de langues.
 
 Ces résultats quantitatifs constituent une première indication des performances des différents modèles. Toutefois, les métriques automatiques ne permettent pas, à elles seules, d'apprécier pleinement la qualité des traductions générées. Une analyse qualitative complétée par une évaluation humaine est donc nécessaire afin d'examiner plus finement la fidélité sémantique, la fluidité et l'acceptabilité linguistique des traductions produites.
+
 
 \subsection{Analyse de la convergence des modèles}
 \label{subsec:convergence_modeles}
@@ -198,22 +184,9 @@ De façon transversale, deux constats se dégagent : d'une part, la direction fr
 
 \subsection{Évaluation humaine}
 \label{sec:evaluation-humaine}
+En complément des métriques automatiques, une \textbf{évaluation humaine} est actuellement en cours afin d'apprécier la qualité linguistique réelle des traductions produites par les modèles. Cette évaluation est menée sur un échantillon de vingt phrases sélectionnées dans le corpus de test et hors corpus, examinées indépendamment par 3~locuteurs natifs du ruund dont un expert titulaire d'un doctorat (PhD) en linguistique et littératures africaines de l'Université de Lubumbashi, le Prof. Michel Kasombo. Trois critères ont été retenus : \textbf{la fidélité au texte source}, \textbf{la fluidité} et \textbf{la correction grammaticale}, chacun noté sur une échelle de~0 à~10.
 
-En complément des métriques automatiques, une \textbf{évaluation humaine} a été réalisée afin d'apprécier la qualité linguistique réelle des traductions produites par les modèles. Cette étape avait pour objectif de vérifier si les résultats obtenus à l'aide des scores \ac{BLEU} et \ac{chrF} reflétaient effectivement la qualité des traductions du point de vue d'un lecteur humain.
-
-L'évaluation a été menée sur un échantillon de vingt phrases sélectionnées dans le corpus de test et hors corpus. Les traductions générées par les trois modèles ont été examinées indépendamment par deux évaluateurs : 3~locuteurs natifs du ruund, dont l'identité est volontairement anonymisée, et un expert titulaire d'un doctorat (PhD) en linguistique et littératures africaines de l'Université de Lubumbashi, le Prof. Michel Kasombo. Les notes attribuées par les deux évaluateurs ont ensuite été moyennées afin d'obtenir un score unique pour chaque critère.
-
-Trois critères ont été retenus pour cette évaluation :
-
-\begin{itemize}
-    \item \textbf{la fidélité au texte source}, qui mesure la capacité du modèle à restituer correctement le sens du texte original ;
-    \item \textbf{la fluidité}, qui évalue le caractère naturel et la cohérence de la traduction produite ;
-    \item \textbf{la correction grammaticale}, qui apprécie le respect des règles morphologiques et syntaxiques de la langue cible.
-\end{itemize}
-
-Chaque critère a été évalué sur une échelle de~0 à~10, où~0 correspond à une traduction de très mauvaise qualité et~10 à une traduction excellente.
-
-Le Tableau~\ref{tab:evaluation-humaine} présente les résultats moyens obtenus pour chacun des modèles.
+Les résultats préliminaires disponibles à ce stade sont présentés au Tableau~\ref{tab:evaluation-humaine}, à titre indicatif, et seront consolidés à l'issue de la validation complète.
 
 \begin{table}[H]
 \centering
@@ -228,18 +201,11 @@ Le Tableau~\ref{tab:evaluation-humaine} présente les résultats moyens obtenus 
 \ac{MarianMT} & 1,00 & 0,00 & 1,00 & 0,67 \\
 \bottomrule
 \end{tabular}
-\caption{Résultats de l'évaluation humaine}
+\caption{Résultats préliminaires de l'évaluation humaine (en cours)}
 \label{tab:evaluation-humaine}
 \end{table}
 
-Les résultats montrent que le modèle \ac{NLLB} obtient les meilleures appréciations sur l'ensemble des critères évalués. Il se distingue notamment par une meilleure fidélité au texte source et une plus grande fluidité des traductions. Bien que certaines erreurs grammaticales subsistent, les évaluateurs ont considéré que les traductions produites conservaient généralement le sens du texte original et demeuraient compréhensibles.
-
-Le modèle \ac{mBART} se classe en deuxième position. Les évaluateurs ont relevé que ce modèle restitue une partie du contenu du texte source, mais qu'il présente davantage d'imprécisions lexicales, d'omissions et d'erreurs grammaticales que \ac{NLLB}. Ces insuffisances affectent la fluidité des traductions ainsi que leur fidélité sémantique.
-
-\ac{MarianMT} obtient les scores les plus faibles pour les trois critères évalués. Les traductions générées présentent fréquemment des omissions, des répétitions et des erreurs lexicales importantes, rendant parfois difficile la compréhension du message initial. Ces observations sont cohérentes avec les résultats obtenus lors de l'analyse qualitative des exemples de traduction.
-
-Dans l'ensemble, l'évaluation humaine confirme les tendances observées lors de l'évaluation quantitative. Le classement des modèles reste identique, avec \ac{NLLB} en première position, suivi de \ac{mBART} puis de \ac{MarianMT}. Cette concordance entre les appréciations humaines et les métriques automatiques renforce la fiabilité des résultats obtenus et confirme la capacité du modèle \ac{NLLB} à produire des traductions de meilleure qualité dans le contexte de la traduction automatique entre le français et le ruund.
-
+Ces résultats préliminaires suggèrent un classement cohérent avec l'évaluation quantitative, \ac{NLLB} se démarquant provisoirement par une meilleure fidélité et fluidité. Ces tendances demeurent toutefois à confirmer une fois l'évaluation humaine achevée, et restent pour l'instant cohérentes avec les orientations de la littérature actuelle, qui favorisent globalement \ac{NLLB} dans les scénarios de traduction à faibles ressources \cite{ranathunga2023neural, agyei2025dynamic}.
 \section{Discussion des résultats}
 \label{sec:discussion-resultats}
 
@@ -259,16 +225,13 @@ Cette limite liée au domaine biblique se reflète directement dans les résulta
 \subsection{Influence des architectures des modèles}
 \label{subsec:influence-architectures}
 
-Le Tableau~\ref{tab:resultats_metriques}  met en évidence des écarts de performance significatifs entre les trois modèles évalués.
+La Figure~\ref{fig:resultats_metriques} met en évidence des différences significatives entre les trois modèles.
 
-Le modèle \textbf{\ac{NLLB}-200-distilled-600M} obtient les meilleurs résultats dans les deux directions de traduction (\ac{BLEU} de 37,55 et \ac{chrF} de 57,25 en Ruund$\rightarrow$Français ; \ac{BLEU} de 26,02 et \ac{chrF} de 53,95 en Français$\rightarrow$Ruund). Cette supériorité peut s'expliquer par la couverture linguistique nettement plus large de ce modèle, pré-entraîné sur plus de 200~langues, incluant un nombre important de langues africaines à faibles ressources. Cette exposition préalable à des structures linguistiques typologiquement proches du ruund (langues bantoues ou agglutinantes) favorise vraisemblablement un \textbf{transfert cross-lingual} plus efficace lors du \textit{fine-tuning}, conformément aux mécanismes de transfert décrits dans la littérature \cite{rakhimov2024enhancing}. La version distillée du modèle permet en outre de conserver cette capacité de généralisation tout en réduisant les besoins computationnels.
+Le modèle \textbf{\ac{NLLB}-200-distilled-600M} obtient les meilleures performances dans les deux directions de traduction. Cette supériorité s'explique principalement par son pré-entraînement sur 55 langues africaines\cite{nllbteam2022languageleftbehindscaling}, ce qui favorise un transfert cross-lingual efficace vers le ruund lors du fine-tuning. L'initialisation du nouveau token \texttt{rnd\_Latn} à partir du proxy \texttt{run\_Latn}, une langue bantoue proche, a également pu faciliter son adaptation.
 
-Le modèle \textbf{\ac{mBART}-50} obtient des performances intermédiaires (\ac{BLEU} de 20,84 à 25,23 selon la direction). Sa couverture linguistique plus restreinte (50~langues, majoritairement à fortes ressources) limite probablement l'exposition du modèle à des structures morphologiques comparables à celles du ruund avant le \textit{fine-tuning}, réduisant d'autant l'efficacité du transfert de connaissances.
+Le modèle \textbf{\ac{mBART}-50} présente des performances intermédiaires. Son pré-entraînement sur un ensemble plus restreint de langues limite probablement le transfert de connaissances vers le ruund, malgré l'utilisation du proxy bantou \texttt{sw\_KE} pour initialiser le token \texttt{rnd\_XX}.
 
-Le modèle \textbf{\ac{MarianMT}} affiche les performances les plus faibles (\ac{BLEU} de 10,64 à 15,56), en particulier dans la direction Français$\rightarrow$Ruund. Contrairement aux deux modèles précédents, MarianMT repose sur des architectures pré-entraînées pour des paires de langues spécifiques, sans couverture massive multilingue. Le \textit{fine-tuning} sur le ruund s'effectue donc avec une base de connaissances linguistiques nettement plus limitée, ce qui se traduit par un apprentissage proche d'un entraînement partiel \textit{from scratch} et explique la faiblesse des scores obtenus, en cohérence avec les difficultés déjà documentées pour l'entraînement de systèmes neuronaux sur des corpus réduits.
-
-Un constat mérite par ailleurs d'être souligné : à l'exception de \ac{mBART}-50, les modèles \ac{NLLB} et \ac{MarianMT} obtiennent de meilleurs scores en direction Ruund$\rightarrow$Français qu'en Français$\rightarrow$Ruund, ce qui suggère que la génération vers le français, langue à forte ressource déjà bien représentée dans le pré-entraînement, reste globalement plus aisée que la génération vers le ruund, dont la morphologie agglutinante complexifie la production. Le comportement inverse observé chez \ac{mBART}-50 constitue une anomalie qui ne peut être expliquée avec certitude à partir des données disponibles et mériterait une investigation complémentaire.
-
+Le modèle \textbf{\ac{MarianMT}} obtient les scores les plus faibles. Contrairement aux deux autres modèles, il ne dispose pas d'un pré-entraînement multilingue ni de mécanismes de tokens de langue, ce qui réduit sa capacité de transfert et rend son adaptation au ruund plus difficile sur un corpus limité.
 %------------------------------------------------------------
 \subsection{Analyse des erreurs}
 \label{subsec:analyse-erreurs}
@@ -295,7 +258,7 @@ L'intégration du modèle a été réalisée au sein d'une application web déve
 
 Au-delà de l'aspect technique, le système développé constitue une première contribution à la valorisation numérique du ruund. En démontrant la faisabilité d'un système de traduction automatique pour cette langue à faibles ressources, ce travail contribue à accroître sa présence dans les technologies du traitement automatique des langues.
 
-Par ailleurs, l'approche méthodologique adoptée dans cette étude n'est pas limitée au ruund. Les différentes étapes mises en œuvre, notamment la constitution d'un corpus parallèle, l'adaptation d'un modèle multilingue, le fine-tuning et le déploiement dans une application web, peuvent être reproduites pour d'autres langues de la RDC disposant de peu de ressources numériques. Ainsi, cette recherche ouvre des perspectives intéressantes pour le développement d'outils de traduction destinés à favoriser l'inclusion numérique, la préservation du patrimoine linguistique et l'accessibilité des contenus dans les langues congolaises.
+Par ailleurs, l'approche méthodologique adoptée dans cette étude n'est pas limitée au ruund. Les différentes étapes mises en œuvre, notamment la constitution d'un corpus parallèle, l'adaptation d'un modèle multilingue, le fine-tuning et le déploiement dans une application web, peuvent être reproduites pour d'autres langues de la \ac{RDC} disposant de peu de ressources numériques. Ainsi, cette recherche ouvre des perspectives intéressantes pour le développement d'outils de traduction destinés à favoriser l'inclusion numérique, la préservation du patrimoine linguistique et l'accessibilité des contenus dans les langues congolaises.
 
 \section{Conclusion partielle}
 Les expérimentations menées confirment la supériorité du modèle NLLB-200-distilled-600M sur mBART-50 et MarianMT, tant en scores BLEU/chrF qu'en stabilité d'apprentissage. Ces résultats valident la faisabilité d'une traduction automatique de qualité pour le ruund, malgré la faiblesse des ressources disponibles. L'intégration du meilleur modèle dans une application web démontre l'opérationnalité de l'approche et son intérêt pour la valorisation numérique des langues congolaises.

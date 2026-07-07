@@ -272,7 +272,7 @@ tokenized_dataset = dataset.map(
 )
 \end{lstlisting}
 \begin{lstlisting}[language=Python, caption={Ajout d’un Token de Langue Custom pour le Ruund(MariantMT)}, label={code:toke-custom-mariantmt}]
-model_checkpoint = "Helsinki-NLP/opus-mt-en-fr"
+model_checkpoint = "Helsinki-NLP/opus-mt-ln-fr"
 
 # Chargement du tokenizer pré-entraîné
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
@@ -326,6 +326,55 @@ final_datasets = DatasetDict({
 train_dataset = final_datasets["train"]
 eval_dataset  = final_datasets["validation"]
 test_dataset  = final_datasets["test"]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption={Recherche par grille des hyperparamètres}, label={code:grid-search-hyperparametres}]
+PARAM_GRID = {
+    "learning_rate":   [1e-5, 2e-5, 3e-5],
+    "weight_decay":    [0.01],
+    "label_smoothing": [0.1, 0.2],
+    "batch_size":      [16],
+    "grad_accum":      [2],
+}
+
+def iter_grid(grid):
+    keys = list(grid.keys())
+    for values in itertools.product(*[grid[k] for k in keys]):
+        yield dict(zip(keys, values))
+
+def run_grid_search(train_ds, val_ds, search_epochs=12):  # cap ; early stopping coupe avant
+    # Sous-échantillon pour accélérer la recherche
+    n = CONFIG["search_subset"]
+    search_train = train_ds.shuffle(seed=CONFIG["seed"]).select(
+        range(min(n, len(train_ds)))) if n else train_ds
+
+    results, best = [], None
+    combos = list(iter_grid(PARAM_GRID))
+    print(f"{len(combos)} combinaisons à tester (train de recherche : {len(search_train)}).\n")
+
+    for i, hp in enumerate(combos, 1):
+        print(f"[{i}/{len(combos)}] {hp}")
+        set_all_seeds(CONFIG["seed"])
+        model = load_model()
+        args = build_training_args(
+            hp, output_dir=f"./search/run_{i}", epochs=search_epochs)
+        trainer = make_trainer(model, args, search_train, val_ds,
+                               label_smoothing=hp["label_smoothing"])
+        trainer.train()
+        metrics = trainer.evaluate()
+        score = metrics[f"eval_{CONFIG['eval_metric']}"]
+        print(f"    -> eval_{CONFIG['eval_metric']} = {score}\n")
+        results.append({**hp, "score": score})
+
+        if best is None or score > best["score"]:
+            best = {**hp, "score": score}
+
+        del model, trainer; gc.collect()
+        if torch.cuda.is_available(): torch.cuda.empty_cache()
+
+    print("Meilleurs hyperparamètres :", best)
+    return best, pd.DataFrame(results).sort_values("score", ascending=False)
+
 \end{lstlisting}
 
 \begin{figure}[H]
