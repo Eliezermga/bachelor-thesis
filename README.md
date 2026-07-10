@@ -1,6 +1,6 @@
 # Bachelor's thesis
 
-This repository contains a LaTeX thesis template based on the `classicthesis` style. It is designed for a general audience to understand the structure and quickly build the final PDF from the source files.
+This repository contains a thesis on the development of a machine translation system for a low-resource language and a LaTeX thesis template based on the `classicthesis` style. It is designed for a general audience to understand the structure and quickly build the final PDF from the source files.
 
 ## Project Overview
 
