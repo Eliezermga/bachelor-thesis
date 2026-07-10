@@ -1,6 +1,15 @@
 # Bachelor's thesis
 
-This repository contains a LaTeX thesis template based on the `classicthesis` style. It is designed for a general audience to understand the structure and quickly build the final PDF from the source files.
+This repository contains a thesis on the development of a machine translation system for a low-resource language and a LaTeX thesis template based on the `classicthesis` style. It is designed for a general audience to understand the structure and quickly build the final PDF from the source files.
+
+## Project Overview
+
+This thesis focuses on the development of a Neural Machine Translation system for low-resource languages, with a particular application to the **Ruund--French** language pair. Ruund is a Bantu language spoken mainly in the DRC and Angola, which suffers from a crucial lack of digital resources.
+
+The main contributions of this project include:
+- The construction of [**OpenRuund**](https://huggingface.co/datasets/eliezermga/OpenRuund), a parallel Ruund--French dataset (corpus).
+- The experimentation and evaluation of various pre-trained multilingual neural translation models.
+- The development of [**LugaYetu**](https://github.com/Eliezermga/Lugayetu), an application integrating the translation model as well as a linguistic data collection system.
 
 ## What is included
 

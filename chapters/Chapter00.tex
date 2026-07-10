@@ -6,7 +6,7 @@ Ce chapitre présente le contexte général de l'étude, la problématique, les 
 
 La traduction automatique constitue aujourd'hui un domaine majeur du \ac{TAL}. Les progrès récents de l'intelligence artificielle, notamment ceux liés à l'apprentissage profond et aux architectures Transformer \cite{vaswani2017attention}, ont permis le développement de systèmes de traduction automatique neuronale capables de produire des traductions de haute qualité pour plusieurs langues disposant d'importantes ressources numériques \cite{ranathunga2023neural}.
 
-Cependant, ces avancées concernent principalement les langues dites \textbf{à fortes ressources}, telles que l'anglais, le français ou le chinois, pour lesquelles de très grands volumes de données parallèles sont disponibles. À l'inverse, plusieurs langues africaines demeurent faiblement représentées dans les technologies linguistiques modernes en raison du manque de ressources numériques exploitables \cite{agyei2024low, ranathunga2023neural}. Ces langues sont généralement qualifiées de \textbf{\ac{LFR}}.
+Ces avancées concernent cependant principalement les langues dites à fortes ressources, telles que l’anglais, le français ou le chinois. Pour ces langues, de très grands volumes de données parallèles sont disponibles. À l’inverse, un grand nombre de langues africaines demeurent peu présentes dans les technologies linguistiques modernes, faute de ressources numériques exploitables  \cite{agyei2024low, ranathunga2023neural}. Ces langues sont généralement qualifiées de \textbf{\ac{LFR}}.
 
 Parmi ces langues figure le \textbf{ruund}, une langue bantoue parlée principalement en \ac{RDC} et en Angola. Malgré son importance culturelle et sociale, cette langue reste très peu exploitée dans le domaine du traitement automatique des langues. À l'instar d'autres langues à faibles ressources telles que le mizo \cite{haulai2023construction} ou le pendjabi \cite{jindal2017building}, les ressources numériques disponibles pour le ruund sont rares, peu structurées et souvent non numérisées, ce qui limite fortement le développement d'outils intelligents tels que les systèmes de traduction automatique.
 
@@ -72,22 +72,30 @@ Ce travail repose sur les hypothèses suivantes :
 
 \section{Contributions du mémoire}
 
-Les principales contributions de ce travail sont les suivantes :
+Les objectifs précédents décrivent la démarche suivie. Les contributions ci-dessous présentent ce que cette démarche a effectivement produit :
 
 \begin{itemize}
-    \item La construction d'un dataset parallèle ruund--français ;
+    \item Un dataset parallèle ruund–français, réutilisable pour de futurs travaux ;
     
-    \item L'expérimentation des approches modernes de traduction automatique neuronale pour une langue à faibles ressources ;
+    \item Des résultats d’expérimentation comparant plusieurs approches modernes de traduction automatique neuronale sur une langue à faibles ressources ;
     
-    \item L'évaluation des performances de plusieurs modèles de traduction ;
+    \item Une évaluation comparée de plusieurs modèles de traduction, combinant métriques automatiques et jugement humain;
     
-    \item Le développement d'une application de collecte de données linguistiques intégrant un système de traduction automatique.
+    \item Une application de collecte de données linguistiques intégrant un système de traduction
+automatique.
+
 \end{itemize}
 
 \section{Organisation du mémoire}
 
-Le présent mémoire est structuré en deux grandes parties.
+Le présent mémoire est organisé en cinq chapitres.
 
-La première partie est consacrée à la construction du dataset parallèle ruund--français. Elle présente l'état de l'art, les concepts théoriques, les caractéristiques linguistiques du ruund ainsi que les différentes étapes de collecte, de préparation et de prétraitement des données.
+Le premier chapitre est consacré à la revue de littérature. Il présente les fondements théoriques de la traduction automatique neuronale, les spécificités des langues à faibles ressources, les caractéristiques linguistiques du ruund ainsi qu'une analyse critique des travaux existants en lien avec cette étude.
 
-La seconde partie porte sur l'entraînement du modèle de traduction automatique neuronale. Elle décrit les approches méthodologiques adoptées, les architectures utilisées, les expérimentations réalisées, les résultats obtenus ainsi que les perspectives d'amélioration du système proposé.
+Le deuxième chapitre décrit le processus de construction du corpus parallèle ruund--français. Il détaille les différentes étapes de collecte, de numérisation, d'alignement, de validation et de préparation des données utilisées pour l'entraînement des modèles.
+
+Le troisième chapitre présente le développement du système de traduction automatique. Il expose les méthodes de prétraitement, le choix des modèles multilingues, leur adaptation par fine-tuning, ainsi que le processus d'entraînement et d'évaluation.
+
+Le quatrième chapitre est consacré à la présentation et à l'analyse des résultats expérimentaux. Il compare les performances des différents modèles à l'aide de métriques automatiques et d'une évaluation humaine, avant de discuter les principaux résultats obtenus.
+
+Enfin, le cinquième chapitre présente la conclusion générale du mémoire, résume les principales contributions de cette étude, met en évidence ses limites et propose des perspectives pour les travaux futurs.
