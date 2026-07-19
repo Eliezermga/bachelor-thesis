@@ -2,9 +2,9 @@
 
 \section{Introduction}
 
-Après la construction du corpus \textbf{OpenRuund} présentée au chapitre précédent, cette partie du travail est consacrée au développement du système de traduction automatique. L'objectif est de mettre en œuvre une approche de \ac{TAN} adaptée au contexte des \ac{LFR} en s'appuyant sur des modèles multilingues préentraînés.
+Le chapitre précédent a présenté la construction du corpus \textbf{OpenRuund}. Cette partie du travail est consacrée au développement du système de traduction automatique. L'objectif est de mettre en œuvre une approche de \ac{TAN} adaptée au contexte des \ac{LFR}, en s'appuyant sur des modèles multilingues préentraînés.
 
-Le développement du système comprend l'ensemble des opérations nécessaires à la transformation du corpus en données exploitables pour l'apprentissage automatique, à l'adaptation des modèles retenus, à leur entraînement ainsi qu'à l'évaluation de leurs performances. Une fois le modèle le plus performant identifié, celui-ci est intégré dans une application permettant la traduction automatique.
+Le développement du système comprend plusieurs volets : la transformation du corpus en données exploitables pour l'apprentissage automatique, l'adaptation des modèles retenus, leur entraînement et l'évaluation de leurs performances. Une fois le modèle le plus performant identifié, celui-ci est intégré dans une application permettant la traduction automatique.
 
 La Figure~\ref{fig:pipeline_systeme} présente le pipeline global adopté pour le développement du système de traduction automatique.
 
@@ -16,58 +16,58 @@ La Figure~\ref{fig:pipeline_systeme} présente le pipeline global adopté pour l
 \end{figure}
 \section{Préparation des données pour l'entraînement}
 
-Avant l'entraînement des modèles de \ac{TAN}, le corpus OpenRuund a fait l'objet d'une phase de préparation visant à améliorer la qualité des données fournies aux modèles. Cette étape est essentielle dans les systèmes de \ac{TAN}, car la qualité des données d'apprentissage influence directement les performances du modèle. Le processus mis en œuvre comprend la normalisation des textes ainsi que le filtrage des phrases afin de réduire les incohérences présentes dans le corpus.
+Avant l'entraînement des modèles de \ac{TAN}, le corpus OpenRuund a fait l'objet d'une phase de préparation. Cette phase vise à améliorer la qualité des données fournies aux modèles. Le processus mis en œuvre comprend la normalisation des textes ainsi que le filtrage des phrases, afin de réduire les incohérences présentes dans le corpus.
 
 \subsection{Objectifs du prétraitement}
 
-Le prétraitement constitue une étape fondamentale dans le développement des systèmes de \ac{TAN}. Les modèles de traduction apprennent à partir des relations observées entre les phrases sources et cibles ; par conséquent, la présence de données bruitées ou incohérentes peut dégrader l'apprentissage et affecter la qualité des traductions générées.
+Cette préparation répond à une exigence propre aux systèmes de \ac{TAN} : les modèles de traduction apprennent à partir des relations observées entre les phrases sources et cibles, si bien que des données bruitées ou incohérentes dégradent directement l'apprentissage et la qualité des traductions générées.
 
-Dans le cadre de cette étude, le prétraitement vise principalement à homogénéiser la représentation des textes et à éliminer les éléments susceptibles d'introduire des erreurs lors de l'entraînement. Cette opération permet d'obtenir un corpus plus cohérent, facilitant ainsi l'apprentissage des correspondances linguistiques entre le ruund et le français.
+Dans le cadre de cette étude, le prétraitement vise donc principalement à homogénéiser la représentation des textes. Il vise aussi à éliminer les éléments susceptibles d'introduire des erreurs lors de l'entraînement. Cette opération permet d'obtenir un corpus plus cohérent. Elle facilite ainsi l'apprentissage des correspondances linguistiques entre le ruund et le français.
 
-Par ailleurs, la réduction du bruit dans les données contribue à améliorer la qualité générale du corpus. Les doublons, les phrases vides, les séquences anormalement longues ou encore les paires de phrases présentant un déséquilibre important entre les deux langues peuvent introduire des biais dans le processus d'apprentissage. Leur suppression permet de conserver uniquement les exemples les plus pertinents pour l'entraînement des modèles.
+Par ailleurs, la réduction du bruit dans les données améliore la qualité générale du corpus. Les doublons, les phrases vides, les séquences anormalement longues ou encore les paires de phrases présentant un déséquilibre important entre les deux langues peuvent introduire des biais dans le processus d'apprentissage. Leur suppression permet de conserver uniquement les exemples les plus pertinents pour l'entraînement des modèles.
 
 \subsection{Normalisation des textes}
 
 Dans un premier temps, une normalisation Unicode\footnote{La normalisation Unicode est un type spécifique de normalisation de texte qui résout un problème crucial : un même caractère affiché peut avoir plusieurs représentations binaires différentes en Unicode.
 
-} de type \ac{NFC}\footnote{\ac{NFC} est une méthode pour organiser le texte sur un ordinateur. Elle permet de s'assurer que les lettres avec des accents sont toujours écrites de la même façon.}  a été effectuée. Cette opération permet d'uniformiser la représentation interne des caractères Unicode et d'éviter que des caractères visuellement identiques soient encodés de manière différente.
+} de type \ac{NFC}\footnote{\ac{NFC} est une méthode pour organiser le texte sur un ordinateur. Elle permet de s'assurer que les lettres avec des accents sont toujours écrites de la même façon.}  a été effectuée. Cette opération permet d'uniformiser la représentation interne des caractères Unicode. Elle évite ainsi que des caractères visuellement identiques soient encodés de manière différente.
 
-Ensuite, l'ensemble des textes a été converti en minuscules. Cette transformation réduit la variabilité artificielle du vocabulaire en évitant que des mots identiques soient considérés comme différents uniquement en raison de l'utilisation de majuscules.
+Ensuite, l'ensemble des textes a été converti en minuscules. Cette transformation réduit la variabilité artificielle du vocabulaire. Elle évite que des mots identiques soient considérés comme différents uniquement en raison de l'utilisation de majuscules.
 
-Une phase de nettoyage des caractères a également été réalisée. Les caractères spéciaux non pertinents ont été supprimés tandis que les principaux signes de ponctuation utiles à la structure des phrases, notamment les points, les virgules, les points d'interrogation, les points d'exclamation et les apostrophes, ont été conservés.
+Une phase de nettoyage des caractères a également été réalisée. Les caractères spéciaux non pertinents ont été supprimés. Les principaux signes de ponctuation utiles à la structure des phrases, notamment les points, les virgules, les points d'interrogation, les points d'exclamation et les apostrophes, ont en revanche été conservés.
 
-Enfin, les espaces superflus ont été éliminés. Les séquences de plusieurs espaces consécutifs ont été remplacées par un espace unique et les espaces présents en début ou en fin de phrase ont été supprimés. Cette opération permet d'obtenir des textes homogènes et prêts pour les étapes ultérieures d'entraînement.
+Enfin, les espaces superflus ont été éliminés. Les séquences de plusieurs espaces consécutifs ont été remplacées par un espace unique. Les espaces présents en début ou en fin de phrase ont été supprimés. Cette opération permet d'obtenir des textes homogènes et prêts pour les étapes ultérieures d'entraînement.
 
 Le script implémentant ces opérations de normalisation est présenté en annexe (Listing~\ref{code:pretraitement-textes}).
 
 \subsection{Filtrage du corpus}
 
-Après la normalisation des textes, plusieurs opérations de filtrage ont été appliquées afin de conserver uniquement les paires de phrases répondant aux critères de qualité définis pour cette étude.
+Après la normalisation des textes, plusieurs opérations de filtrage ont été appliquées. Elles visaient à conserver uniquement les paires de phrases répondant aux critères de qualité définis pour cette étude.
 
 \subsubsection{Suppression des doublons}
 
-Les paires de phrases identiques apparaissant plusieurs fois dans le corpus ont été supprimées. Cette opération permet d'éviter une surreprésentation de certains exemples durant l'apprentissage et contribue à améliorer la diversité des données utilisées pour l'entraînement.
+Les paires de phrases identiques apparaissant plusieurs fois dans le corpus ont été supprimées. Cette opération évite une surreprésentation de certains exemples durant l'apprentissage. Elle contribue ainsi à améliorer la diversité des données utilisées pour l'entraînement.
 
 \subsubsection{Suppression des phrases vides}
 
-Les phrases ne contenant aucun mot après les opérations de prétraitement ont été retirées du corpus. Les paires comportant une phrase vide dans l'une des deux langues ne fournissent aucune information utile au modèle et peuvent perturber le processus d'apprentissage.
+Les phrases ne contenant aucun mot après les opérations de prétraitement ont été retirées du corpus. Les paires comportant une phrase vide dans l'une des deux langues ne fournissent en effet aucune information utile au modèle. Elles peuvent aussi perturber le processus d'apprentissage.
 
 \subsubsection{Filtrage par longueur des phrases}
 
-Un seuil maximal de 80~mots a été fixé pour chacune des langues. Les paires dont la phrase ruund ou la phrase française dépassait cette limite ont été supprimées. Cette contrainte permet d'écarter les séquences exceptionnellement longues susceptibles d'augmenter la complexité de l'entraînement et de générer des déséquilibres dans les données.
+Un seuil maximal de 80~mots a été fixé pour chacune des langues. Les paires dont la phrase ruund ou la phrase française dépassait cette limite ont été supprimées. Cette contrainte permet d'écarter les séquences exceptionnellement longues. Elle limite ainsi la complexité de l'entraînement et les déséquilibres susceptibles d'apparaître dans les données.
 
 \subsubsection{Filtrage par ratio de longueur}
 
 Un contrôle du rapport de longueur entre les phrases alignées a également été réalisé. Pour chaque paire de phrases, le ratio entre la longueur de la phrase source et celle de la phrase cible a été calculé.
 
-Cette opération permet de détecter les alignements potentiellement incorrects ou les traductions incomplètes. En effet, des différences excessives de longueur entre deux phrases supposées équivalentes peuvent indiquer une mauvaise correspondance entre les segments alignés. Le maintien d'un ratio inférieur ou égal à~2 contribue ainsi à préserver la cohérence linguistique du corpus parallèle utilisé pour l'entraînement des modèles.
+Cette opération permet de détecter les alignements potentiellement incorrects ou les traductions incomplètes. Des différences excessives de longueur entre deux phrases supposées équivalentes peuvent en effet indiquer une mauvaise correspondance entre les segments alignés. Le maintien d'un ratio inférieur ou égal à~2 contribue ainsi à préserver la cohérence linguistique du corpus parallèle utilisé pour l'entraînement des modèles.
 
 L'ensemble des opérations de filtrage décrites ci-dessus est implémenté dans le script présenté en annexe (Listing~\ref{code:filtrage-phrases}).
 
 \subsection{Constitution des ensembles d'apprentissage}
 \label{subsec:constitution_ensembles}
 
-Après la préparation linguistique des données, le corpus a été réparti en plusieurs sous-ensembles destinés aux différentes phases du processus d'apprentissage et d'évaluation.
+Après la préparation linguistique des données, le corpus a été réparti en plusieurs sous-ensembles. Ces sous-ensembles sont destinés aux différentes phases du processus d'apprentissage et d'évaluation.
 
 \subsubsection{Découpage du corpus}
 \label{subsubsec:decoupage_corpus}
@@ -91,21 +91,21 @@ Test & 10\% & 812 \\
 \label{tab:decoupage_corpus}
 \end{table}
 
-Le découpage a été réalisé de manière aléatoire en utilisant une graine fixe (\textit{seed}~=~42) afin de garantir la reproductibilité des expériences. Cette procédure assure que les mêmes exemples sont affectés aux différents ensembles lors de chaque exécution.
+Le découpage a été réalisé de manière aléatoire, en utilisant une graine fixe (\textit{seed}~=~42). Cette procédure garantit la reproductibilité des expériences : les mêmes exemples sont affectés aux différents ensembles lors de chaque exécution.
 
-L'ensemble d'entraînement est utilisé pour ajuster les paramètres du modèle. L'ensemble de validation sert à suivre l'évolution des performances pendant l'apprentissage et à comparer différentes configurations. Enfin, l'ensemble de test est exclusivement réservé à l'évaluation finale des modèles après l'entraînement. Le script implémentant ce découpage est présenté en annexe (Listing~\ref{code:splits-evt}).
+L'ensemble d'entraînement est utilisé pour ajuster les paramètres du modèle. L'ensemble de validation sert à suivre l'évolution des performances pendant l'apprentissage et à comparer différentes configurations. L'ensemble de test, enfin, est exclusivement réservé à l'évaluation finale des modèles après l'entraînement. Le script implémentant ce découpage est présenté en annexe (Listing~\ref{code:splits-evt}).
 
 \section{Tokenisation et préparation linguistique}
 
-Après prétraitement, le corpus a été préparé pour les architectures de traduction neuronale. Chaque modèle a utilisé son tokenizer pré-entraîné afin de garantir la compatibilité avec le vocabulaire et la segmentation attendus.
+Après prétraitement, le corpus a été préparé pour les architectures de traduction neuronale. Chaque modèle a utilisé son tokenizer pré-entraîné, afin de garantir la compatibilité avec le vocabulaire et la segmentation attendus.
 
 \subsection{Segmentation en sous-mots avec SentencePiece}
 
-Les modèles neuronaux ne traitent pas les mots en tant que chaînes brutes, mais des unités plus petites appelées \textbf{sous-mots} (\textit{subwords}). Cette segmentation réduit la taille du vocabulaire tout en permettant de représenter des formes rares ou inconnues.
+Les modèles neuronaux ne traitent pas les mots en tant que chaînes brutes. Ils manipulent des unités plus petites, appelées \textbf{sous-mots} (\textit{subwords}). Cette segmentation réduit la taille du vocabulaire, tout en permettant de représenter des formes rares ou inconnues.
 
-Les modèles \ac{NLLB} et \ac{mBART} reposent sur \ac{SentencePiece}. En décomposant les phrases en sous-unités, cette méthode limite les difficultés liées à la rareté lexicale du ruund et facilite la prise en charge de sa richesse morphologique.
+Les modèles \ac{NLLB} et \ac{mBART} reposent sur \ac{SentencePiece}. En décomposant les phrases en sous-unités, cette méthode limite les difficultés liées à la rareté lexicale du ruund. Elle facilite aussi la prise en charge de sa richesse morphologique.
 
-Pour \ac{MarianMT}, le tokenizer pré-entraîné a été conservé et enrichi d'un token spécial ruund, permettant d'indiquer explicitement la langue source.
+Pour \ac{MarianMT}, le tokenizer pré-entraîné a été conservé. Il a été enrichi d'un token spécial ruund, qui permet d'indiquer explicitement la langue source.
 
 Le Tableau~\ref{tab:tokenizers_modeles} présente les stratégies de tokenisation utilisées.
 
@@ -129,31 +129,31 @@ Le Tableau~\ref{tab:tokenizers_modeles} présente les stratégies de tokenisatio
 \subsection{Gestion des mots hors vocabulaire}
 \label{subsec:oov}
 
-La segmentation en sous-mots réduit le phénomène des mots hors vocabulaire (\ac{OOV}). Lorsqu’un mot n’est pas présent dans le vocabulaire, il est décomposé en sous-unités existantes plutôt que remplacé par un symbole générique. Cette approche préserve davantage d’informations linguistiques et améliore la prise en charge des formes rares du ruund.
+La segmentation en sous-mots réduit le phénomène des mots hors vocabulaire (\ac{OOV}). Lorsqu'un mot n'est pas présent dans le vocabulaire, il est décomposé en sous-unités existantes plutôt que remplacé par un symbole générique. Cette approche préserve davantage d'informations linguistiques. Elle améliore ainsi la prise en charge des formes rares du ruund.
 
-L’ajout d’un identifiant de langue ruund pour \ac{MarianMT} et \ac{mBART} renforce l’intégration explicite de cette langue dans le traitement des données.
+L'ajout d'un identifiant de langue ruund pour \ac{MarianMT} et \ac{mBART} renforce l'intégration explicite de cette langue dans le traitement des données.
 
-\subsection{Préparation des séquences d’entrée et de sortie}
+\subsection{Préparation des séquences d'entrée et de sortie}
 \label{subsec:sequences}
 
-Après tokenisation, les phrases ont été converties en séquences d’identifiants numériques reconnues par chaque tokenizer. Ces séquences servent d’entrées et de sorties pour l’entraînement.
+Après tokenisation, les phrases ont été converties en séquences d'identifiants numériques reconnues par chaque tokenizer. Ces séquences servent d'entrées et de sorties pour l'entraînement.
 
-Une longueur maximale de 128~tokens a été fixée pour les séquences afin de couvrir la majorité des phrases tout en limitant les besoins en mémoire et en assurant une homogénéité des données.
+Une longueur maximale de 128~tokens a été fixée pour les séquences. Ce choix couvre la majorité des phrases, tout en limitant les besoins en mémoire et en assurant une homogénéité des données.
 
 \subsection{Configuration des hyperparamètres}
 \label{subsec:hyperparametres}
 
-Plutôt que de fixer manuellement les hyperparamètres d'entraînement, une démarche de \textbf{recherche par grille} (\textit{grid search}) a été adoptée afin d'identifier, pour chaque modèle, la combinaison offrant les meilleures performances sur l'ensemble de validation. Cette approche permet de réduire le biais lié à un choix arbitraire des hyperparamètres et d'objectiver la sélection de la configuration finale à partir d'un critère mesurable.
+Plutôt que de fixer manuellement les hyperparamètres d'entraînement, une démarche de \textbf{recherche par grille} (\textit{grid search}) a été adoptée. Elle vise à identifier, pour chaque modèle, la combinaison offrant les meilleures performances sur l'ensemble de validation. Cette approche réduit le biais lié à un choix arbitraire des hyperparamètres. Elle objective ainsi la sélection de la configuration finale à partir d'un critère mesurable.
 
 \subsubsection{Principe de la recherche par grille}
 
-La recherche par grille consiste à définir un ensemble fini de valeurs candidates pour chaque hyperparamètre, puis à évaluer systématiquement toutes les combinaisons possibles issues du produit cartésien de ces valeurs. Pour chaque combinaison, un modèle est entraîné avec un \textit{early stopping}\footnote{L'\textit{early stopping} interrompt l'entraînement lorsque la métrique de validation cesse de s'améliorer, afin d'éviter le surapprentissage et de limiter le temps de calcul.} sur un sous-ensemble réduit du corpus d'entraînement, ce qui permet d'accélérer le processus d'exploration tout en conservant une estimation représentative des performances relatives des différentes configurations.
+La recherche par grille consiste à définir un ensemble fini de valeurs candidates pour chaque hyperparamètre. Toutes les combinaisons possibles issues du produit cartésien de ces valeurs sont ensuite évaluées systématiquement. Pour chaque combinaison, un modèle est entraîné avec un \textit{early stopping}\footnote{L'\textit{early stopping} interrompt l'entraînement lorsque la métrique de validation cesse de s'améliorer, afin d'éviter le surapprentissage et de limiter le temps de calcul.} sur un sous-ensemble réduit du corpus d'entraînement. Cette réduction permet d'accélérer le processus d'exploration, tout en conservant une estimation représentative des performances relatives des différentes configurations.
 
-La combinaison retenue est celle qui maximise le score \ac{chrF} calculé sur l'ensemble de validation. Une fois les hyperparamètres optimaux identifiés, l'entraînement final de chaque modèle est réalisé sur l'intégralité du corpus d'entraînement, garantissant ainsi l'exploitation complète des données disponibles.
+La combinaison retenue est celle qui maximise le score \ac{chrF} calculé sur l'ensemble de validation. Une fois les hyperparamètres optimaux identifiés, l'entraînement final de chaque modèle est réalisé sur l'intégralité du corpus d'entraînement. Cette dernière étape garantit l'exploitation complète des données disponibles.
 
 \subsubsection{Grille d'hyperparamètres explorée}
 
-Le Tableau~\ref{tab:grille_hyperparametres} présente l'ensemble des valeurs candidates explorées lors de la recherche par grille. Le \textit{taux d'apprentissage} (\textit{learning rate}) et le \textit{label smoothing}\footnote{Le \textit{label smoothing} est une technique de régularisation qui atténue la confiance excessive du modèle envers les étiquettes cibles, favorisant une meilleure généralisation.} constituent les deux hyperparamètres variables, tandis que le \textit{weight decay}, la taille de lot (\textit{batch size}) et l'accumulation de gradient (\textit{gradient accumulation}) ont été maintenus constants afin de limiter la combinatoire de la recherche.
+Le Tableau~\ref{tab:grille_hyperparametres} présente l'ensemble des valeurs candidates explorées lors de la recherche par grille. Le \textit{taux d'apprentissage} (\textit{learning rate}) et le \textit{label smoothing}\footnote{Le \textit{label smoothing} est une technique de régularisation qui atténue la confiance excessive du modèle envers les étiquettes cibles, favorisant une meilleure généralisation.} constituent les deux hyperparamètres variables. Le \textit{weight decay}, la taille de lot (\textit{batch size}) et l'accumulation de gradient (\textit{gradient accumulation}) ont quant à eux été maintenus constants, afin de limiter la combinatoire de la recherche.
 
 \begin{table}[H]
 \centering
@@ -174,14 +174,14 @@ Le Tableau~\ref{tab:grille_hyperparametres} présente l'ensemble des valeurs can
 \label{tab:grille_hyperparametres}
 \end{table}
 
-Cette grille produit six combinaisons distinctes, chacune étant évaluée selon la procédure décrite précédemment. Le code source complet relatif à la mise en œuvre de la recherche par grille est présenté en annexe (\ref{code:grid-search-hyperparametres}).
+Cette grille produit six combinaisons distinctes. Chacune est évaluée selon la procédure décrite précédemment. Le code source complet relatif à la mise en œuvre de la recherche par grille est présenté en annexe (\ref{code:grid-search-hyperparametres}).
 
 \subsection{Environnement expérimental}
 \label{subsec:environnement_experimental}
 
 \subsubsection{Google Colab Pro}
 
-L'ensemble des expériences a été réalisé sur la plateforme Google Colab Pro. Cette solution a permis de bénéficier d'un environnement de calcul infonuagique équipé de \ac{GPU} de type G4, T4, H100... facilitant l'entraînement et l'évaluation des modèles de \ac{TAN} dans des délais raisonnables.
+L'ensemble des expériences a été réalisé sur la plateforme Google Colab Pro. Cette solution a permis de bénéficier d'un environnement de calcul infonuagique équipé de \ac{GPU} de type G4, T4, H100... Ce dispositif a facilité l'entraînement et l'évaluation des modèles de \ac{TAN} dans des délais raisonnables.
 
 \subsubsection{Bibliothèques utilisées}
 
@@ -201,10 +201,10 @@ L'utilisation conjointe de ces bibliothèques a permis de mettre en place un env
 \section{Entraînement des modèles (fine-tuning)}
 \label{sec:entrainement_finetuning}
 
-Le fine-tuning des trois modèles retenus (\ac{mBART}, \ac{NLLB}, \ac{MarianMT}) a été conduit selon une stratégie d'\textbf{arrêt anticipé} (\textit{early stopping}), permettant à chaque modèle de converger vers son point optimal sans imposer un nombre fixe d'\textit{epochs}.
+Le fine-tuning des trois modèles retenus (\ac{mBART}, \ac{NLLB}, \ac{MarianMT}) a été conduit selon une stratégie d'\textbf{arrêt anticipé} (\textit{early stopping}). Cette stratégie permet à chaque modèle de converger vers son point optimal, sans imposer un nombre fixe d'\textit{epochs}.
 
 \subsection{Principe de l'arrêt anticipé}
-Le nombre maximal d'\textit{epochs} défini dans la configuration constitue un plafond, non une valeur imposée. Associé au mécanisme de conservation du meilleur modèle et à un arrêt anticipé, l'entraînement s'interrompt dès que le score \ac{chrF} sur l'ensemble de validation cesse de progresser durant un nombre défini d'évaluations consécutives (\textit{patience}). Le modèle conservé à l'issue de l'entraînement correspond ainsi au meilleur point de convergence observé, et non à la dernière itération.
+Le nombre maximal d'\textit{epochs} défini dans la configuration constitue un plafond, non une valeur imposée. L'entraînement s'interrompt dès que le score \ac{chrF} sur l'ensemble de validation cesse de progresser durant un nombre défini d'évaluations consécutives (\textit{patience}). Ce mécanisme est associé à la conservation du meilleur modèle observé. Le modèle conservé à l'issue de l'entraînement correspond ainsi au meilleur point de convergence, et non à la dernière itération.
 
 \subsection{Configuration de l'entraînement final}
 Une fois la meilleure combinaison d'hyperparamètres identifiée par la recherche par grille (section~\ref{subsec:hyperparametres}), l'entraînement final de chaque modèle est réalisé sur l'intégralité du corpus d'entraînement, avec le plafond d'\textit{epochs} fixé et l'\textit{early stopping} activé.
@@ -215,37 +215,37 @@ Une fois la meilleure combinaison d'hyperparamètres identifiée par la recherch
 \subsection{Méthodologie d'évaluation}
 \label{subsec:methodologie_evaluation}
 
-Après l'entraînement, les performances des modèles ont été évaluées sur l'ensemble de test afin de mesurer leur capacité à produire des traductions correctes sur des données non observées durant l'apprentissage. L'évaluation repose sur une comparaison automatique entre les traductions générées par les modèles et les traductions de référence présentes dans le corpus.
+Après l'entraînement, les performances des modèles ont été évaluées sur l'ensemble de test. Cette évaluation mesure leur capacité à produire des traductions correctes sur des données non observées durant l'apprentissage. Elle repose sur une comparaison automatique entre les traductions générées par les modèles et les traductions de référence présentes dans le corpus.
 
-Pour chaque phrase source, le modèle génère une traduction qui est ensuite comparée à la traduction de référence correspondante. Les performances sont mesurées à l'aide de \textbf{métriques automatiques} permettant d'estimer la qualité des traductions produites.
+Pour chaque phrase source, le modèle génère une traduction. Cette traduction est ensuite comparée à la traduction de référence correspondante. Les performances sont mesurées à l'aide de \textbf{métriques automatiques}, qui permettent d'estimer la qualité des traductions produites.
 
 \subsection{Génération des traductions}
 \label{subsec:generation_traductions}
 
-La génération des traductions a été réalisée automatiquement à partir des modèles \textit{fine-tunés} à l'aide du mécanisme de génération intégré à la bibliothèque \textbf{Transformers}. Les séquences produites ont ensuite été décodées afin de reconstruire les phrases textuelles correspondantes.
+La génération des traductions a été réalisée automatiquement à partir des modèles \textit{fine-tunés}, à l'aide du mécanisme de génération intégré à la bibliothèque \textbf{Transformers}. Les séquences produites ont ensuite été décodées, afin de reconstruire les phrases textuelles correspondantes.
 
-Avant le calcul des métriques, les identifiants de tokens générés ont été vérifiés afin de garantir leur validité par rapport au vocabulaire du tokenizer. Les prédictions et les références ont ensuite été décodées en texte naturel tout en supprimant les tokens spéciaux utilisés durant l'entraînement.
+Avant le calcul des métriques, les identifiants de tokens générés ont été vérifiés, afin de garantir leur validité par rapport au vocabulaire du tokenizer. Les prédictions et les références ont ensuite été décodées en texte naturel, en supprimant les tokens spéciaux utilisés durant l'entraînement.
 
 \subsection{Métriques d'évaluation}
 \label{subsec:metriques_evaluation}
 
-Afin d'évaluer les performances des modèles de traduction, deux métriques automatiques ont été utilisées : \textbf{\ac{BLEU}} et \textbf{\ac{chrF}}. Ces métriques permettent de comparer les traductions générées aux traductions de référence du corpus de test.
+Deux métriques automatiques ont été utilisées pour évaluer les performances des modèles de traduction : \textbf{\ac{BLEU}} et \textbf{\ac{chrF}}. Ces métriques permettent de comparer les traductions générées aux traductions de référence du corpus de test.
 
 \subsubsection{Principe général}
 
-\ac{BLEU} évalue principalement la correspondance entre les groupes de mots présents dans les deux phrases, tandis que \ac{chrF} repose sur la comparaison de séquences de caractères. L'utilisation conjointe de ces deux métriques permet d'obtenir une évaluation plus complète de la qualité des traductions produites.
+\ac{BLEU} évalue principalement la correspondance entre les groupes de mots présents dans les deux phrases. \ac{chrF}, pour sa part, repose sur la comparaison de séquences de caractères. L'utilisation conjointe de ces deux métriques permet d'obtenir une évaluation plus complète de la qualité des traductions produites.
 
 \subsubsection{Calcul des scores}
 
 Les scores \ac{BLEU} et \ac{chrF} ont été calculés à l'aide des bibliothèques \textbf{Evaluate} et \textbf{SacreBLEU}. Après génération des traductions sur l'ensemble de test, les prédictions ont été comparées aux références correspondantes.
 
-Le score \ac{BLEU} est obtenu à partir du recouvrement des groupes de mots (\textit{n-grammes}) entre les traductions générées et les références. Le score \ac{chrF} est calculé à partir de la précision et du rappel des séquences de caractères partagées entre les deux textes. Les deux métriques sont calculées sur l'ensemble des phrases du jeu de test afin d'obtenir une mesure globale des performances de chaque modèle.
+Le score \ac{BLEU} est obtenu à partir du recouvrement des groupes de mots (\textit{n-grammes}) entre les traductions générées et les références. Le score \ac{chrF} est calculé à partir de la précision et du rappel des séquences de caractères partagées entre les deux textes. Les deux métriques sont calculées sur l'ensemble des phrases du jeu de test, afin d'obtenir une mesure globale des performances de chaque modèle.
 
 \subsubsection{Interprétation}
 
 Les scores \ac{BLEU} et \ac{chrF} varient généralement entre 0 et 100. Une valeur élevée indique une plus grande similarité lexicale entre les traductions générées et les références.
 
-Contrairement à \ac{BLEU}, \ac{chrF} opère au niveau des caractères et s'avère particulièrement adaptée à l'évaluation des \ac{LFR}, où les variations morphologiques peuvent être importantes. Elle est souvent plus sensible aux similitudes linguistiques partielles et aux différences de segmentation. L'utilisation conjointe de \ac{BLEU} et \ac{chrF} permet ainsi d'obtenir une évaluation plus robuste des performances des modèles étudiés.
+Contrairement à \ac{BLEU}, \ac{chrF} opère au niveau des caractères. Cette propriété la rend particulièrement adaptée à l'évaluation des \ac{LFR}, où les variations morphologiques peuvent être importantes. Elle est souvent plus sensible aux similitudes linguistiques partielles et aux différences de segmentation. L'utilisation conjointe de \ac{BLEU} et \ac{chrF} permet ainsi d'obtenir une évaluation plus robuste des performances des modèles étudiés.
 
 La Figure \ref{fig:pipeline_finetuning} illustre les différentes étapes du pipeline de fine-tuning adopté dans cette étude.
 
@@ -264,12 +264,12 @@ La Figure \ref{fig:pipeline_finetuning} illustre les différentes étapes du pip
 \subsection{Publication des modèles sur Hugging Face}
 \label{subsec:publication_hf}
 
-À l'issue du processus de \textit{fine-tuning}, les modèles entraînés ont été publiés sur la plateforme \textbf{Hugging Face}. Cette publication facilite leur conservation, leur partage ainsi que leur réutilisation dans des applications externes. Les modèles peuvent ainsi être chargés directement depuis leur dépôt lors du déploiement du système de traduction.
+À l'issue du processus de \textit{fine-tuning}, les modèles entraînés ont été publiés sur la plateforme \textbf{Hugging Face}. Cette publication facilite leur conservation, leur partage et leur réutilisation dans des applications externes. Les modèles peuvent ainsi être chargés directement depuis leur dépôt lors du déploiement du système de traduction.
 
 \subsection{Architecture générale de l'application}
 \label{subsec:architecture_application}
 
-L'application \textbf{LugaYetu} développée repose sur une architecture \textbf{client-serveur} intégrant le framework \textbf{Django} pour la gestion de l'interface utilisateur et des traitements applicatifs. La Figure~\ref{fig:architecture_aap} présente l'architecture générale de l'application et le flux de traitement des requêtes de traduction. Le processus de traduction suit les étapes suivantes :
+L'application \textbf{LugaYetu} développée repose sur une architecture \textbf{client-serveur}. Elle intègre le framework \textbf{Django} pour la gestion de l'interface utilisateur et des traitements applicatifs. La Figure~\ref{fig:architecture_aap} présente l'architecture générale de l'application et le flux de traitement des requêtes de traduction.
 
 \begin{figure}[H]
     \centering
@@ -283,17 +283,17 @@ Cette architecture permet de séparer clairement l'interface utilisateur du mote
 \subsection{Intégration des modèles dans Django}
 \label{subsec:integration_django}
 
-Les modèles publiés ont été intégrés à l'application Django à l'aide des bibliothèques \textbf{Transformers} et \textbf{PyTorch}. Lors du démarrage du serveur, le modèle sélectionné est chargé localement afin d'être disponible pour les requêtes de traduction. Lorsque l'utilisateur soumet un texte, celui-ci est prétraité par le tokenizer associé au modèle, puis transmis au moteur de traduction. La sortie générée est ensuite décodée avant d'être renvoyée à l'interface utilisateur.
+Les modèles publiés ont été intégrés à l'application Django, à l'aide des bibliothèques \textbf{Transformers} et \textbf{PyTorch}. Lors du démarrage du serveur, le modèle sélectionné est chargé localement, afin d'être disponible pour les requêtes de traduction. Lorsque l'utilisateur soumet un texte, celui-ci est prétraité par le tokenizer associé au modèle, puis transmis au moteur de traduction. La sortie générée est ensuite décodée avant d'être renvoyée à l'interface utilisateur.
 
 \subsection{Fonctionnement du système de traduction}
 \label{subsec:fonctionnement_systeme}
 
-Pour la traduction dans les deux directioins, le modèle \textbf{\ac{NLLB}-200} \textit{fine-tuné} sur le corpus parallèle ruund--français est utilisé. Le texte saisi en par l'utilisateur est tokenisé puis transmis au modèle, qui génère automatiquement la traduction.
+Pour la traduction dans les deux directions, le modèle \textbf{\ac{NLLB}-200} \textit{fine-tuné} sur le corpus parallèle ruund--français est utilisé. Le texte saisi par l'utilisateur est tokenisé, puis transmis au modèle, qui génère automatiquement la traduction.
 
 %------------------------------------------------------------
 \section*{Conclusion partielle}
 %------------------------------------------------------------
 
-Ce chapitre a présenté les différentes étapes de développement du système de traduction automatique ruund--français. Après la préparation du corpus et l'adaptation des modèles pré-entraînés, plusieurs expérimentations de \textit{fine-tuning} ont été réalisées avant leur évaluation à l'aide des métriques \ac{BLEU} et \ac{chrF}. Enfin, le modèle retenu a été intégré dans une application \textbf{Django} afin de mettre à disposition un système opérationnel de traduction bidirectionnelle entre le ruund et le français.
+Ce chapitre a décrit la chaîne complète de développement du système : préparation du corpus, adaptation des modèles préentraînés, fine-tuning, évaluation par métriques BLEU et chrF, puis intégration du modèle retenu dans une application Django assurant la traduction bidirectionnelle entre le ruund et le français.
 
-Le chapitre suivant présente les résultats obtenus et leur discussion critique à partir des évaluations quantitatives et qualitatives réalisées sur les modèles entraînés.
+Le chapitre suivant présente les résultats obtenus et leur discussion critique, à partir des évaluations quantitatives et qualitatives réalisées sur les modèles entraînés.
