@@ -248,8 +248,13 @@ natbib=true % natbib compatibility mode (\citep and \citet still work)
 
 \usepackage{classicthesis} 
 
-\setcounter{secnumdepth}{3} % Numérotation jusqu'au niveau subsubsection
-\renewcommand{\thesubsubsection}{\alph{subsubsection}} % Lettres minuscules (a, b, c...)
+\setcounter{secnumdepth}{3} 
+\renewcommand{\thesubsubsection}{\alph{subsubsection}}
+\AtBeginDocument{
+    \titleformat{\subsubsection}
+        {\relax}{\textup{\thesubsubsection}}{1em}{\normalsize\itshape}
+    \renewcommand{\cftsubsubsecpresnum}{\textup}
+}
 
 \definecolor{codekeyword}{rgb}{0.0,0.25,0.6}
 \definecolor{codecomment}{rgb}{0.0,0.45,0.0}
